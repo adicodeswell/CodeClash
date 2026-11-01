@@ -1,0 +1,52 @@
+
+@baseUrl = http://localhost:5003
+@email = adi.test@example.com
+@username = adi_test_user
+@password = TestPassword123!
+
+### 1. Signup - expect 201 Created
+POST {{baseUrl}}/api/auth/signup
+Content-Type: application/json
+
+{
+  "username": "{{username}}",
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### 2. Signup again - expect 409 Conflict
+POST {{baseUrl}}/api/auth/signup
+Content-Type: application/json
+
+{
+  "username": "{{username}}",
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### 3. Login with incorrect password - expect 401
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "WrongPassword123!"
+}
+
+### 4. Login successfully - expect 200 OK
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### 5. Get current user - expect 200 OK
+GET {{baseUrl}}/api/auth/me
+
+### 6. Logout - expect 200 OK
+POST {{baseUrl}}/api/auth/logout
+
+### 7. Get current user after logout - expect 401
+GET {{baseUrl}}/api/auth/me
