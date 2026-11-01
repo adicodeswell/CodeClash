@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 function errorHandler(err, req, res, next) {
   console.error(err);
 
@@ -7,4 +8,4 @@ function errorHandler(err, req, res, next) {
   });
 }
 
-module.exports = errorHandler;
+export default errorHandler;

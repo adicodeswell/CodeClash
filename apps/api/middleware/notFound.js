@@ -1,8 +1,6 @@
-function notFound(req, res, next) {
+export default (req, res) => {
   res.status(404).json({
-    status: "error",
-    message: `Route not found: ${req.method} ${req.originalUrl}`,
+    success: false,
+    message: `Route not found: ${req.originalUrl}`,
   });
-}
-
-module.exports = notFound;
+};

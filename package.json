@@ -15,7 +15,7 @@
     "url": "git+https://github.com/adicodeswell/CodeClash.git"
   },
   "keywords": [],
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/adicodeswell/CodeClash/issues"
   },

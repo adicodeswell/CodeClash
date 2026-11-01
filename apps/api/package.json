@@ -8,7 +8,10 @@
     "start": "node src/server.js"
   },
   "keywords": [],
-  "type": "commonjs",
+  "type": "module",
+  "dependencies": {
+    "@codeclash/db": "*"
+  },
   "devDependencies": {
     "nodemon": "^3.1.14"
   }

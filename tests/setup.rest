@@ -3,3 +3,6 @@ GET http://localhost:5003/api/health
 
 ### Unknown route (expected 404 once configured)
 GET http://localhost:5003/api/does-not-exist
+
+### Test Prisma Client
+GET http://localhost:5003/api/prisma-test

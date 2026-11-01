@@ -8,5 +8,8 @@
     "dev": "node src/worker.js"
   },
   "keywords": [],
-  "type": "commonjs"
+  "type": "module",
+  "dependencies": {
+    "@codeclash/db": "*"
+  }
 }
