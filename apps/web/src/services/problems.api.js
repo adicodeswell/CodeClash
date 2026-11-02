@@ -1,5 +1,5 @@
 /**
- * Centralized API calls for problem catalog
+ * Centralized API calls for problem catalog and detail views
  */
 
 export async function fetchProblems({ search, difficulty, topic, page = 1, limit = 20 } = {}) {
@@ -55,6 +55,44 @@ export async function fetchProblems({ search, difficulty, topic, page = 1, limit
         totalPages: 1,
       },
     };
+  } catch (err) {
+    if (err instanceof TypeError && err.message.includes("fetch")) {
+      throw new Error("Unable to connect to CodeClash API. Please verify server is running.", { cause: err });
+    }
+    throw err;
+  }
+}
+
+export async function fetchProblemBySlug(slug) {
+  if (!slug || typeof slug !== "string") {
+    throw new Error("Valid problem slug is required");
+  }
+
+  const url = `/api/problems/${encodeURIComponent(slug.trim())}`;
+
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        throw new Error("Problem not found or is not published yet");
+      }
+      throw new Error(data.error || data.message || `Failed to load problem (${response.status})`);
+    }
+
+    if (!data.problem) {
+      throw new Error("Malformed problem detail response from server");
+    }
+
+    return data.problem;
   } catch (err) {
     if (err instanceof TypeError && err.message.includes("fetch")) {
       throw new Error("Unable to connect to CodeClash API. Please verify server is running.", { cause: err });

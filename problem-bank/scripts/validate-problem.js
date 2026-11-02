@@ -39,7 +39,7 @@ async function requireFile(filePath, description) {
     }
   } catch (error) {
     if (error.code === "ENOENT") {
-      throw new Error(`Missing ${description}: ${filePath}`);
+      throw new Error(`Missing ${description}: ${filePath}`, { cause: error });
     }
 
     throw error;

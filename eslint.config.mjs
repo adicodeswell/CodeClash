@@ -8,6 +8,7 @@ export default [
       "**/dist/**",
       "**/coverage/**",
       "generated/**",
+      "problem-bank/problems/**/boilerplate*/**",
     ],
   },
   {

@@ -1,6 +1,5 @@
 
 import fs from "node:fs/promises";
-import path from "node:path";
 
 export async function selectProblems(problemsRoot) {
   const args = process.argv.slice(2);

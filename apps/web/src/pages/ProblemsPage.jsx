@@ -5,7 +5,6 @@ import { ProblemSearch } from "../components/problems/ProblemSearch.jsx";
 import { ProblemFilters } from "../components/problems/ProblemFilters.jsx";
 import { ProblemList } from "../components/problems/ProblemList.jsx";
 import { Pagination } from "../components/problems/Pagination.jsx";
-import { Code2, BookOpen } from "lucide-react";
 
 export function ProblemsPage() {
   const [searchParams, setSearchParams] = useSearchParams();

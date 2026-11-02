@@ -2,6 +2,18 @@
 ### Base Configuration
 @baseUrl = http://localhost:5003
 
+# SECTION 0: Authentication (Protected Endpoints require session cookie)
+
+### 0. Login to establish authenticated session cookie
+# @name login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "adi.test@example.com",
+  "password": "TestPassword123!"
+}
+
 # SECTION 1: Standard Catalog Listing & Default Pagination
 
 ### 1. List published problems - default pagination (page=1, limit=20)

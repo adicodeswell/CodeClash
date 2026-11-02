@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import { Mail, Lock, User, ArrowRight, Eye, EyeOff, AlertCircle } from "lucide-react";
 
@@ -14,6 +15,9 @@ export function AuthForm({ onSuccess }) {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [localError, setLocalError] = useState("");
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleTabChange = (newMode) => {
     setMode(newMode);
@@ -64,7 +68,12 @@ export function AuthForm({ onSuccess }) {
           password: formData.password,
         });
       }
-      if (onSuccess) onSuccess();
+      if (onSuccess) {
+        onSuccess();
+      } else {
+        const dest = location.state?.from?.pathname || "/problems";
+        navigate(dest, { replace: true });
+      }
     } catch {
       // Auth error is automatically populated in AuthContext
     } finally {
