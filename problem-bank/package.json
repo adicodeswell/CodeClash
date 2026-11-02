@@ -1,0 +1,13 @@
+{
+  "name": "@codeclash/problem-bank",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "problems:generate": "node scripts/generate-boilerplate.js",
+    "problems:validate": "node scripts/validate-problem.js",
+    "problems:import": "node scripts/import-problems.js",
+    "generate": "node scripts/generate-boilerplate.js",
+    "validate": "node scripts/validate-problem.js",
+    "import": "node scripts/import-problems.js"
+  }
+}

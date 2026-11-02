@@ -20,19 +20,8 @@ enum ProblemDifficulty {
 
 enum ProblemStatus {
   DRAFT
-  REVIEWED
   PUBLISHED
   ARCHIVED
-}
-
-enum ProgrammingLanguage {
-  CPP17
-  JAVA
-}
-
-enum TestCaseVisibility {
-  SAMPLE
-  HIDDEN
 }
 
 enum SubmissionStatus {
@@ -51,7 +40,6 @@ enum SubmissionVerdict {
   JUDGE_ERROR
 }
 
-// Stores user accounts, authentication details, and account status.
 model User {
   id              String     @id @default(cuid())
   username        String     @unique @db.VarChar(30)
@@ -67,24 +55,25 @@ model User {
   @@map("users")
 }
 
-// Stores problem metadata and the statement imported from the GitHub problem repository.
 model Problem {
   id             String            @id @default(cuid())
   slug           String            @unique @db.VarChar(160)
   title          String            @db.VarChar(200)
   statement      String
-  constraints    String?
   difficulty     ProblemDifficulty
+  topics         String[]          @default([])
   status         ProblemStatus     @default(DRAFT)
   timeLimitMs    Int               @default(2000)
   memoryLimitKb  Int               @default(262144)
   packageVersion String            @default("1")
   contentHash    String?
+  // Map language key to language ID, enabled flag, starter template, and structure metadata.
+  languages      Json
+  // Protected list of { ordinal, visibility, input, expectedOutput } records.
+  testCases      Json
   createdAt      DateTime          @default(now())
   updatedAt      DateTime          @updatedAt
 
-  languages      ProblemLanguage[]
-  testCases      ProblemTestCase[]
   submissions    Submission[]
 
   @@index([status, difficulty])
@@ -92,97 +81,33 @@ model Problem {
   @@map("problems")
 }
 
-// Stores each problem's enabled language, starter template, driver version, and Judge0 language ID.
-model ProblemLanguage {
-  id                String              @id @default(cuid())
-  problemId         String
-  language          ProgrammingLanguage
-  judge0LanguageId  Int
-  starterTemplate   String
-  functionSignature String?
-  driverVersion     String?
-  enabled           Boolean             @default(true)
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-
-  problem           Problem             @relation(fields: [problemId], references: [id], onDelete: Restrict)
-  submissions       Submission[]
-
-  @@unique([problemId, language])
-  @@index([language, enabled])
-  @@map("problem_languages")
-}
-
-// Stores ordered sample and hidden input/output pairs for each immutable problem-package version.
-model ProblemTestCase {
-  id             String             @id @default(cuid())
-  problemId      String
-  ordinal        Int
-  visibility     TestCaseVisibility
-  input          String
-  expectedOutput String
-  packageVersion String             @default("1")
-  createdAt      DateTime           @default(now())
-
-  problem        Problem            @relation(fields: [problemId], references: [id], onDelete: Restrict)
-  results        SubmissionTestResult[]
-
-  @@unique([problemId, packageVersion, ordinal])
-  @@index([problemId, visibility, packageVersion, ordinal])
-  @@map("problem_test_cases")
-}
-
-// Stores submitted code and the overall queue lifecycle, verdict, and aggregate execution metrics.
 model Submission {
-  id                String              @id @default(cuid())
+  id                String            @id @default(cuid())
   userId            String
   problemId         String
-  problemLanguageId String
-  language          ProgrammingLanguage
+  language          String            @db.VarChar(30)
   sourceCode        String
   packageVersion    String
-  status            SubmissionStatus    @default(QUEUED)
+  status            SubmissionStatus  @default(QUEUED)
   verdict           SubmissionVerdict?
-  createdAt         DateTime            @default(now())
-  queuedAt          DateTime            @default(now())
+  judge0Token       String?
+  currentTestIndex  Int               @default(0)
+  passedTestCount   Int               @default(0)
+  totalTestCount    Int               @default(0)
+  createdAt         DateTime          @default(now())
   startedAt         DateTime?
   completedAt       DateTime?
   runtimeMs         Int?
   memoryKb          Int?
   errorCode         String?
   errorSummary      String?
-  retryCount        Int                 @default(0)
+  retryCount        Int               @default(0)
 
-  user              User                @relation(fields: [userId], references: [id], onDelete: Restrict)
-  problem           Problem             @relation(fields: [problemId], references: [id], onDelete: Restrict)
-  problemLanguage   ProblemLanguage     @relation(fields: [problemLanguageId], references: [id], onDelete: Restrict)
-  testResults       SubmissionTestResult[]
+  user              User              @relation(fields: [userId], references: [id], onDelete: Restrict)
+  problem           Problem           @relation(fields: [problemId], references: [id], onDelete: Restrict)
 
   @@index([userId, createdAt])
   @@index([userId, problemId, createdAt])
   @@index([status, createdAt])
   @@map("submissions")
-}
-
-// Stores the Judge0 execution token and result for an individual test case in a submission.
-model SubmissionTestResult {
-  id           String              @id @default(cuid())
-  submissionId String
-  testCaseId   String?
-  testOrdinal  Int
-  status       SubmissionStatus    @default(QUEUED)
-  judge0Token  String?             @unique
-  verdict      SubmissionVerdict?
-  runtimeMs    Int?
-  memoryKb     Int?
-  diagnostic   String?
-  createdAt    DateTime            @default(now())
-  completedAt  DateTime?
-
-  submission   Submission          @relation(fields: [submissionId], references: [id], onDelete: Restrict)
-  testCase     ProblemTestCase?    @relation(fields: [testCaseId], references: [id], onDelete: SetNull)
-
-  @@unique([submissionId, testOrdinal])
-  @@index([submissionId])
-  @@map("submission_test_results")
 }
