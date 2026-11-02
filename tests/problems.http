@@ -1,0 +1,129 @@
+### CodeClash - Problem Catalog API Tests
+### Base Configuration
+@baseUrl = http://localhost:5003
+
+###############################################################################
+# SECTION 1: Standard Catalog Listing & Default Pagination
+###############################################################################
+
+### 1. List published problems - default pagination (page=1, limit=20)
+# Expect: 200 OK
+# Response should contain "problems" array and "pagination" object:
+# {
+#   "problems": [
+#     { "slug": "...", "title": "...", "difficulty": "...", "topics": [...] }
+#   ],
+#   "pagination": { "page": 1, "limit": 20, "total": ..., "totalPages": ... }
+# }
+GET {{baseUrl}}/api/problems
+
+###############################################################################
+# SECTION 2: Pagination Tests
+###############################################################################
+
+### 2. Page 1 with custom limit of 2 items
+# Expect: 200 OK with up to 2 problems
+GET {{baseUrl}}/api/problems?page=1&limit=2
+
+### 3. Page 2 with custom limit of 2 items (next page)
+# Expect: 200 OK with distinct next set of problems
+GET {{baseUrl}}/api/problems?page=2&limit=2
+
+### 4. High page number exceeding total pages
+# Expect: 200 OK with "problems": [], valid total count
+GET {{baseUrl}}/api/problems?page=999&limit=20
+
+###############################################################################
+# SECTION 3: Difficulty Filtering (EASY, MEDIUM, HARD)
+###############################################################################
+
+### 5. Filter by EASY difficulty
+# Expect: 200 OK, every returned problem must have difficulty "EASY"
+GET {{baseUrl}}/api/problems?difficulty=EASY
+
+### 6. Filter by MEDIUM difficulty
+# Expect: 200 OK, every returned problem must have difficulty "MEDIUM"
+GET {{baseUrl}}/api/problems?difficulty=MEDIUM
+
+### 7. Filter by HARD difficulty
+# Expect: 200 OK, every returned problem must have difficulty "HARD"
+GET {{baseUrl}}/api/problems?difficulty=HARD
+
+###############################################################################
+# SECTION 4: Topic Filtering
+###############################################################################
+
+### 8. Filter by topic "Array"
+# Expect: 200 OK, all problems must contain "Array" in their topics array
+GET {{baseUrl}}/api/problems?topic=Array
+
+### 9. Filter by topic with whitespace "Hash Table"
+# Expect: 200 OK, all problems must contain "Hash Table" in their topics array
+GET {{baseUrl}}/api/problems?topic=Hash%20Table
+
+### 10. Filter by non-existent topic
+# Expect: 200 OK with "problems": [] and "total": 0
+GET {{baseUrl}}/api/problems?topic=NonExistentTopic123
+
+###############################################################################
+# SECTION 5: Search Filtering (Title and Slug matching)
+###############################################################################
+
+### 11. Search by exact slug or title prefix ("two")
+# Expect: 200 OK, matches "two-sum" / "Two Sum"
+GET {{baseUrl}}/api/problems?search=two
+
+### 12. Search case-insensitively ("SUBARRAY")
+# Expect: 200 OK, matches "subarray-sum-equals-k"
+GET {{baseUrl}}/api/problems?search=SUBARRAY
+
+### 13. Search matching multiple problems ("sum")
+# Expect: 200 OK, matches "two-sum" and "subarray-sum-equals-k"
+GET {{baseUrl}}/api/problems?search=sum
+
+### 14. Search with no matches
+# Expect: 200 OK with "problems": [] and "total": 0
+GET {{baseUrl}}/api/problems?search=nonexistenttermxyz
+
+###############################################################################
+# SECTION 6: Combined Filters (Search + Difficulty + Topic + Pagination)
+###############################################################################
+
+### 15. Search + Difficulty + Topic + Pagination
+# Expect: 200 OK, matching only problems satisfying all criteria simultaneously
+GET {{baseUrl}}/api/problems?search=sum&difficulty=EASY&topic=Array&page=1&limit=10
+
+### 16. Medium difficulty + Array topic
+# Expect: 200 OK, returns medium problems tagged with Array
+GET {{baseUrl}}/api/problems?difficulty=MEDIUM&topic=Array&page=1&limit=10
+
+###############################################################################
+# SECTION 7: Validation & Edge Cases (Expected 400 Bad Request)
+###############################################################################
+
+### 17. Invalid difficulty value - expect 400 Bad Request
+GET {{baseUrl}}/api/problems?difficulty=EXTREME
+
+### 18. Lowercase difficulty value (schema expects uppercase) - expect 400 Bad Request
+GET {{baseUrl}}/api/problems?difficulty=easy
+
+### 19. Non-numeric page - expect 400 Bad Request
+GET {{baseUrl}}/api/problems?page=first
+
+### 20. Zero page (page must be >= 1) - expect 400 Bad Request
+GET {{baseUrl}}/api/problems?page=0
+
+### 21. Negative page - expect 400 Bad Request
+GET {{baseUrl}}/api/problems?page=-1
+
+### 22. Non-numeric limit - expect 400 Bad Request
+GET {{baseUrl}}/api/problems?limit=ten
+
+### 23. Zero limit (limit must be >= 1) - expect 400 Bad Request
+GET {{baseUrl}}/api/problems?limit=0
+
+### 24. Limit exceeding maximum allowed (e.g. > 100) - expect 400 Bad Request
+GET {{baseUrl}}/api/problems?limit=250
+
+### 25. Excessively long search string - expect 400 Bad Request
+GET {{baseUrl}}/api/problems?search=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

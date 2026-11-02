@@ -1,6 +1,54 @@
 {
-  "generatedAt": "2026-11-02T09:29:01.127Z",
+  "generatedAt": "2026-11-02T10:02:07.340Z",
   "problems": [
+    {
+      "slug": "longest-consecutive-sequence",
+      "title": "Longest Consecutive Sequence",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table"
+      ],
+      "packageVersion": "1",
+      "contentHash": "bc4fd51edeeb85f682d2bb75e18ff4c11161697b31b5afc5cc9fefadb8e81d78",
+      "testCaseCount": 12
+    },
+    {
+      "slug": "majority-element",
+      "title": "Majority Element",
+      "difficulty": "EASY",
+      "topics": [
+        "Array",
+        "Hash Table"
+      ],
+      "packageVersion": "1",
+      "contentHash": "2f4ffa23d9648bfce17aecbb64cbc6fe2c14afd07518c8cb381601dd1ff9f907",
+      "testCaseCount": 12
+    },
+    {
+      "slug": "single-number",
+      "title": "Single Number",
+      "difficulty": "EASY",
+      "topics": [
+        "Array",
+        "Hash Table"
+      ],
+      "packageVersion": "1",
+      "contentHash": "2323921857b62bf4e483d3ce66618db30349c925899655ccde93e1dc2b8c937f",
+      "testCaseCount": 12
+    },
+    {
+      "slug": "subarray-sum-equals-k",
+      "title": "Subarray Sum Equals K",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table"
+      ],
+      "packageVersion": "1",
+      "contentHash": "34b6d15a4d0e0181074b2eba0958d344f9f5d0657951b446e2bd7a5503228bf8",
+      "testCaseCount": 12
+    },
     {
       "slug": "two-sum",
       "title": "Two Sum",
@@ -10,8 +58,8 @@
         "Hash Table"
       ],
       "packageVersion": "1",
-      "contentHash": "c6a43a0bd998e02c73e66ec3b315162997d298ede0564518d2f915c07b2b6193",
-      "testCaseCount": 3
+      "contentHash": "dab306e0d358b076a6e8c589240abe72712fe751eba0894d9b4580f849fb3a36",
+      "testCaseCount": 7
     }
   ]
 }
