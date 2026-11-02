@@ -1,16 +1,12 @@
-
 import { Router } from "express";
-import { problemQuerySchema } from "@codeclash/common";
+import { problemQuerySchema, problemSlugParamSchema } from "@codeclash/common";
 
-import { validateQuery } from "../middleware/validate.js";
-import { getProblems } from "../controllers/problems.controller.js";
+import { validateQuery, validateParams } from "../middleware/validate.js";
+import { getProblems, getProblemDetail } from "../controllers/problems.controller.js";
 
 const router = Router();
 
-router.get(
-  "/",
-  validateQuery(problemQuerySchema),
-  getProblems
-);
+router.get("/", validateQuery(problemQuerySchema), getProblems);
+router.get("/:slug", validateParams(problemSlugParamSchema), getProblemDetail);
 
 export default router;

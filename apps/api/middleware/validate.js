@@ -33,3 +33,16 @@ export function validateQuery(schema) {
     next();
   };
 }
+
+export function validateParams(schema) {
+  return (req, res, next) => {
+    const result = schema.safeParse(req.params);
+    if (!result.success) {
+      return res.status(400).json({
+        error: result.error.issues[0]?.message || "Invalid path parameters",
+      });
+    }
+    res.locals.validatedParams = result.data;
+    next();
+  };
+}

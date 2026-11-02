@@ -3,6 +3,6 @@ using namespace std;
 class Solution {
 public:
     int majorityElement(vector<int> nums) {
-        // TODO: implement
+        // Write your code here
     }
 };

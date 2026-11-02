@@ -1,7 +1,6 @@
 class Solution {
   subarraySum(nums, k) {
-    // TODO: implement
-    throw new Error("Not implemented");
+    // Write your code here
   }
 }
 

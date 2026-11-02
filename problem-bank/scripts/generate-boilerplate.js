@@ -25,7 +25,7 @@ const languages = {
     method: (spec, types) =>
       `class Solution {\npublic:\n    ${types(spec.output.type)} ${spec.functionName}(${spec.inputs
         .map((x) => `${types(x.type)} ${x.name}`)
-        .join(", ")}) {\n        // TODO: implement\n    }\n};\n`,
+        .join(", ")}) {\n        // Write your code here\n    }\n};\n`,
   },
 
   java: {
@@ -42,7 +42,7 @@ const languages = {
     method: (spec, types) =>
       `import java.util.*;\n\nclass Solution {\n    public ${types(spec.output.type)} ${spec.functionName}(${spec.inputs
         .map((x) => `${types(x.type)} ${x.name}`)
-        .join(", ")}) {\n        // TODO: implement\n        throw new UnsupportedOperationException("Not implemented");\n    }\n}\n`,
+        .join(", ")}) {\n        // Write your code here\n    }\n}\n`,
   },
 
   python: {
@@ -59,7 +59,7 @@ const languages = {
     method: (spec) =>
       `class Solution:\n    def ${spec.functionName}(self, ${spec.inputs
         .map((x) => x.name)
-        .join(", ")}):\n        # TODO: implement\n        raise NotImplementedError\n`,
+        .join(", ")}):\n        # Write your code here\n        pass\n`,
   },
 
   javascript: {
@@ -76,7 +76,7 @@ const languages = {
     method: (spec) =>
       `class Solution {\n  ${spec.functionName}(${spec.inputs
         .map((x) => x.name)
-        .join(", ")}) {\n    // TODO: implement\n    throw new Error("Not implemented");\n  }\n}\n\nmodule.exports = Solution;\n`,
+        .join(", ")}) {\n    // Write your code here\n  }\n}\n\nmodule.exports = Solution;\n`,
   },
 };
 
@@ -106,7 +106,7 @@ function simpleTemplate(spec, language, languageKey) {
       language.imports +
       `class Solution {\npublic:\n    ${output} ${spec.functionName}(${spec.inputs
         .map((x) => `${mapType(x.type)} ${x.name}`)
-        .join(", ")}) {\n        // TODO: implement\n    }\n};\n`
+        .join(", ")}) {\n        // Write your code here\n    }\n};\n`
     );
   }
 

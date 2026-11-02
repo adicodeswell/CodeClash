@@ -1,7 +1,6 @@
 class Solution {
   singleNumber(nums) {
-    // TODO: implement
-    throw new Error("Not implemented");
+    // Write your code here
   }
 }
 

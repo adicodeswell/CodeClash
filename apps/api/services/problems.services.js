@@ -1,4 +1,3 @@
-
 import { prisma } from "@codeclash/db";
 
 export async function listPublishedProblems({
@@ -75,5 +74,44 @@ export async function listPublishedProblems({
     page,
     limit,
     totalPages: Math.ceil(total / limit),
+  };
+}
+
+export async function getPublishedProblemBySlug(slug) {
+  const problem = await prisma.problem.findFirst({
+    where: {
+      slug,
+      status: "PUBLISHED",
+    },
+    select: {
+      slug: true,
+      title: true,
+      statement: true,
+      difficulty: true,
+      topics: true,
+      timeLimitMs: true,
+      memoryLimitKb: true,
+      languages: true,
+      // testCases is deliberately omitted
+    },
+  });
+
+  if (!problem) return null;
+
+  // Sanitize language templates: keep only public starter templates
+  const publicLanguages = {};
+  for (const [lang, config] of Object.entries(problem.languages || {})) {
+    if (config.enabled) {
+      publicLanguages[lang] = {
+        enabled: true,
+        starterTemplate: config.starterTemplate,
+        // fullDriverTemplate is stripped
+      };
+    }
+  }
+
+  return {
+    ...problem,
+    languages: publicLanguages,
   };
 }

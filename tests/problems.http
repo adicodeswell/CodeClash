@@ -2,9 +2,7 @@
 ### Base Configuration
 @baseUrl = http://localhost:5003
 
-###############################################################################
 # SECTION 1: Standard Catalog Listing & Default Pagination
-###############################################################################
 
 ### 1. List published problems - default pagination (page=1, limit=20)
 # Expect: 200 OK
@@ -17,9 +15,7 @@
 # }
 GET {{baseUrl}}/api/problems
 
-###############################################################################
 # SECTION 2: Pagination Tests
-###############################################################################
 
 ### 2. Page 1 with custom limit of 2 items
 # Expect: 200 OK with up to 2 problems
@@ -33,9 +29,7 @@ GET {{baseUrl}}/api/problems?page=2&limit=2
 # Expect: 200 OK with "problems": [], valid total count
 GET {{baseUrl}}/api/problems?page=999&limit=20
 
-###############################################################################
 # SECTION 3: Difficulty Filtering (EASY, MEDIUM, HARD)
-###############################################################################
 
 ### 5. Filter by EASY difficulty
 # Expect: 200 OK, every returned problem must have difficulty "EASY"
@@ -49,9 +43,7 @@ GET {{baseUrl}}/api/problems?difficulty=MEDIUM
 # Expect: 200 OK, every returned problem must have difficulty "HARD"
 GET {{baseUrl}}/api/problems?difficulty=HARD
 
-###############################################################################
 # SECTION 4: Topic Filtering
-###############################################################################
 
 ### 8. Filter by topic "Array"
 # Expect: 200 OK, all problems must contain "Array" in their topics array
@@ -65,9 +57,7 @@ GET {{baseUrl}}/api/problems?topic=Hash%20Table
 # Expect: 200 OK with "problems": [] and "total": 0
 GET {{baseUrl}}/api/problems?topic=NonExistentTopic123
 
-###############################################################################
 # SECTION 5: Search Filtering (Title and Slug matching)
-###############################################################################
 
 ### 11. Search by exact slug or title prefix ("two")
 # Expect: 200 OK, matches "two-sum" / "Two Sum"
@@ -85,9 +75,7 @@ GET {{baseUrl}}/api/problems?search=sum
 # Expect: 200 OK with "problems": [] and "total": 0
 GET {{baseUrl}}/api/problems?search=nonexistenttermxyz
 
-###############################################################################
 # SECTION 6: Combined Filters (Search + Difficulty + Topic + Pagination)
-###############################################################################
 
 ### 15. Search + Difficulty + Topic + Pagination
 # Expect: 200 OK, matching only problems satisfying all criteria simultaneously
@@ -97,9 +85,7 @@ GET {{baseUrl}}/api/problems?search=sum&difficulty=EASY&topic=Array&page=1&limit
 # Expect: 200 OK, returns medium problems tagged with Array
 GET {{baseUrl}}/api/problems?difficulty=MEDIUM&topic=Array&page=1&limit=10
 
-###############################################################################
 # SECTION 7: Validation & Edge Cases (Expected 400 Bad Request)
-###############################################################################
 
 ### 17. Invalid difficulty value - expect 400 Bad Request
 GET {{baseUrl}}/api/problems?difficulty=EXTREME
@@ -127,3 +113,23 @@ GET {{baseUrl}}/api/problems?limit=250
 
 ### 25. Excessively long search string - expect 400 Bad Request
 GET {{baseUrl}}/api/problems?search=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+# SECTION 8: Problem Detail Endpoint (GET /api/problems/:slug)
+
+### 26. Get published problem detail by slug - expect 200 OK
+# Verifies problem metadata, statement markdown, limits, and public starter templates.
+# Must NOT contain testCases or fullDriverTemplate.
+GET {{baseUrl}}/api/problems/two-sum
+
+### 27. Get another published problem - expect 200 OK
+GET {{baseUrl}}/api/problems/majority-element
+
+### 28. Get medium difficulty problem - expect 200 OK
+GET {{baseUrl}}/api/problems/subarray-sum-equals-k
+
+### 29. Unknown problem slug - expect 404 Not Found
+GET {{baseUrl}}/api/problems/unknown-problem-slug
+
+### 30. Malformed slug (invalid characters/case) - expect 400 Bad Request
+GET {{baseUrl}}/api/problems/Two_Sum!
+
