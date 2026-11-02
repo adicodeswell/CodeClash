@@ -1,29 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand palette */
-  --color-brand-primary: #6366f1;
-  --color-brand-secondary: #8b5cf6;
-  --color-brand-accent: #ec4899;
+  /* Green / Emerald & Mint Brand Palette */
+  --color-brand-primary: #10b981;      /* Emerald 500 */
+  --color-brand-secondary: #34d399;    /* Mint / Emerald 400 */
+  --color-brand-accent: #14b8a6;       /* Teal 500 */
+  --color-brand-glow: rgba(16, 185, 129, 0.25);
 
-  /* Clash Dark Theme Surfaces */
-  --color-clash-bg: #08090e;
-  --color-clash-surface: #0f1118;
-  --color-clash-card: #141722;
-  --color-clash-card-hover: #1b1f2e;
+  /* Refined Carbon & Obsidian Dark Theme Surfaces */
+  --color-clash-bg: #07090b;           /* Deep obsidian backdrop */
+  --color-clash-surface: #0d1117;      /* Inner card/tab surface */
+  --color-clash-card: #121820;         /* Card background */
+  --color-clash-card-hover: #17222c;   /* Card interactive hover */
   --color-clash-border: rgba(255, 255, 255, 0.08);
-  --color-clash-border-light: rgba(255, 255, 255, 0.15);
-  --color-clash-border-focus: #6366f1;
+  --color-clash-border-light: rgba(255, 255, 255, 0.16);
+  --color-clash-border-focus: #10b981;
 
   /* Typography Colors */
-  --color-clash-text: #f8fafc;
-  --color-clash-muted: #94a3b8;
-  --color-clash-subtle: #64748b;
+  --color-clash-text: #f1f5f9;         /* Slate 100 */
+  --color-clash-muted: #94a3b8;        /* Slate 400 */
+  --color-clash-subtle: #64748b;       /* Slate 500 */
 
-  /* Difficulty Levels (used across problem badges & filters) */
-  --color-diff-easy: #10b981;
-  --color-diff-medium: #f59e0b;
-  --color-diff-hard: #ef4444;
+  /* Difficulty Levels */
+  --color-diff-easy: #10b981;          /* Emerald */
+  --color-diff-medium: #f59e0b;        /* Amber */
+  --color-diff-hard: #f43f5e;          /* Rose */
 
   /* Status Colors */
   --color-status-success: #10b981;
@@ -35,7 +36,7 @@
   --font-mono: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
 }
 
-/* Custom Base Layer */
+/* Custom Base Layer with Subtle Emerald Glow */
 body {
   background-color: var(--color-clash-bg);
   color: var(--color-clash-text);
@@ -43,8 +44,8 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.14), transparent),
-    radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.08), transparent);
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.12), transparent),
+    radial-gradient(circle at 85% 85%, rgba(20, 184, 166, 0.07), transparent);
   background-attachment: fixed;
 }
 
@@ -61,5 +62,5 @@ body {
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(16, 185, 129, 0.4);
 }

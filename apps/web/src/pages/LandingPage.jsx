@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import { AuthForm } from "../components/AuthForm.jsx";
 import { problemsAPI } from "../api/client.js";
@@ -114,13 +115,13 @@ export function LandingPage() {
               </div>
               <pre className="font-mono text-xs leading-relaxed text-slate-200 overflow-x-auto">
                 <code>
-                  <span className="text-pink-400 font-semibold">class</span> <span className="text-blue-400">Solution</span>:{"\n"}
-                  {"    "}<span className="text-pink-400 font-semibold">def</span> <span className="text-blue-400">majorityElement</span>(self, nums):{"\n"}
-                  {"        "}count, candidate = <span className="text-amber-400">0</span>, <span className="text-pink-400 font-semibold">None</span>{"\n"}
-                  {"        "}<span className="text-pink-400 font-semibold">for</span> num <span className="text-pink-400 font-semibold">in</span> nums:{"\n"}
-                  {"            "}<span className="text-pink-400 font-semibold">if</span> count == <span className="text-amber-400">0</span>: candidate = num{"\n"}
-                  {"            "}count += <span className="text-amber-400">1</span> <span className="text-pink-400 font-semibold">if</span> num == candidate <span className="text-pink-400 font-semibold">else</span> -<span className="text-amber-400">1</span>{"\n"}
-                  {"        "}<span className="text-pink-400 font-semibold">return</span> candidate
+                  <span className="text-emerald-400 font-semibold">class</span> <span className="text-teal-300 font-semibold">Solution</span>:{"\n"}
+                  {"    "}<span className="text-emerald-400 font-semibold">def</span> <span className="text-teal-300">majorityElement</span>(self, nums):{"\n"}
+                  {"        "}count, candidate = <span className="text-amber-400">0</span>, <span className="text-emerald-400/80 font-semibold">None</span>{"\n"}
+                  {"        "}<span className="text-emerald-400 font-semibold">for</span> num <span className="text-emerald-400 font-semibold">in</span> nums:{"\n"}
+                  {"            "}<span className="text-emerald-400 font-semibold">if</span> count == <span className="text-amber-400">0</span>: candidate = num{"\n"}
+                  {"            "}count += <span className="text-amber-400">1</span> <span className="text-emerald-400 font-semibold">if</span> num == candidate <span className="text-emerald-400 font-semibold">else</span> -<span className="text-amber-400">1</span>{"\n"}
+                  {"        "}<span className="text-emerald-400 font-semibold">return</span> candidate
                 </code>
               </pre>
             </div>
@@ -154,23 +155,28 @@ export function LandingPage() {
             <div className="my-8 border-t border-clash-border"></div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
-              <div className="p-5 rounded-xl bg-clash-bg/60 border border-clash-border hover:border-brand-primary/40 transition flex flex-col justify-between gap-4">
-                <div className="w-10 h-10 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center">
+              <Link
+                to="/problems"
+                className="p-5 rounded-xl bg-clash-bg/60 border border-clash-border hover:border-brand-primary/40 hover:bg-clash-card-hover/40 transition flex flex-col justify-between gap-4 group cursor-pointer"
+              >
+                <div className="w-10 h-10 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center group-hover:scale-105 transition-transform">
                   <BookOpen size={22} />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-clash-text mb-1">Problem Catalog</h3>
+                  <h3 className="text-base font-bold text-clash-text mb-1 group-hover:text-brand-primary transition-colors">
+                    Problem Catalog
+                  </h3>
                   <p className="text-xs sm:text-sm text-clash-muted">
                     {problemCount !== null
                       ? `${problemCount} Published Problem(s) Ready`
                       : "Arrays & Hashing Problems Ready in DB"}
                   </p>
                 </div>
-                <div className="inline-flex items-center gap-1.5 self-start text-xs font-bold text-brand-primary bg-brand-primary/10 px-2.5 py-1 rounded-md">
-                  <span>Task 2 Ready</span>
-                  <ArrowRight size={12} />
+                <div className="inline-flex items-center gap-1.5 self-start text-xs font-bold text-brand-primary bg-brand-primary/10 px-2.5 py-1 rounded-md group-hover:bg-brand-primary/20 transition">
+                  <span>Explore Problems</span>
+                  <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
                 </div>
-              </div>
+              </Link>
 
               <div className="p-5 rounded-xl bg-clash-bg/60 border border-clash-border hover:border-emerald-500/40 transition flex flex-col justify-between gap-4">
                 <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
@@ -187,7 +193,7 @@ export function LandingPage() {
             </div>
 
             <div className="p-5 rounded-xl bg-brand-primary/10 border border-brand-primary/20">
-              <h4 className="text-sm font-bold text-indigo-200 mb-1">🚀 Ready for the next phase?</h4>
+              <h4 className="text-sm font-bold text-emerald-200 mb-1">🚀 Ready for the next phase?</h4>
               <p className="text-xs sm:text-sm text-clash-muted leading-relaxed">
                 Tailwind CSS and global design tokens are fully set up and connected with the backend. You can now build the Problem Catalog UI (Task 2) to display and filter all published problems.
               </p>

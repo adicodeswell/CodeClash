@@ -1,5 +1,6 @@
+import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
-import { Swords, User, LogOut } from "lucide-react";
+import { Swords, User, LogOut, Code2 } from "lucide-react";
 
 export function Navbar() {
   const { user, logout } = useAuth();
@@ -7,24 +8,42 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-clash-border bg-clash-bg/85 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
-        {/* Brand */}
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-primary/20 to-brand-secondary/20 border border-brand-primary/40 flex items-center justify-center text-brand-primary shadow-lg shadow-brand-primary/15">
-            <Swords size={20} />
-          </div>
-          <span className="text-xl font-extrabold tracking-tight text-clash-text">
-            Code
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent">
-              Clash
+        {/* Brand & Nav */}
+        <div className="flex items-center gap-6 sm:gap-8">
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-primary/20 to-brand-secondary/20 border border-brand-primary/40 flex items-center justify-center text-brand-primary shadow-lg shadow-brand-primary/15 group-hover:border-brand-primary/60 transition">
+              <Swords size={20} />
+            </div>
+            <span className="text-xl font-extrabold tracking-tight text-clash-text">
+              Code
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent">
+                Clash
+              </span>
             </span>
-          </span>
-          <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-white/5 border border-clash-border text-clash-muted hidden sm:inline-block">
-            v1.0
-          </span>
+            <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-white/5 border border-clash-border text-clash-muted hidden sm:inline-block">
+              v1.0
+            </span>
+          </Link>
+
+          <nav className="flex items-center gap-1">
+            <NavLink
+              to="/problems"
+              className={({ isActive }) =>
+                `flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
+                  isActive
+                    ? "bg-white/10 text-brand-primary border border-brand-primary/30"
+                    : "text-clash-muted hover:text-clash-text hover:bg-white/5"
+                }`
+              }
+            >
+              <Code2 size={14} />
+              <span>Problems</span>
+            </NavLink>
+          </nav>
         </div>
 
         {/* Actions */}
-        <nav className="flex items-center gap-3">
+        <div className="flex items-center gap-3">
           {user ? (
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-clash-border">
@@ -36,6 +55,7 @@ export function Navbar() {
                 </span>
               </div>
               <button
+                type="button"
                 onClick={logout}
                 className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-status-error/10 border border-status-error/25 text-red-400 hover:bg-status-error/20 hover:border-status-error/40 transition cursor-pointer"
                 title="Sign out"
@@ -50,7 +70,7 @@ export function Navbar() {
               <span>Judge Ready</span>
             </div>
           )}
-        </nav>
+        </div>
       </div>
     </header>
   );
