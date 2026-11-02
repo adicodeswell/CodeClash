@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import { fetchProblemBySlug } from "../services/problems.api.js";
+import { runCode, submitCode } from "../services/submissions.api.js";
 import { ArenaHeader } from "../components/arena/ArenaHeader.jsx";
 import { ProblemMetadata } from "../components/problems/ProblemMetadata.jsx";
 import { ProblemStatement } from "../components/problems/ProblemStatement.jsx";
@@ -8,13 +9,13 @@ import { ProblemExamples } from "../components/problems/ProblemExamples.jsx";
 import { ProblemConstraints } from "../components/problems/ProblemConstraints.jsx";
 import { EditorToolbar } from "../components/editor/EditorToolbar.jsx";
 import { CodeEditor } from "../components/editor/CodeEditor.jsx";
+import { ExecutionResult } from "../components/editor/ExecutionResult.jsx";
 import { useProblemDraft } from "../hooks/useProblemDraft.js";
 import {
   FileText,
   Terminal,
   AlertCircle,
   Inbox,
-  CheckCircle2,
   Code,
 } from "lucide-react";
 
@@ -33,7 +34,8 @@ export function ProblemDetailPage() {
   // Execution states (Run & Submit)
   const [isRunning, setIsRunning] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [executionMessage, setExecutionMessage] = useState(null);
+  const [executionResult, setExecutionResult] = useState(null);
+  const [executionError, setExecutionError] = useState(null);
 
   // Fetch problem details by slug
   useEffect(() => {
@@ -84,30 +86,58 @@ export function ProblemDetailPage() {
   );
 
   // Run action handler
-  const handleRun = () => {
+  const handleRun = useCallback(async () => {
+    if (isRunning || isSubmitting) return;
     setIsRunning(true);
-    setExecutionMessage(null);
-    setTimeout(() => {
-      setIsRunning(false);
-      setExecutionMessage({
-        type: "success",
-        text: "Sample test case ready. Judge0 runner worker will evaluate code in the execution phase.",
+    setExecutionError(null);
+    setExecutionResult(null);
+
+    try {
+      const res = await runCode({
+        problemSlug: slug,
+        language: selectedLanguage,
+        sourceCode: code,
       });
-    }, 600);
-  };
+      setExecutionResult(res);
+    } catch (err) {
+      setExecutionError(err.message || "Execution failed");
+    } finally {
+      setIsRunning(false);
+    }
+  }, [isRunning, isSubmitting, slug, selectedLanguage, code]);
 
   // Submit action handler
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(async () => {
+    if (isRunning || isSubmitting) return;
     setIsSubmitting(true);
-    setExecutionMessage(null);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setExecutionMessage({
-        type: "info",
-        text: "Submission queued. Full test suite evaluation will run on Judge0 queue in Task 6.",
+    setExecutionError(null);
+    setExecutionResult(null);
+
+    try {
+      const res = await submitCode({
+        problemSlug: slug,
+        language: selectedLanguage,
+        sourceCode: code,
       });
-    }, 700);
-  };
+      setExecutionResult(res);
+    } catch (err) {
+      setExecutionError(err.message || "Submission failed");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, [isRunning, isSubmitting, slug, selectedLanguage, code]);
+
+  // Keyboard shortcut: Ctrl+Enter or Cmd+Enter to Run
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+        e.preventDefault();
+        handleRun();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handleRun]);
 
   // Loading View
   if (loading) {
@@ -227,16 +257,22 @@ export function ProblemDetailPage() {
             ) : (
               <div className="py-12 text-center text-clash-muted">
                 <Inbox size={28} className="mx-auto mb-2 text-clash-subtle" />
-                <h4 className="text-sm font-bold text-clash-text mb-1">No Submissions Yet</h4>
-                <p className="text-xs max-w-xs mx-auto">
-                  Submit a solution using the top bar to view execution benchmarks and verdicts here.
+                <h4 className="text-sm font-bold text-clash-text mb-1">
+                  {executionResult?.status === "QUEUED"
+                    ? "Submission Recorded"
+                    : "No Submissions Yet"}
+                </h4>
+                <p className="text-xs max-w-xs mx-auto text-clash-muted">
+                  {executionResult?.status === "QUEUED"
+                    ? `Submission ID: ${executionResult.submissionId}. Registered for Judge0 processing.`
+                    : "Submit a solution using the top bar to view execution benchmarks and verdicts here."}
                 </p>
               </div>
             )}
           </div>
         </section>
 
-        {/* Right Pane: Editor & Toolbar */}
+        {/* Right Pane: Editor, Toolbar & Execution Result Drawer */}
         <section
           className={`w-full lg:w-1/2 flex flex-col h-full bg-[#1e1e1e] ${
             mobileTab === "editor" ? "flex" : "hidden lg:flex"
@@ -249,6 +285,10 @@ export function ProblemDetailPage() {
             onSelectLanguage={setSelectedLanguage}
             onReset={resetToStarter}
             code={code}
+            onRun={handleRun}
+            onSubmit={handleSubmit}
+            isRunning={isRunning}
+            isSubmitting={isSubmitting}
           />
 
           {/* Monaco Editor Container */}
@@ -260,22 +300,17 @@ export function ProblemDetailPage() {
             />
           </div>
 
-          {/* Bottom Execution Feedback Drawer */}
-          {executionMessage && (
-            <div className="border-t border-clash-border bg-clash-surface/95 px-4 py-2.5 flex items-center justify-between text-xs animate-in fade-in duration-200">
-              <div className="flex items-center gap-2 text-emerald-300 font-medium">
-                <CheckCircle2 size={15} className="text-brand-primary shrink-0" />
-                <span>{executionMessage.text}</span>
-              </div>
-              <button
-                type="button"
-                onClick={() => setExecutionMessage(null)}
-                className="text-clash-subtle hover:text-clash-text text-[11px] font-semibold cursor-pointer"
-              >
-                Dismiss
-              </button>
-            </div>
-          )}
+          {/* Interactive Collapsible Execution Result Drawer (Shows 3 Test Cases) */}
+          <ExecutionResult
+            result={executionResult}
+            error={executionError}
+            isRunning={isRunning}
+            isSubmitting={isSubmitting}
+            onClose={() => {
+              setExecutionResult(null);
+              setExecutionError(null);
+            }}
+          />
         </section>
       </div>
     </div>

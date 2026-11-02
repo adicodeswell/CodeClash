@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
-import { Swords, ArrowLeft, Play, Zap, User, LogOut } from "lucide-react";
+import { Swords, ArrowLeft, User, LogOut } from "lucide-react";
+import { RunButton } from "../editor/RunButton.jsx";
+import { SubmitButton } from "../editor/SubmitButton.jsx";
 
 export function ArenaHeader({ problemTitle, onRun, onSubmit, isRunning = false, isSubmitting = false }) {
   const { user, logout } = useAuth();
@@ -41,35 +43,18 @@ export function ArenaHeader({ problemTitle, onRun, onSubmit, isRunning = false, 
 
       {/* Center: Run & Submit Actions */}
       <div className="flex items-center gap-2.5">
-        <button
-          type="button"
-          onClick={onRun}
-          disabled={isRunning || isSubmitting}
-          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg border border-clash-border bg-clash-card hover:bg-clash-card-hover hover:border-brand-primary/40 text-clash-text text-xs font-semibold shadow-sm transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-          title="Run code against sample test cases (Ctrl + Enter)"
-        >
-          {isRunning ? (
-            <div className="w-3.5 h-3.5 border-2 border-brand-primary/30 border-t-brand-primary rounded-full animate-spin"></div>
-          ) : (
-            <Play size={13} className="text-emerald-400 fill-emerald-400/20" />
-          )}
-          <span>Run</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={onSubmit}
-          disabled={isRunning || isSubmitting}
-          className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-gradient-to-r from-brand-primary to-brand-secondary text-slate-950 font-bold text-xs shadow-md shadow-brand-primary/20 hover:shadow-brand-primary/35 hover:brightness-105 active:scale-95 transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-          title="Submit code for full judging evaluation"
-        >
-          {isSubmitting ? (
-            <div className="w-3.5 h-3.5 border-2 border-slate-950/30 border-t-slate-950 rounded-full animate-spin"></div>
-          ) : (
-            <Zap size={13} className="fill-slate-950" />
-          )}
-          <span>Submit</span>
-        </button>
+        <RunButton
+          onRun={onRun}
+          isRunning={isRunning}
+          disabled={isSubmitting}
+          size="sm"
+        />
+        <SubmitButton
+          onSubmit={onSubmit}
+          isSubmitting={isSubmitting}
+          disabled={isRunning}
+          size="sm"
+        />
       </div>
 
       {/* Right: User Profile Indicator */}

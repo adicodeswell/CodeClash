@@ -3,7 +3,10 @@ import { problemQuerySchema, problemSlugParamSchema } from "@codeclash/common";
 
 import { requireAuth } from "../middleware/requireAuth.js";
 import { validateQuery, validateParams } from "../middleware/validate.js";
-import { getProblems, getProblemDetail } from "../controllers/problems.controller.js";
+import {
+  getProblems,
+  getProblemDetail,
+} from "../controllers/problems.controller.js";
 
 const router = Router();
 

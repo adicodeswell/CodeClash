@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { RotateCcw, Copy, Check } from "lucide-react";
 import { LanguageSelector } from "./LanguageSelector.jsx";
+import { RunButton } from "./RunButton.jsx";
+import { SubmitButton } from "./SubmitButton.jsx";
 
 export function EditorToolbar({
   supportedLanguages = ["python", "javascript", "cpp", "java"],
@@ -8,6 +10,10 @@ export function EditorToolbar({
   onSelectLanguage,
   onReset,
   code = "",
+  onRun,
+  onSubmit,
+  isRunning = false,
+  isSubmitting = false,
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -30,8 +36,8 @@ export function EditorToolbar({
         onSelectLanguage={onSelectLanguage}
       />
 
-      {/* Right: Reset & Copy */}
-      <div className="flex items-center gap-1.5">
+      {/* Right: Actions */}
+      <div className="flex items-center gap-2">
         <button
           type="button"
           onClick={handleCopy}
@@ -60,6 +66,25 @@ export function EditorToolbar({
           <RotateCcw size={13} />
           <span>Reset</span>
         </button>
+
+        {onRun && (
+          <div className="hidden sm:flex items-center gap-1.5 pl-2 border-l border-clash-border">
+            <RunButton
+              onRun={onRun}
+              isRunning={isRunning}
+              disabled={isSubmitting}
+              size="sm"
+            />
+            {onSubmit && (
+              <SubmitButton
+                onSubmit={onSubmit}
+                isSubmitting={isSubmitting}
+                disabled={isRunning}
+                size="sm"
+              />
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

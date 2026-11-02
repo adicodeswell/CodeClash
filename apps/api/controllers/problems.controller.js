@@ -1,4 +1,5 @@
 import { listPublishedProblems } from "../services/problems.services.js";
+import { getPublishedProblemBySlug } from "../services/problems.services.js";
 
 export async function getProblems(req, res, next) {
   try {
@@ -28,8 +29,6 @@ export async function getProblems(req, res, next) {
     next(err);
   }
 }
-
-import { getPublishedProblemBySlug } from "../services/problems.services.js";
 
 export async function getProblemDetail(req, res, next) {
   try {
