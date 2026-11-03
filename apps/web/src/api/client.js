@@ -4,7 +4,7 @@
  * Automatically includes HTTP-only cookies via credentials: "include"
  */
 
-async function request(endpoint, options = {}) {
+export async function request(endpoint, options = {}) {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -68,5 +68,27 @@ export const problemsAPI = {
     const queryString = params.toString();
     const endpoint = queryString ? `/api/problems?${queryString}` : "/api/problems";
     return request(endpoint, { method: "GET" });
+  },
+};
+
+export const submissionsAPI = {
+  async submit({ problemSlug, language, sourceCode }) {
+    return request("/api/submissions", {
+      method: "POST",
+      body: JSON.stringify({ problemSlug, language, sourceCode }),
+    });
+  },
+
+  async run({ problemSlug, language, sourceCode }) {
+    return request("/api/submissions/run", {
+      method: "POST",
+      body: JSON.stringify({ problemSlug, language, sourceCode }),
+    });
+  },
+
+  async getStatus(submissionId) {
+    return request(`/api/submissions/${submissionId}`, {
+      method: "GET",
+    });
   },
 };

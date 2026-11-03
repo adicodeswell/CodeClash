@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "submissions" ADD COLUMN     "nextAttemptAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;

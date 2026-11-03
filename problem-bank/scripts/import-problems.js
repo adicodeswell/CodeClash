@@ -113,6 +113,7 @@ async function buildPackage(entry) {
   }
 
   const testCases = [];
+  const exampleCount = (statement.match(/###\s+Example/gi) || []).length || 2;
 
   for (let ordinal = 0; ordinal < inputFiles.length; ordinal++) {
     const inputName = inputFiles[ordinal];
@@ -127,7 +128,7 @@ async function buildPackage(entry) {
 
     testCases.push({
       ordinal,
-      visibility: "HIDDEN",
+      visibility: ordinal < exampleCount ? "SAMPLE" : "HIDDEN",
       input: input.trim(),
       expectedOutput: expectedOutput.trim(),
     });

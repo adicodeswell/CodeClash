@@ -102,6 +102,7 @@ model Submission {
   errorCode         String?
   errorSummary      String?
   retryCount        Int               @default(0)
+  nextAttemptAt     DateTime          @default(now())
 
   user              User              @relation(fields: [userId], references: [id], onDelete: Restrict)
   problem           Problem           @relation(fields: [problemId], references: [id], onDelete: Restrict)

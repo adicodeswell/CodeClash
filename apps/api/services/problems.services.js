@@ -92,11 +92,24 @@ export async function getPublishedProblemBySlug(slug) {
       timeLimitMs: true,
       memoryLimitKb: true,
       languages: true,
-      // testCases is deliberately omitted
+      testCases: true,
     },
   });
 
   if (!problem) return null;
+
+  // Extract public sample test cases (marked as SAMPLE or first 2)
+  const allTests = Array.isArray(problem.testCases) ? problem.testCases : [];
+  const sampleMatches = allTests.filter((tc) => tc.visibility === "SAMPLE");
+  const chosenTests = sampleMatches.length > 0 ? sampleMatches : allTests.slice(0, 2);
+
+  const sampleTestCases = chosenTests.map((tc, idx) => ({
+    id: idx + 1,
+    ordinal: tc.ordinal ?? idx,
+    input: tc.input,
+    expected: tc.expectedOutput,
+    expectedOutput: tc.expectedOutput,
+  }));
 
   // Sanitize language templates: keep only public starter templates
   const publicLanguages = {};
@@ -110,8 +123,12 @@ export async function getPublishedProblemBySlug(slug) {
     }
   }
 
+  // Remove full testCases so hidden tests are never exposed
+  delete problem.testCases;
+
   return {
     ...problem,
     languages: publicLanguages,
+    sampleTestCases,
   };
 }

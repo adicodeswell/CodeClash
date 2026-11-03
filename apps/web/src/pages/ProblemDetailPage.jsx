@@ -11,12 +11,16 @@ import { EditorToolbar } from "../components/editor/EditorToolbar.jsx";
 import { CodeEditor } from "../components/editor/CodeEditor.jsx";
 import { ExecutionResult } from "../components/editor/ExecutionResult.jsx";
 import { useProblemDraft } from "../hooks/useProblemDraft.js";
+import { useSubmissionStatus } from "../hooks/useSubmissionStatus.js";
 import {
   FileText,
   Terminal,
   AlertCircle,
   Inbox,
-  Code,
+  CheckCircle2,
+  Clock,
+  Cpu,
+  Zap,
 } from "lucide-react";
 
 export function ProblemDetailPage() {
@@ -31,11 +35,33 @@ export function ProblemDetailPage() {
   const [mobileTab, setMobileTab] = useState("description"); // "description" | "editor"
   const [leftTab, setLeftTab] = useState("description"); // "description" | "submissions"
 
-  // Execution states (Run & Submit)
+  // Separate states for Run Code vs Full Submission
+  const [consoleTab, setConsoleTab] = useState("run"); // "run" | "submit"
+  const [runResult, setRunResult] = useState(null);
+  const [runError, setRunError] = useState(null);
   const [isRunning, setIsRunning] = useState(false);
+
+  const [activeSubmissionId, setActiveSubmissionId] = useState(() => {
+    return sessionStorage.getItem(`codeclash_submission_${slug}`) || null;
+  });
+  const [submissionResult, setSubmissionResult] = useState(null);
+  const [submissionError, setSubmissionError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [executionResult, setExecutionResult] = useState(null);
-  const [executionError, setExecutionError] = useState(null);
+
+  // Real-time polling hook
+  const {
+    submission: polledSubmission,
+    isPolling,
+    error: pollingError,
+  } = useSubmissionStatus(activeSubmissionId, {
+    pollInterval: 1000,
+    onComplete: (completed) => {
+      setSubmissionResult(completed);
+      sessionStorage.removeItem(`codeclash_submission_${slug}`);
+    },
+  });
+
+  const activeSubmission = polledSubmission || submissionResult;
 
   // Fetch problem details by slug
   useEffect(() => {
@@ -47,7 +73,7 @@ export function ProblemDetailPage() {
           setProblem(data);
           // Set initial language from supported languages if python isn't enabled
           const available = Object.keys(data.languages || {}).filter(
-            (k) => data.languages[k]?.enabled
+            (k) => data.languages[k]?.enabled,
           );
           if (available.length > 0 && !available.includes("python")) {
             setSelectedLanguage(available[0]);
@@ -71,7 +97,9 @@ export function ProblemDetailPage() {
 
   // Extract supported language keys
   const supportedLanguages = problem?.languages
-    ? Object.keys(problem.languages).filter((k) => problem.languages[k]?.enabled)
+    ? Object.keys(problem.languages).filter(
+        (k) => problem.languages[k]?.enabled,
+      )
     : ["python", "javascript", "cpp", "java"];
 
   // Starter template from backend for the currently selected language
@@ -82,15 +110,16 @@ export function ProblemDetailPage() {
   const { code, setCode, resetToStarter } = useProblemDraft(
     slug,
     selectedLanguage,
-    starterTemplate
+    starterTemplate,
   );
 
-  // Run action handler
+  // Run action handler (runs against real sample cases)
   const handleRun = useCallback(async () => {
-    if (isRunning || isSubmitting) return;
+    if (isRunning || isSubmitting || isPolling) return;
     setIsRunning(true);
-    setExecutionError(null);
-    setExecutionResult(null);
+    setRunError(null);
+    setRunResult(null);
+    setConsoleTab("run");
 
     try {
       const res = await runCode({
@@ -98,20 +127,21 @@ export function ProblemDetailPage() {
         language: selectedLanguage,
         sourceCode: code,
       });
-      setExecutionResult(res);
+      setRunResult(res);
     } catch (err) {
-      setExecutionError(err.message || "Execution failed");
+      setRunError(err.message || "Execution failed");
     } finally {
       setIsRunning(false);
     }
-  }, [isRunning, isSubmitting, slug, selectedLanguage, code]);
+  }, [isRunning, isSubmitting, isPolling, slug, selectedLanguage, code]);
 
-  // Submit action handler
+  // Submit action handler (submits to PostgreSQL queue and starts polling)
   const handleSubmit = useCallback(async () => {
-    if (isRunning || isSubmitting) return;
+    if (isRunning || isSubmitting || isPolling) return;
     setIsSubmitting(true);
-    setExecutionError(null);
-    setExecutionResult(null);
+    setSubmissionError(null);
+    setSubmissionResult(null);
+    setConsoleTab("submit");
 
     try {
       const res = await submitCode({
@@ -119,13 +149,17 @@ export function ProblemDetailPage() {
         language: selectedLanguage,
         sourceCode: code,
       });
-      setExecutionResult(res);
+
+      // res is { id, status: "QUEUED" }
+      setSubmissionResult(res);
+      setActiveSubmissionId(res.id);
+      sessionStorage.setItem(`codeclash_submission_${slug}`, res.id);
     } catch (err) {
-      setExecutionError(err.message || "Submission failed");
+      setSubmissionError(err.message || "Submission failed");
     } finally {
       setIsSubmitting(false);
     }
-  }, [isRunning, isSubmitting, slug, selectedLanguage, code]);
+  }, [isRunning, isSubmitting, isPolling, slug, selectedLanguage, code]);
 
   // Keyboard shortcut: Ctrl+Enter or Cmd+Enter to Run
   useEffect(() => {
@@ -144,25 +178,30 @@ export function ProblemDetailPage() {
     return (
       <div className="h-screen w-full flex flex-col items-center justify-center bg-clash-bg text-clash-muted gap-3">
         <div className="w-8 h-8 border-2 border-brand-primary/30 border-t-brand-primary rounded-full animate-spin"></div>
-        <span className="text-xs font-semibold">Loading problem workspace...</span>
+        <span className="text-xs font-semibold">
+          Loading problem workspace...
+        </span>
       </div>
     );
   }
 
-  // Error / 404 View
+  // Error View
   if (error || !problem) {
     return (
       <div className="h-screen w-full flex flex-col items-center justify-center bg-clash-bg p-6 text-center">
         <div className="w-14 h-14 rounded-2xl bg-status-error/10 border border-status-error/25 flex items-center justify-center text-status-error mb-4">
           <AlertCircle size={28} />
         </div>
-        <h2 className="text-xl font-bold text-clash-text mb-2">Problem Unavailable</h2>
+        <h2 className="text-xl font-bold text-clash-text mb-2">
+          Problem Unavailable
+        </h2>
         <p className="text-xs sm:text-sm text-clash-muted max-w-sm mb-6">
-          {error || "The problem could not be found or has not been published yet."}
+          {error ||
+            "The problem could not be found or has not been published yet."}
         </p>
         <Link
           to="/problems"
-          className="px-4 py-2 bg-brand-primary hover:bg-brand-secondary text-slate-950 font-bold text-xs rounded-xl transition cursor-pointer"
+          className="px-4 py-2 bg-brand-primary hover:bg-brand-primary/90 text-slate-950 font-bold text-xs rounded-xl transition cursor-pointer"
         >
           Return to Problem Catalog
         </Link>
@@ -172,16 +211,16 @@ export function ProblemDetailPage() {
 
   return (
     <div className="h-screen w-full flex flex-col bg-clash-bg overflow-hidden">
-      {/* 1. Custom Arena Top Bar */}
+      {/* Top Navbar */}
       <ArenaHeader
         problemTitle={problem.title}
         onRun={handleRun}
         onSubmit={handleSubmit}
         isRunning={isRunning}
-        isSubmitting={isSubmitting}
+        isSubmitting={isSubmitting || isPolling}
       />
 
-      {/* Mobile Tab Switcher (< lg screens) */}
+      {/* Mobile Tab Switcher */}
       <div className="flex lg:hidden bg-clash-surface border-b border-clash-border px-2 py-1 gap-1">
         <button
           type="button"
@@ -204,20 +243,20 @@ export function ProblemDetailPage() {
               : "text-clash-muted"
           }`}
         >
-          <Code size={13} />
+          <Terminal size={13} />
           <span>Editor</span>
         </button>
       </div>
 
-      {/* 2. Main Two-Column Split Workspace */}
+      {/* Main Workspace Split Pane */}
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
-        {/* Left Pane: Problem Statement & Metadata */}
+        {/* Left Pane: Problem Description & Submissions */}
         <section
           className={`w-full lg:w-1/2 flex flex-col h-full border-r border-clash-border bg-clash-bg/50 ${
             mobileTab === "description" ? "flex" : "hidden lg:flex"
           }`}
         >
-          {/* Left Pane Tabs */}
+          {/* Subheader tabs */}
           <div className="h-10 border-b border-clash-border bg-clash-surface/70 px-4 flex items-center gap-4 shrink-0">
             <button
               type="button"
@@ -255,18 +294,85 @@ export function ProblemDetailPage() {
                 <ProblemConstraints rawMarkdown={problem.statement} />
               </>
             ) : (
-              <div className="py-12 text-center text-clash-muted">
-                <Inbox size={28} className="mx-auto mb-2 text-clash-subtle" />
-                <h4 className="text-sm font-bold text-clash-text mb-1">
-                  {executionResult?.status === "QUEUED"
-                    ? "Submission Recorded"
-                    : "No Submissions Yet"}
-                </h4>
-                <p className="text-xs max-w-xs mx-auto text-clash-muted">
-                  {executionResult?.status === "QUEUED"
-                    ? `Submission ID: ${executionResult.submissionId}. Registered for Judge0 processing.`
-                    : "Submit a solution using the top bar to view execution benchmarks and verdicts here."}
-                </p>
+              <div className="space-y-4">
+                {activeSubmission ? (
+                  <div className="rounded-xl border border-clash-border bg-clash-surface/60 p-5 space-y-4">
+                    <div className="flex items-center justify-between border-b border-clash-border pb-3">
+                      <div className="flex items-center gap-2">
+                        {activeSubmission.verdict === "ACCEPTED" ? (
+                          <CheckCircle2 size={18} className="text-emerald-400" />
+                        ) : activeSubmission.status === "COMPLETED" ? (
+                          <AlertCircle size={18} className="text-red-400" />
+                        ) : (
+                          <Clock size={18} className="text-brand-primary animate-pulse" />
+                        )}
+                        <span
+                          className={`font-bold text-sm ${
+                            activeSubmission.verdict === "ACCEPTED"
+                              ? "text-emerald-400"
+                              : activeSubmission.status === "COMPLETED"
+                              ? "text-red-400"
+                              : "text-brand-primary"
+                          }`}
+                        >
+                          {activeSubmission.verdict || activeSubmission.status}
+                        </span>
+                      </div>
+                      <span className="text-[11px] font-mono text-clash-muted">
+                        {activeSubmission.id}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3 text-xs">
+                      <div className="rounded-lg bg-black/20 p-2.5 border border-white/5">
+                        <div className="text-clash-muted text-[11px]">Language</div>
+                        <div className="font-semibold text-clash-text uppercase mt-0.5">
+                          {activeSubmission.language || selectedLanguage}
+                        </div>
+                      </div>
+                      <div className="rounded-lg bg-black/20 p-2.5 border border-white/5">
+                        <div className="text-clash-muted text-[11px]">Test Cases</div>
+                        <div className="font-semibold text-clash-text mt-0.5">
+                          {activeSubmission.passedTestCount != null
+                            ? `${activeSubmission.passedTestCount} / ${activeSubmission.totalTestCount}`
+                            : "Evaluating..."}
+                        </div>
+                      </div>
+                      {activeSubmission.runtimeMs != null && (
+                        <div className="rounded-lg bg-black/20 p-2.5 border border-white/5 flex items-center gap-2">
+                          <Zap size={14} className="text-amber-400" />
+                          <div>
+                            <div className="text-clash-muted text-[10px]">Runtime</div>
+                            <div className="font-bold text-clash-text font-mono text-xs">
+                              {activeSubmission.runtimeMs} ms
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      {activeSubmission.memoryKb != null && (
+                        <div className="rounded-lg bg-black/20 p-2.5 border border-white/5 flex items-center gap-2">
+                          <Cpu size={14} className="text-blue-400" />
+                          <div>
+                            <div className="text-clash-muted text-[10px]">Memory</div>
+                            <div className="font-bold text-clash-text font-mono text-xs">
+                              {(activeSubmission.memoryKb / 1024).toFixed(1)} MB
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="py-12 text-center text-clash-muted">
+                    <Inbox size={28} className="mx-auto mb-2 text-clash-subtle" />
+                    <h4 className="text-sm font-bold text-clash-text mb-1">
+                      No Active Submissions
+                    </h4>
+                    <p className="text-xs max-w-xs mx-auto text-clash-muted">
+                      Submit a solution using the top bar to evaluate it against hidden test cases and view real-time verdicts here.
+                    </p>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -288,7 +394,7 @@ export function ProblemDetailPage() {
             onRun={handleRun}
             onSubmit={handleSubmit}
             isRunning={isRunning}
-            isSubmitting={isSubmitting}
+            isSubmitting={isSubmitting || isPolling}
           />
 
           {/* Monaco Editor Container */}
@@ -300,15 +406,25 @@ export function ProblemDetailPage() {
             />
           </div>
 
-          {/* Interactive Collapsible Execution Result Drawer (Shows 3 Test Cases) */}
+          {/* Interactive Collapsible Execution Result Drawer */}
           <ExecutionResult
-            result={executionResult}
-            error={executionError}
+            consoleTab={consoleTab}
+            onTabChange={setConsoleTab}
+            runResult={runResult}
+            runError={runError}
             isRunning={isRunning}
+            submissionResult={activeSubmission}
+            submissionError={submissionError || pollingError}
             isSubmitting={isSubmitting}
+            isPolling={isPolling}
+            sampleTestCases={problem?.sampleTestCases}
             onClose={() => {
-              setExecutionResult(null);
-              setExecutionError(null);
+              setRunResult(null);
+              setRunError(null);
+              setSubmissionResult(null);
+              setSubmissionError(null);
+              setActiveSubmissionId(null);
+              sessionStorage.removeItem(`codeclash_submission_${slug}`);
             }}
           />
         </section>

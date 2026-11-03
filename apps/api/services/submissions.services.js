@@ -1,0 +1,177 @@
+import { prisma } from "@codeclash/db";
+
+function createServiceError(statusCode, message) {
+  const error = new Error(message);
+  error.status = statusCode;
+  error.statusCode = statusCode;
+  return error;
+}
+
+export async function createSubmission({
+  userId,
+  problemSlug,
+  language,
+  sourceCode,
+}) {
+  // 1. Verify that the user exists and is active.
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { status: true },
+  });
+
+  if (!user || user.status !== "ACTIVE") {
+    throw createServiceError(403, "User is not active");
+  }
+
+  // 2. Load trusted metadata for a published problem.
+  const problem = await prisma.problem.findFirst({
+    where: {
+      slug: problemSlug,
+      status: "PUBLISHED",
+    },
+    select: {
+      id: true,
+      languages: true,
+      testCases: true,
+      packageVersion: true,
+    },
+  });
+
+  if (!problem) {
+    throw createServiceError(
+      404,
+      "Problem not found or not available",
+    );
+  }
+
+  // 3. Verify that the requested language is enabled.
+  if (problem.languages?.[language]?.enabled !== true) {
+    throw createServiceError(
+      400,
+      `Language '${language}' is not enabled for this problem`,
+    );
+  }
+
+  // 4. Concurrency check (Zero-overhead production rule):
+  // Prevent queue exhaustion by blocking a user from queueing multiple submissions simultaneously.
+  const activeSubmission = await prisma.submission.findFirst({
+    where: {
+      userId,
+      status: { in: ["QUEUED", "RUNNING"] },
+    },
+    select: { id: true },
+  });
+
+  if (activeSubmission) {
+    const err = createServiceError(
+      429,
+      "You have a submission currently in progress. Please wait for it to complete.",
+    );
+    err.retryAfter = 2;
+    throw err;
+  }
+
+  // 5. Cooldown & quota rate limits using the indexed submission history:
+  const oneMinuteAgo = new Date(Date.now() - 60 * 1000);
+  const recentSubmissions = await prisma.submission.findMany({
+    where: {
+      userId,
+      createdAt: { gte: oneMinuteAgo },
+    },
+    orderBy: { createdAt: "desc" },
+    select: { createdAt: true },
+  });
+
+  // A. Cooldown: minimum 2 seconds between submissions
+  if (recentSubmissions.length > 0) {
+    const secondsSinceLast =
+      (Date.now() - recentSubmissions[0].createdAt.getTime()) / 1000;
+    if (secondsSinceLast < 2) {
+      const retryAfter = Math.max(1, Math.ceil(2 - secondsSinceLast));
+      const err = createServiceError(
+        429,
+        `Please wait ${retryAfter}s before submitting again.`,
+      );
+      err.retryAfter = retryAfter;
+      throw err;
+    }
+  }
+
+  // B. Quota: maximum 5 submissions per 60-second window
+  if (recentSubmissions.length >= 5) {
+    const oldestInWindow =
+      recentSubmissions[recentSubmissions.length - 1].createdAt;
+    const retryAfter = Math.max(
+      1,
+      Math.ceil((oldestInWindow.getTime() + 60000 - Date.now()) / 1000),
+    );
+    const err = createServiceError(
+      429,
+      "Submission rate limit exceeded. Please wait a minute.",
+    );
+    err.retryAfter = retryAfter;
+    throw err;
+  }
+
+  // 6. Determine the total number of test cases.
+  const totalTestCount = Array.isArray(problem.testCases)
+    ? problem.testCases.length
+    : 0;
+
+  // 7. Persist the submission before any execution is attempted.
+  const submission = await prisma.submission.create({
+    data: {
+      userId,
+      problemId: problem.id,
+      language,
+      sourceCode,
+      packageVersion: problem.packageVersion || "1",
+      status: "QUEUED",
+      totalTestCount,
+    },
+    select: {
+      id: true,
+      status: true,
+      createdAt: true,
+    },
+  });
+
+  // 8. Return only the public response fields.
+  return {
+    id: submission.id,
+    status: submission.status,
+  };
+}
+
+export async function getSubmissionById({ userId, submissionId }) {
+  const submission = await prisma.submission.findUnique({
+    where: { id: submissionId },
+    select: {
+      id: true,
+      userId: true,
+      problemId: true,
+      language: true,
+      status: true,
+      verdict: true,
+      passedTestCount: true,
+      totalTestCount: true,
+      runtimeMs: true,
+      memoryKb: true,
+      errorSummary: true,
+      createdAt: true,
+      completedAt: true,
+    },
+  });
+
+  if (!submission) {
+    throw createServiceError(404, "Submission not found");
+  }
+
+  // Ownership check: users may only inspect their own submissions.
+  if (submission.userId !== userId) {
+    throw createServiceError(403, "Access denied to this submission");
+  }
+
+  delete submission.userId;
+  return submission;
+}

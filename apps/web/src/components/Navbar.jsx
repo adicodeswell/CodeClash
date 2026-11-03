@@ -57,7 +57,7 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={logout}
-                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-status-error/10 border border-status-error/25 text-red-400 hover:bg-status-error/20 hover:border-status-error/40 transition cursor-pointer"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg border border-status-error/25 text-red-400 hover:bg-status-error/10 hover:border-status-error/40 transition cursor-pointer"
                 title="Sign out"
               >
                 <LogOut size={14} />
