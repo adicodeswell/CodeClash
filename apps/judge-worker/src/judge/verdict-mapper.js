@@ -1,1 +1,5 @@
-export { normalizeOutput, mapJudge0Result } from "@codeclash/common";
+export {
+  normalizeOutput,
+  mapJudge0Result,
+  extractExecutionMetrics,
+} from "@codeclash/common";

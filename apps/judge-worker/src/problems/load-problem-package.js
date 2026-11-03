@@ -1,3 +1,5 @@
+import { wrapSourceWithTiming } from "@codeclash/common";
+
 /**
  * Loads problem package, validates templates, and composes executable code.
  */
@@ -32,7 +34,8 @@ export async function loadProblemPackage(prisma, submission) {
   }
 
   // Safe string replacement: function replacer prevents '$' sequence issues
-  const executableSource = driver.replace("{{USER_CODE}}", () => submission.sourceCode);
+  const timedCode = wrapSourceWithTiming(submission.sourceCode, submission.language);
+  const executableSource = driver.replace("{{USER_CODE}}", () => timedCode);
 
   const testCases = Array.isArray(problem.testCases)
     ? [...problem.testCases].sort((a, b) => (a.ordinal ?? 0) - (b.ordinal ?? 0))

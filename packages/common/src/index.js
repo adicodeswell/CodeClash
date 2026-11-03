@@ -14,9 +14,11 @@ export {
 export {
   normalizeOutput,
   mapJudge0Result,
+  extractExecutionMetrics,
 } from "./judge/verdict-mapper.js";
 export {
   createJudge0Submission,
   pollJudge0Submission,
   executeJudge0WithWait,
 } from "./judge/judge0.client.js";
+export { wrapSourceWithTiming } from "./judge/timing-wrapper.js";

@@ -1,1 +1,5 @@
-export { createJudge0Submission, pollJudge0Submission } from "@codeclash/common";
+export {
+  createJudge0Submission,
+  pollJudge0Submission,
+  executeJudge0WithWait,
+} from "@codeclash/common";

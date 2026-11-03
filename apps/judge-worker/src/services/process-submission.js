@@ -1,13 +1,10 @@
 import { getJudge0LanguageId } from "../judge/language-map.js";
-import {
-  createJudge0Submission,
-  pollJudge0Submission,
-} from "../judge/judge0.client.js";
+import { executeJudge0WithWait } from "../judge/judge0.client.js";
 import { mapJudge0Result } from "../judge/verdict-mapper.js";
 import { loadProblemPackage } from "../problems/load-problem-package.js";
 
 /**
- * Executes a claimed submission against all test cases sequentially via Judge0.
+ * Executes a claimed submission against all test cases concurrently via Judge0.
  */
 export async function processSubmission(
   submission,
@@ -37,64 +34,61 @@ export async function processSubmission(
     problemPackage;
   const languageId = getJudge0LanguageId(submission.language);
 
-  let maxRuntimeMs = 0;
-  let maxMemoryKb = 0;
-  let passedTestCount = 0;
+  // Execute all test cases concurrently with wait=true (fast single round-trip per case)
+  const caseEvaluations = await Promise.all(
+    testCases.map(async (testCase, i) => {
+      const result = await executeJudge0WithWait({
+        sourceCode: executableSource,
+        languageId,
+        stdin: testCase.input,
+        cpuTimeLimit,
+        memoryLimitKb,
+      });
 
-  for (let i = 0; i < testCases.length; i++) {
-    const testCase = testCases[i];
-
-    // 1. Submit test run to Judge0
-    const token = await createJudge0Submission({
-      sourceCode: executableSource,
-      languageId,
-      stdin: testCase.input,
-      cpuTimeLimit,
-      memoryLimitKb,
-    });
-
-    // 2. Persist the provider token on the submission
-    await prisma.submission.update({
-      where: { id: submission.id },
-      data: {
-        judge0Token: token,
-        currentTestIndex: i,
-      },
-    });
-
-    // 3. Poll for terminal result
-    const result = await pollJudge0Submission(token);
-
-    // 4. Update resource usage
-    maxRuntimeMs = Math.max(
-      maxRuntimeMs,
-      Math.round((result.time || 0) * 1000)
-    );
-    maxMemoryKb = Math.max(maxMemoryKb, result.memory || 0);
-
-    // 5. Evaluate verdict against expected output
-    const { verdict, errorSummary } = mapJudge0Result(
-      result,
-      testCase.expectedOutput
-    );
-
-    if (verdict === "ACCEPTED") {
-      passedTestCount++;
-    } else {
-      // Early exit on first failing test case
-      console.log(
-        `[judge-worker] Submission ${submission.id} failed test ${i + 1}/${testCases.length}: ${verdict}`
+      const { verdict, runtimeMs, errorSummary } = mapJudge0Result(
+        result,
+        testCase.expectedOutput
       );
 
-      return completeJob(prisma, submission.id, {
+      return {
+        index: i,
         verdict,
-        passedTestCount,
-        totalTestCount: testCases.length,
-        runtimeMs: maxRuntimeMs,
-        memoryKb: maxMemoryKb,
         errorSummary,
-      });
+        runtimeMs,
+        memoryKb: result.memory || 0,
+      };
+    })
+  );
+
+  let maxRuntimeMs = 0;
+  let maxMemoryKb = 0;
+  let firstFailingCase = null;
+  let passedTestCount = 0;
+
+  for (const evaluation of caseEvaluations) {
+    maxRuntimeMs = Math.max(maxRuntimeMs, evaluation.runtimeMs);
+    maxMemoryKb = Math.max(maxMemoryKb, evaluation.memoryKb);
+
+    if (evaluation.verdict === "ACCEPTED") {
+      passedTestCount++;
+    } else if (!firstFailingCase) {
+      firstFailingCase = evaluation;
     }
+  }
+
+  if (firstFailingCase) {
+    console.log(
+      `[judge-worker] Submission ${submission.id} failed test ${firstFailingCase.index + 1}/${testCases.length}: ${firstFailingCase.verdict}`
+    );
+
+    return completeJob(prisma, submission.id, {
+      verdict: firstFailingCase.verdict,
+      passedTestCount,
+      totalTestCount: testCases.length,
+      runtimeMs: maxRuntimeMs,
+      memoryKb: maxMemoryKb,
+      errorSummary: firstFailingCase.errorSummary,
+    });
   }
 
   // All test cases passed

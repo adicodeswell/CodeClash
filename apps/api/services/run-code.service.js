@@ -4,6 +4,7 @@ import {
   executeJudge0WithWait,
   mapJudge0Result,
   normalizeOutput,
+  wrapSourceWithTiming,
 } from "@codeclash/common";
 
 function createServiceError(statusCode, message) {
@@ -45,7 +46,8 @@ export async function executeRunCode({ problemSlug, language, sourceCode }) {
   }
 
   // Safe substitution without interpreting special replacement patterns
-  const executableSource = driverTemplate.replace("{{USER_CODE}}", () => sourceCode);
+  const timedSource = wrapSourceWithTiming(sourceCode, language);
+  const executableSource = driverTemplate.replace("{{USER_CODE}}", () => timedSource);
 
   const allTests = Array.isArray(problem.testCases) ? problem.testCases : [];
   const sampleMatches = allTests.filter((tc) => tc.visibility === "SAMPLE");
@@ -82,13 +84,12 @@ export async function executeRunCode({ problemSlug, language, sourceCode }) {
 
     const evaluatedCases = rawResults.map((res, idx) => {
       const tc = sampleCases[idx];
-      const runtimeMs = Math.round((res.time || 0) * 1000);
+      const { verdict, runtimeMs, errorSummary } = mapJudge0Result(res, tc.expectedOutput);
       const memoryKb = res.memory || 0;
 
       maxRuntimeMs = Math.max(maxRuntimeMs, runtimeMs);
       maxMemoryKb = Math.max(maxMemoryKb, memoryKb);
 
-      const { verdict, errorSummary } = mapJudge0Result(res, tc.expectedOutput);
       const passed = verdict === "ACCEPTED";
 
       if (passed) {
