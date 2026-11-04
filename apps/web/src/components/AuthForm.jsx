@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
-import { Mail, Lock, User, ArrowRight, Eye, EyeOff, AlertCircle } from "lucide-react";
+import { Mail, Lock, User, ArrowRight, Eye, EyeOff, AlertCircle, Clock } from "lucide-react";
 
 export function AuthForm({ onSuccess }) {
-  const { login, signup, authError, clearError } = useAuth();
+  const { login, signup, authError, rateLimitSeconds, clearError } = useAuth();
 
   const [mode, setMode] = useState("login"); // "login" | "signup"
   const [formData, setFormData] = useState({
@@ -15,13 +15,36 @@ export function AuthForm({ onSuccess }) {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [localError, setLocalError] = useState("");
+  const [cooldown, setCooldown] = useState(0);
 
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Handle live countdown when rate limited
+  useEffect(() => {
+    if (rateLimitSeconds && rateLimitSeconds > 0) {
+      setCooldown(rateLimitSeconds);
+    }
+  }, [rateLimitSeconds]);
+
+  useEffect(() => {
+    if (cooldown <= 0) return;
+    const interval = setInterval(() => {
+      setCooldown((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [cooldown]);
+
   const handleTabChange = (newMode) => {
     setMode(newMode);
     setLocalError("");
+    setCooldown(0);
     clearError();
   };
 
@@ -35,19 +58,30 @@ export function AuthForm({ onSuccess }) {
     setLocalError("");
     clearError();
 
-    // Client-side quick validation matching Zod schemas
+    if (cooldown > 0) {
+      setLocalError(`Rate limit in effect. Please wait ${cooldown}s.`);
+      return;
+    }
+
+    // Strict client-side validation mirroring server Zod schemas
     if (mode === "signup") {
-      if (!formData.username || formData.username.trim().length < 3) {
+      const trimmedUser = formData.username.trim();
+      if (!trimmedUser || trimmedUser.length < 3) {
         setLocalError("Username must be at least 3 characters");
         return;
       }
-      if (!/^[a-zA-Z0-9_]+$/.test(formData.username.trim())) {
+      if (trimmedUser.length > 30) {
+        setLocalError("Username cannot exceed 30 characters");
+        return;
+      }
+      if (!/^[a-zA-Z0-9_]+$/.test(trimmedUser)) {
         setLocalError("Username can only contain letters, numbers, and underscores");
         return;
       }
     }
 
-    if (!formData.email || !formData.email.includes("@")) {
+    const trimmedEmail = formData.email.trim();
+    if (!trimmedEmail || !trimmedEmail.includes("@")) {
       setLocalError("Please enter a valid email address");
       return;
     }
@@ -60,11 +94,11 @@ export function AuthForm({ onSuccess }) {
     setIsSubmitting(true);
     try {
       if (mode === "login") {
-        await login({ email: formData.email, password: formData.password });
+        await login({ email: trimmedEmail, password: formData.password });
       } else {
         await signup({
           username: formData.username.trim(),
-          email: formData.email.trim(),
+          email: trimmedEmail,
           password: formData.password,
         });
       }
@@ -74,8 +108,11 @@ export function AuthForm({ onSuccess }) {
         const dest = location.state?.from?.pathname || "/problems";
         navigate(dest, { replace: true });
       }
-    } catch {
-      // Auth error is automatically populated in AuthContext
+    } catch (err) {
+      // If error contains retry-after, trigger local cooldown
+      if (err.status === 429 && err.retryAfter) {
+        setCooldown(err.retryAfter);
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -123,12 +160,25 @@ export function AuthForm({ onSuccess }) {
         </p>
       </div>
 
-      {/* Error alert */}
-      {activeError && (
-        <div className="flex items-center gap-2.5 p-3 rounded-xl bg-status-error/10 border border-status-error/25 text-red-300 text-xs sm:text-sm mb-5">
-          <AlertCircle size={18} className="shrink-0 text-status-error" />
-          <span>{activeError}</span>
+      {/* Rate limit cooldown alert */}
+      {cooldown > 0 ? (
+        <div className="flex items-center gap-2.5 p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs sm:text-sm mb-5">
+          <Clock size={18} className="shrink-0 text-amber-400 animate-pulse" />
+          <div className="flex-1">
+            <span className="font-semibold block">Rate limit in effect</span>
+            <span className="text-amber-200/80 text-xs">
+              Please wait <span className="font-mono font-bold text-amber-300">{cooldown}s</span> before retrying.
+            </span>
+          </div>
         </div>
+      ) : (
+        /* Regular error alert */
+        activeError && (
+          <div className="flex items-center gap-2.5 p-3 rounded-xl bg-status-error/10 border border-status-error/25 text-red-300 text-xs sm:text-sm mb-5">
+            <AlertCircle size={18} className="shrink-0 text-status-error" />
+            <span>{activeError}</span>
+          </div>
+        )
       )}
 
       {/* Form */}
@@ -149,6 +199,7 @@ export function AuthForm({ onSuccess }) {
                 onChange={handleChange}
                 autoComplete="username"
                 required
+                maxLength={30}
                 className="w-full py-2.5 pl-10 pr-4 bg-clash-bg/80 border border-clash-border rounded-xl text-clash-text text-sm placeholder:text-clash-subtle focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition"
               />
             </div>
@@ -193,6 +244,8 @@ export function AuthForm({ onSuccess }) {
               onChange={handleChange}
               autoComplete={mode === "login" ? "current-password" : "new-password"}
               required
+              minLength={8}
+              maxLength={128}
               className="w-full py-2.5 pl-10 pr-10 bg-clash-bg/80 border border-clash-border rounded-xl text-clash-text text-sm placeholder:text-clash-subtle focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition"
             />
             <button
@@ -209,10 +262,15 @@ export function AuthForm({ onSuccess }) {
         <button
           type="submit"
           className="w-full mt-2 py-3 px-4 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-brand-primary/25 hover:shadow-brand-primary/40 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed transition cursor-pointer"
-          disabled={isSubmitting}
+          disabled={isSubmitting || cooldown > 0}
         >
           {isSubmitting ? (
             <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+          ) : cooldown > 0 ? (
+            <div className="flex items-center gap-1.5 text-amber-200">
+              <Clock size={16} />
+              <span>Cooldown Active ({cooldown}s)</span>
+            </div>
           ) : (
             <>
               <span>{mode === "login" ? "Sign In to CodeClash" : "Create Account"}</span>

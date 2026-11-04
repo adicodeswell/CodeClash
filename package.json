@@ -5,11 +5,15 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "test": "npm test -w apps/api",
+    "test": "npm run test:all",
+    "test:all": "npm test -w apps/api && npm test -w apps/judge-worker && npm test -w packages/common",
     "test:api": "npm test -w apps/api",
+    "test:worker": "npm test -w apps/judge-worker",
+    "test:common": "npm test -w packages/common",
     "dev:web": "npm run dev -w apps/web",
     "dev:api": "npm run dev -w apps/api",
-    "dev:worker": "npm run dev -w apps/judge-worker"
+    "dev:worker": "npm run dev -w apps/judge-worker",
+    "build:web": "npm run build -w apps/web"
   },
   "repository": {
     "type": "git",

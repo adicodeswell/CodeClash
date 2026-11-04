@@ -18,11 +18,19 @@ export async function request(endpoint, options = {}) {
   const data = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    // If validation issues exist, extract the first human-readable issue
+    let message = data.error || data.message || `Request failed with status ${response.status}`;
     if (data.issues && data.issues.length > 0) {
-      throw new Error(data.issues[0].message || data.error || "Validation error");
+      message = data.issues[0].message || data.error || "Validation error";
     }
-    throw new Error(data.error || data.message || `Request failed with status ${response.status}`);
+
+    const error = new Error(message);
+    error.status = response.status;
+    error.issues = data.issues || [];
+    const retryAfter = response.headers.get("Retry-After") || data.retryAfterSeconds;
+    if (retryAfter) {
+      error.retryAfter = Number(retryAfter);
+    }
+    throw error;
   }
 
   return data;

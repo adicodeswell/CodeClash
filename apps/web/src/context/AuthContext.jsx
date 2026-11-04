@@ -7,6 +7,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [authError, setAuthError] = useState(null);
+  const [rateLimitSeconds, setRateLimitSeconds] = useState(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -33,18 +34,23 @@ export function AuthProvider({ children }) {
 
   const login = async ({ email, password }) => {
     setAuthError(null);
+    setRateLimitSeconds(null);
     try {
       const data = await authAPI.login({ email, password });
       setUser(data.user);
       return data.user;
     } catch (err) {
       setAuthError(err.message);
+      if (err.status === 429 && err.retryAfter) {
+        setRateLimitSeconds(err.retryAfter);
+      }
       throw err;
     }
   };
 
   const signup = async ({ username, email, password }) => {
     setAuthError(null);
+    setRateLimitSeconds(null);
     try {
       await authAPI.signup({ username, email, password });
       const loginData = await authAPI.login({ email, password });
@@ -52,6 +58,9 @@ export function AuthProvider({ children }) {
       return loginData.user;
     } catch (err) {
       setAuthError(err.message);
+      if (err.status === 429 && err.retryAfter) {
+        setRateLimitSeconds(err.retryAfter);
+      }
       throw err;
     }
   };
@@ -64,10 +73,14 @@ export function AuthProvider({ children }) {
     } finally {
       setUser(null);
       setAuthError(null);
+      setRateLimitSeconds(null);
     }
   };
 
-  const clearError = () => setAuthError(null);
+  const clearError = () => {
+    setAuthError(null);
+    setRateLimitSeconds(null);
+  };
 
   return (
     <AuthContext.Provider
@@ -75,6 +88,7 @@ export function AuthProvider({ children }) {
         user,
         loading,
         authError,
+        rateLimitSeconds,
         login,
         signup,
         logout,

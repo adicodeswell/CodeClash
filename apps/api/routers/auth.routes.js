@@ -1,4 +1,3 @@
-
 import { Router } from "express";
 import {
   signup,
@@ -9,12 +8,13 @@ import {
 
 import { requireAuth } from "../middleware/requireAuth.js";
 import { validateBody } from "../middleware/validate.js";
+import { signupLimiter, loginLimiter } from "../middleware/rate-limit.js";
 import { signupSchema, loginSchema } from "@codeclash/common";
 
 const router = Router();
 
-router.post("/signup", validateBody(signupSchema), signup);
-router.post("/login", validateBody(loginSchema), login);
+router.post("/signup", signupLimiter, validateBody(signupSchema), signup);
+router.post("/login", loginLimiter, validateBody(loginSchema), login);
 router.get("/me", requireAuth, me);
 router.post("/logout", logout);
 

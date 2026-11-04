@@ -254,26 +254,98 @@ npm run build -w apps/web
 
 ## Running Tests
 
-CodeClash includes comprehensive automated unit and integration tests using Node.js's native test runner (`node:test`):
+CodeClash includes comprehensive automated unit, integration, and security tests across all workspaces using Node.js's native test runner (`node:test`). The test suite currently comprises **104 passing tests** across 15 suites.
+
+### Quick Test Commands
 
 ```bash
-# Run backend API tests
-npm test -w apps/api
+# Run all test suites across the entire monorepo (API + Worker + Common)
+npm test
+# Or: npm run test:all
 
-# Run judge-worker queue & recovery tests
-npm test -w apps/judge-worker
+# Run backend API tests (88 tests across 9 suites)
+npm run test:api
+# Or: npm test -w apps/api
 
-# Run all test suites
-npm test -w apps/api && npm test -w apps/judge-worker
+# Run judge-worker queue & recovery tests (7 tests)
+npm run test:worker
+# Or: npm test -w apps/judge-worker
+
+# Run shared common package tests (9 tests)
+npm run test:common
+# Or: npm test -w packages/common
+
+# Verify frontend production build
+npm run build:web
+# Or: npm run build -w apps/web
 ```
 
-Test coverage includes:
-- Authentication & RBAC verification
-- Problem catalog querying, pagination, and data sanitation
-- Zero-leak validation (ensuring hidden tests and internal drivers are never exposed)
-- Atomic queue claims and race-condition prevention
-- Worker retry backoff and stale job recovery
-- Parallel sample run-code execution
+---
+
+### Test Suite Directory & Breakdown
+
+| Workspace / File | Test Count | Scope & Coverage |
+| :--- | :---: | :--- |
+| **`apps/api/tests/auth.test.js`** | 18 | Registration validation, strict schema, email normalization, duplicate handling (409), login enumeration prevention (401), session cookies, logout, and IP rate limiting on `/signup` and `/login` (429). |
+| **`apps/api/tests/submissions.history.test.js`** | 10 | Cursor pagination, deterministic tie-breaking for identical timestamps, User A / User B isolation, secret stripping, and cross-user cursor injection prevention (400). |
+| **`apps/api/tests/submissions.detail.test.js`** | 10 | Ownership verification, IDOR defense returning 404 Not Found (enumeration-resistant), exact source code matching, secret stripping, and explicit `ADMIN` role access. |
+| **`apps/api/tests/problems-list.test.js`** | 8 | Catalog querying, keyword search, difficulty filtering, topic filtering, pagination limits, and query parameter validation (400). |
+| **`apps/api/tests/problem-detail.test.js`** | 4 | Published problem detail, regex slug format validation, 404 unknown problem, and 401 unauthenticated access. |
+| **`apps/api/tests/problem-privacy.test.js`** | 3 | Zero-leak validation: verifies `testCases` and `fullDriverTemplate` are never returned in catalog or detail APIs, and error handlers sanitize stack traces. |
+| **`apps/api/tests/submissions.test.js`** | 19 | Submission lifecycle, concurrent queue blocking (429), 2s cooldown (429), synchronous sample runner (`/run`), metrics normalization, and error diagnostics. |
+| **`apps/api/tests/user-progress-api.test.js`** | 5 | User progress endpoint (`GET /api/users/me/progress`), unique solved/attempted counts, difficulty breakdowns, and exclusion of infrastructure `JUDGE_ERROR`. |
+| **`apps/api/tests/progress.test.js`** | 10 | Multi-problem progress matrix (5 problems), catalog solved/attempted badge enrichment, and User A vs. User B progress isolation. |
+| **`apps/judge-worker/tests/queue.test.js`** | 7 | Atomic queue claiming (`FOR UPDATE SKIP LOCKED`), race condition prevention, retry exponential backoff, max-retry terminal `JUDGE_ERROR`, and stale job recovery. |
+| **`packages/common/tests/verdict-mapper.test.js`** | 9 | `__CODECLASH_TIME_MS__` in-process timing extraction & stderr purging, Judge0 status mappings (`ACCEPTED`, `WRONG_ANSWER`, `TLE`, `MLE`, `CE`, `RTE`, `JUDGE_ERROR`). |
+
+---
+
+### Running Individual Test Suites
+
+You can execute targeted test files using Node's native test runner from the root directory:
+
+```bash
+# 1. Authentication & Rate Limiting Tests
+node --test apps/api/tests/auth.test.js
+
+# 2. Submissions History & Cursor Pagination Tests
+node --test apps/api/tests/submissions.history.test.js
+
+# 3. Submissions Detail & IDOR Security Tests
+node --test apps/api/tests/submissions.detail.test.js
+
+# 4. User Progress & Multi-User Isolation Tests
+node --test apps/api/tests/progress.test.js
+node --test apps/api/tests/user-progress-api.test.js
+
+# 5. Problem Catalog & Privacy Tests
+node --test apps/api/tests/problems-list.test.js
+node --test apps/api/tests/problem-detail.test.js
+node --test apps/api/tests/problem-privacy.test.js
+
+# 6. Judge Worker Queue Management Tests
+node --test apps/judge-worker/tests/queue.test.js
+
+# 7. Common Verdict Mapper Tests
+node --test packages/common/tests/verdict-mapper.test.js
+```
+
+> [!NOTE]
+> The backend test runner uses `--test-concurrency=1` (`node --test --test-concurrency=1 tests/*.test.js`) to prevent race collisions between concurrent test suites operating against shared per-user submission rate limits and cooldown timers.
+
+---
+
+### Offline Problem Bank Validation
+
+Before importing problems into PostgreSQL, validate their structure, markdown files, and test case pairings:
+
+```bash
+# Validate all problems in problem-bank/
+npm --prefix problem-bank run validate
+
+# Validate a specific problem package (e.g., two-sum)
+npm --prefix problem-bank run validate -- two-sum
+```
 
 ---
 
