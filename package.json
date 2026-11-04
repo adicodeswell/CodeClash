@@ -13,7 +13,13 @@
     "dev:web": "npm run dev -w apps/web",
     "dev:api": "npm run dev -w apps/api",
     "dev:worker": "npm run dev -w apps/judge-worker",
-    "build:web": "npm run build -w apps/web"
+    "build:web": "npm run build -w apps/web",
+    "problems:generate": "npm --prefix problem-bank run generate --",
+    "problems:validate": "npm --prefix problem-bank run validate --",
+    "problems:import": "npm --prefix problem-bank run import --",
+    "problems:test:generate": "npm --prefix problem-bank run test:generate --",
+    "problems:test:verify": "npm --prefix problem-bank run test:verify --",
+    "problems:test:summary": "npm --prefix problem-bank run test:summary --"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-02T16:36:03.351Z",
+  "generatedAt": "2026-11-04T14:40:38.134Z",
   "problems": [
     {
       "slug": "longest-consecutive-sequence",
@@ -10,8 +10,8 @@
         "Hash Table"
       ],
       "packageVersion": "1",
-      "contentHash": "1df7a09aa6d7e99bf28fcd5fa551a2019581761d1881193c051e6f3f4a47438f",
-      "testCaseCount": 12
+      "contentHash": "45150918dcffadf05318c573fbae303d76eb2fd4efd0bbeb58f752871dd41414",
+      "testCaseCount": 80
     },
     {
       "slug": "majority-element",
@@ -22,8 +22,8 @@
         "Hash Table"
       ],
       "packageVersion": "1",
-      "contentHash": "ec55ed365c08418fdb4f83a0c6cc766b43d52324503388025275dcd1abc02a95",
-      "testCaseCount": 12
+      "contentHash": "aa1d46f6cad2cb596f19771419190f83cfb70e1def722b75e54339eccfed1336",
+      "testCaseCount": 80
     },
     {
       "slug": "single-number",
@@ -34,8 +34,8 @@
         "Hash Table"
       ],
       "packageVersion": "1",
-      "contentHash": "f5827216f09f76c21df6c3935b75ab26a08acf8ef0af4b3b435d0c3bb602d08b",
-      "testCaseCount": 12
+      "contentHash": "cefbbf9a38c52e8a88c0268b17670acfab73eb729ff7328df1314f2a73128f8e",
+      "testCaseCount": 80
     },
     {
       "slug": "subarray-sum-equals-k",
@@ -46,8 +46,8 @@
         "Hash Table"
       ],
       "packageVersion": "1",
-      "contentHash": "8a4d87c621b1dd689b17534a029738661084691787219936f46f790fdb106da0",
-      "testCaseCount": 12
+      "contentHash": "bdf5d052823141e81f0a3bc6f7d4a0c4b3d00e2590307c4cbc3d24b8cd9d9186",
+      "testCaseCount": 80
     },
     {
       "slug": "two-sum",
@@ -58,8 +58,8 @@
         "Hash Table"
       ],
       "packageVersion": "1",
-      "contentHash": "d686f8e0ea96eb74d1f38a406b099ce0618d4cb9c0e6dbb0e7f53745b92a16d9",
-      "testCaseCount": 7
+      "contentHash": "b24b40ac47d2652a03bf7e5c6216562cc315dba959e2fbad19b44d0615139deb",
+      "testCaseCount": 80
     }
   ]
 }

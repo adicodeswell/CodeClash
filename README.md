@@ -18,17 +18,16 @@ CodeClash is a high-performance online judge and competitive programming platfor
    - [Submit Code Workflow (Asynchronous State Machine)](#submit-code-workflow-asynchronous-state-machine)
    - [High-Resolution In-Process Timing](#high-resolution-in-process-timing)
    - [Security & Sandboxing](#security--sandboxing)
-9. [Adding a Problem to CodeClash](#adding-a-problem-to-codeclash)
-   - [1. Create Problem Directory](#1-create-the-problem-directory)
-   - [2. Write Problem Statement](#2-write-the-problem-statement)
-   - [3. Define Problem Structure](#3-define-the-problem-structure)
-   - [4. Add Test Cases](#4-add-test-cases)
-   - [5. Generate Boilerplate Templates](#5-generate-boilerplate-templates)
-   - [6. Validate the Problem Package](#6-validate-the-problem-package)
-   - [7. Import into PostgreSQL](#7-import-the-problem-into-postgresql)
-   - [8. Import Manifest](#8-understand-the-import-manifest)
-   - [9. Checklist](#9-checklist-before-opening-a-pull-request)
-   - [10. Complete Workflow Summary](#10-complete-workflow)
+9. [Comprehensive Problem Setting Guide](#comprehensive-problem-setting-guide)
+   - [Overview & Philosophy](#overview--philosophy)
+   - [Problem Package Architecture](#problem-package-architecture)
+   - [Step 1: Create Problem Directory & Slug](#step-1-create-problem-directory--slug)
+   - [Step 2: Write Problem Statement (Problem.md)](#step-2-write-problem-statement-problemmd)
+   - [Step 3: Define Problem Signature (Structure.md)](#step-3-define-problem-signature-structuremd)
+   - [Step 4: Author Reference & Baseline Solutions](#step-4-author-reference--baseline-solutions)
+   - [Step 5: Author the 6-Tier Test Suite Generator](#step-5-author-the-6-tier-test-suite-generator)
+   - [Step 6: CLI Tooling & Execution Pipeline](#step-6-cli-tooling--execution-pipeline)
+   - [Step 7: Pre-Flight Checklist & Quality Standards](#step-7-pre-flight-checklist--quality-standards)
 
 ---
 
@@ -275,6 +274,15 @@ npm run test:worker
 npm run test:common
 # Or: npm test -w packages/common
 
+# Problem Bank: Generate 80+ categorized tests (basic, edge, boundary, random, stress, adversarial)
+npm run problems:test:generate -- [problem-slug]
+
+# Problem Bank: Cross-verify reference solution vs brute-force baseline across tests & fuzzing
+npm run problems:test:verify -- [problem-slug]
+
+# Problem Bank: Audit test suite distribution, array sizes, values, and visibility
+npm run problems:test:summary -- [problem-slug]
+
 # Verify frontend production build
 npm run build:web
 # Or: npm run build -w apps/web
@@ -481,84 +489,161 @@ CodeClash utilizes **in-process function benchmarking** (identical to LeetCode):
 
 ---
 
-## Adding a Problem to CodeClash
+## Comprehensive Problem Setting Guide
 
-This guide explains how to add a new coding problem to the CodeClash problem bank, generate language templates, validate test cases, and import the problem into PostgreSQL.
+This guide provides an end-to-end reference for problem authors, contributors, and maintainers to set, test, and import new competitive programming problems into the CodeClash problem bank.
 
-Follow the steps in order to ensure that every problem is correctly structured and ready for the judging system.
+---
 
-### 1. Create the Problem Directory
+### Overview & Philosophy
 
-Create a folder inside `problem-bank/problems/`. Use a unique, lowercase, kebab-case slug as the folder name.
+Problem authoring in CodeClash separates two distinct responsibilities:
+1. **Problem Specification**: Defining the problem description, mathematical constraints, and function signature.
+2. **Test Suite Engineering**: Designing edge cases, boundary conditions, stress tests, and adversarial inputs to guarantee strong, un-cheatable problem packages.
 
-Example: `two-sum`
+Instead of manually crafting hundreds of raw `.txt` input/output files by hand, CodeClash provides a **semi-automated problem authoring pipeline**:
+- You write the problem description (`Problem.md`) and signature (`Structure.md`).
+- You provide an optimized reference solution (`reference/solution.js`) and a simple brute-force baseline (`reference/baseline-solution.js`).
+- You write a 6-tier test generator (`generators/test-cases.js`) that defines what cases need to be tested.
+- Automated CLI tools generate boilerplates across 4 programming languages, compile and format test cases into `.txt` files, cross-verify the solution against the baseline, audit test distributions, and import everything into PostgreSQL.
+
+> **Why are offline reference solutions written in JavaScript?**
+> The test generator is a local Node.js developer tool. Running the reference solution in-process executes 80+ test cases in **< 100ms** with zero extra compiler dependencies. If written in Java, Node.js would have to spawn child JVM processes (`java Solution`) for every single test case, taking 15–25 seconds of process startup overhead and requiring a local Java JDK. Because the generator outputs standard, language-agnostic `.txt` files, the authoring language is completely decoupled from the judge sandbox (which fully compiles and executes user code in Java, C++, Python, and JavaScript).
+
+---
+
+### Problem Package Architecture
+
+Every problem in `problem-bank/problems/<slug>/` adheres to the following directory structure:
 
 ```text
-problem-bank/
-└── problems/
-    └── two-sum/
-        ├── Problem.md
-        ├── Structure.md
-        ├── boilerplate/           # Generated function templates
-        ├── boilerplate-full/      # Generated executable templates
-        └── tests/
-            ├── inputs/
-            │   ├── 0.txt
-            │   ├── 1.txt
-            │   └── 2.txt
-            └── outputs/
-                ├── 0.txt
-                ├── 1.txt
-                └── 2.txt
+problem-bank/problems/<slug>/
+├── Problem.md                  # Problem statement, examples, and constraints
+├── Structure.md                # Metadata, function signature, and input/output types
+├── reference/
+│   ├── solution.js             # Optimal reference solution (e.g. O(N) hash map)
+│   └── baseline-solution.js    # Simple brute-force baseline with validity assertions
+├── generators/
+│   └── test-cases.js           # 6-tier test case generator (~80 categorized cases)
+├── boilerplate/                # Generated user starter templates (C++, Java, Python, JS)
+├── boilerplate-full/           # Generated complete execution drivers with {{USER_CODE}}
+└── tests/
+    ├── inputs/                 # Generated input text files (0.txt ... 79.txt)
+    └── outputs/                # Generated expected output text files (0.txt ... 79.txt)
 ```
 
-**Important:** The `boilerplate/` and `boilerplate-full/` directories are generated by the generation script. Create the problem statement, structure definition, and test cases first.
+```mermaid
+flowchart TD
+    subgraph Author_Inputs ["Author Inputs"]
+        MD["Problem.md (Statement & Examples)"]
+        Spec["Structure.md (Signature & Types)"]
+        Sol["reference/solution.js (Optimal Solution)"]
+        Base["reference/baseline-solution.js (Brute-Force Baseline)"]
+        Gen["generators/test-cases.js (6-Tier Test Definitions)"]
+    end
 
-### 2. Write the Problem Statement
+    subgraph Build_Pipeline ["Automated Problem Tooling"]
+        TestRunner["generate-tests.js"]
+        Verifier["verify-reference.js"]
+        Summary["test-summary.js"]
+        Boilerplate["generate-boilerplate.js"]
+        Validator["validate-problem.js"]
+    end
 
-Create `Problem.md` inside the problem directory.
+    subgraph Generated_Artifacts ["Generated Artifacts"]
+        Tests["tests/inputs/*.txt & tests/outputs/*.txt"]
+        Templates["boilerplate/ & boilerplate-full/"]
+    end
 
-Include the following sections where applicable:
-- Problem description
-- Input or function requirements
-- Examples with inputs and outputs
-- Constraints
-- Any important clarifications
+    subgraph Database_Layer ["Storage"]
+        Importer["import-problems.js"]
+        Postgres[("PostgreSQL Database")]
+        Manifest["import-manifest.json"]
+    end
 
-Example:
+    Gen --> TestRunner
+    Sol --> TestRunner
+    Spec --> TestRunner
+    TestRunner --> Tests
+
+    Sol --> Verifier
+    Base --> Verifier
+    Tests --> Verifier
+
+    Spec --> Boilerplate
+    Boilerplate --> Templates
+
+    Tests --> Validator
+    Templates --> Validator
+    Spec --> Validator
+
+    Validator --> Importer
+    Tests --> Importer
+    Templates --> Importer
+    Importer --> Postgres
+    Importer --> Manifest
+```
+
+---
+
+### Step 1: Create Problem Directory & Slug
+
+Create a new directory inside `problem-bank/problems/`. The directory name must be a unique, lowercase, kebab-case identifier (e.g., `longest-consecutive-sequence`, `two-sum`, `subarray-sum-equals-k`).
+
+```bash
+mkdir -p problem-bank/problems/my-new-problem/{reference,generators}
+```
+
+---
+
+### Step 2: Write Problem Statement (`Problem.md`)
+
+Create `Problem.md` inside your problem directory. Follow this standard template:
 
 ```markdown
-# Two Sum
+# Problem Title
 
-Given an array of integers `nums` and an integer `target`,
-return the indices of the two numbers whose sum equals `target`.
+## Problem Description
 
-You may assume that each input has exactly one solution,
-and you may not use the same element twice.
+Detailed explanation of the problem requirements, expected behavior, and algorithmic constraints.
 
-Return the answer in any order.
+## Examples
 
-## Example 1
+### Example 1
 
-Input: nums = [2,7,11,15], target = 9
+**Input:** `nums = [2,7,11,15], target = 9`
+**Output:** `[0,1]`
+**Explanation:** `nums[0] + nums[1] = 2 + 7 = 9`, so the answer is `[0,1]`.
 
-Output: [0,1]
+### Example 2
 
-Explanation: nums[0] + nums[1] = 9.
+**Input:** `nums = [3,2,4], target = 6`
+**Output:** `[1,2]`
 
 ## Constraints
 
-- 2 <= nums.length <= 10^4
-- -10^9 <= nums[i] <= 10^9
-- -10^9 <= target <= 10^9
+- `2 <= nums.length <= 10^4`
+- `-10^9 <= nums[i] <= 10^9`
+- `-10^9 <= target <= 10^9`
 - Exactly one valid answer exists.
+
+## Follow-up
+
+Can you solve it in O(n) time and O(n) space?
 ```
 
-### 3. Define the Problem Structure
+> [!IMPORTANT]
+> **The Public vs. Hidden Example Rule:**
+> When problems are imported into PostgreSQL, `import-problems.js` counts the number of `### Example` headings in `Problem.md` (e.g. 2 examples).
+> - Test cases matching those example indices (`0.txt` and `1.txt`) are automatically flagged as **`visibility: SAMPLE`** (publicly viewable in the frontend testcase runner).
+> - All subsequent test cases (`2.txt` through `79.txt`) are flagged as **`visibility: HIDDEN`** (evaluated secretly during official code submissions).
+> Always ensure your generator preserves the exact canonical examples from `Problem.md` as test cases `0.txt`, `1.txt`, etc.
 
-Create `Structure.md`. This file defines the problem metadata, function signature information, and input/output types used by the template generator and importer.
+---
 
-Example:
+### Step 3: Define Problem Signature (`Structure.md`)
+
+Create `Structure.md`. This file acts as the single source of truth for generating language boilerplates, full execution drivers, input parsers, and database import metadata.
 
 ```text
 Problem Name: "Two Sum"
@@ -574,127 +659,170 @@ Output Structure:
 Output Field: list<int> result
 ```
 
-#### Supported Metadata
-- **Problem Name:** Human-readable problem title.
-- **Difficulty:** `EASY`, `MEDIUM`, or `HARD`.
-- **Topics:** Comma-separated topic names.
-- **Function Name:** Name of the function the participant must implement.
-- **Input Field:** Type and name of each input (e.g., `int`, `string`, `list<int>`, `list<string>`).
-- **Output Field:** Type and name of the expected output.
+#### Supported Metadata Fields
+| Field | Description | Allowed Values |
+| :--- | :--- | :--- |
+| `Problem Name:` | Human-readable problem title | Enclosed in quotes (e.g., `"Two Sum"`) |
+| `Difficulty:` | Problem difficulty tier | `EASY`, `MEDIUM`, or `HARD` |
+| `Topics:` | Comma-separated category tags | e.g., `Array, Hash Table, Dynamic Programming` |
+| `Function Name:` | Identifier for user solution method | Valid camelCase identifier (e.g., `twoSum`) |
+| `Input Field:` | Input parameter declaration | `<type> <name>` (e.g., `list<int> nums`) |
+| `Output Field:` | Return type declaration | `<type> <name>` (e.g., `list<int> result`) |
 
-### 4. Add Test Cases
+#### Supported Types & Syntax
+| Abstract Type | C++ | Java | Python | JavaScript | Text File Wire Format |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `int` | `int` | `int` | `int` | `number` | Single integer on its own line: `42` |
+| `long` | `long long` | `long` | `int` | `number` | Single integer on its own line: `1000000000` |
+| `double` | `double` | `double` | `float` | `number` | Floating point number: `3.1415` |
+| `bool` | `bool` | `boolean` | `bool` | `boolean` | `1` for true, `0` for false |
+| `String` | `string` | `String` | `str` | `string` | String token on its own line |
+| `list<int>` | `vector<int>` | `int[]` | `list[int]` | `number[]` | Line 1: length $N$, Line 2: space-separated elements |
 
-Create test inputs and expected outputs in separate directories:
-- Input files: `tests/inputs/`
-- Expected output files: `tests/outputs/`
+---
 
-Each input file must have a corresponding output file with the same numerical filename:
+### Step 4: Author Reference & Baseline Solutions
 
-```text
-tests/
-├── inputs/
-│   ├── 0.txt
-│   ├── 1.txt
-│   └── 2.txt
-└── outputs/
-    ├── 0.txt
-    ├── 1.txt
-    └── 2.txt
+Create two solutions under `problem-bank/problems/<slug>/reference/`:
+
+#### 1. Optimal Solution (`reference/solution.js`)
+This is the production-grade algorithm that achieves the intended optimal time and space complexity:
+
+```javascript
+// problem-bank/problems/<slug>/reference/solution.js
+export function solve(nums, target) {
+  const map = new Map();
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i];
+    if (map.has(complement)) {
+      return [map.get(complement), i];
+    }
+    map.set(nums[i], i);
+  }
+  return [];
+}
 ```
 
-#### Input Format
-Test inputs use whitespace-separated values, **not JSON**.
+#### 2. Baseline Solution (`reference/baseline-solution.js`)
+This is an alternative, brute-force, or straightforward implementation used to cross-verify the optimal solution. Include strict assertions to verify problem constraints (e.g., confirming that exactly one answer exists):
 
-For a `list<int>`, write the number of elements first, followed by the elements. Then provide the remaining input fields in the order defined in `Structure.md`.
-
-Example `tests/inputs/0.txt`:
-```text
-4
-2 7 11 15
-9
+```javascript
+// problem-bank/problems/<slug>/reference/baseline-solution.js
+export function solve(nums, target) {
+  const matches = [];
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[i] + nums[j] === target) {
+        matches.push([i, j]);
+      }
+    }
+  }
+  if (matches.length === 0) {
+    throw new Error(`Invalid test case: no solution found for target ${target}`);
+  }
+  if (matches.length > 1) {
+    throw new Error(`Invalid test case: expected exactly 1 pair, found ${matches.length}`);
+  }
+  return matches[0];
+}
 ```
 
-Example `tests/outputs/0.txt`:
-```text
-0 1
+---
+
+### Step 5: Author the 6-Tier Test Suite Generator
+
+Create `problem-bank/problems/<slug>/generators/test-cases.js`. Every CodeClash problem requires ~80 test cases structured across **6 essential categories**:
+
+```javascript
+// problem-bank/problems/<slug>/generators/test-cases.js
+import { randomInt, shuffle } from "../../../scripts/utils/prng.js";
+
+export function generateCases({ rng } = {}) {
+  const cases = [];
+
+  // Tier 1: Basic (0 - 9)
+  // Preserve canonical examples from Problem.md (0.txt, 1.txt, ...) plus small sanity checks
+
+  // Tier 2: Edge (10 - 24)
+  // Minimal input sizes (N=0, 1, 2), zeros, negative numbers, extreme constraint limits (+/- 10^9),
+  // solutions placed at boundary indices [0, 1] or [N-2, N-1], single-element traps.
+
+  // Tier 3: Boundary (25 - 39)
+  // Array sizes scaling up (N=3, 5, 10, 25, 50, 100, 200), powers of 2, large gaps.
+
+  // Tier 4: Randomized (40 - 59)
+  // 20 diverse, randomized test cases generated with seeded PRNG (rng) for strict reproducibility.
+
+  // Tier 5: Stress / Scale (60 - 69)
+  // Maximum constraints (up to N=10,000) specifically constructed to defeat naive O(N^2) brute force.
+  // Example: placing the solution pair at [9998, 9999] forces quadratic loops to take 50,000,000 iterations.
+
+  // Tier 6: Adversarial / Trap (70 - 79)
+  // Hash collision traps (congruences modulo 2^16), clustering near target / 2, near-miss false sums (target +/- 1),
+  // duplicate non-pair elements, and deceptive alternating patterns.
+
+  return cases;
+}
 ```
 
-### 5. Generate Boilerplate Templates
+---
 
-Run the generator from the repository root:
+### Step 6: CLI Tooling & Execution Pipeline
 
+All operations can be executed from the repository root using NPM workspace scripts:
+
+#### 1. Generate Test Cases
+Reads `generators/test-cases.js`, runs `reference/solution.js`, and writes formatted `tests/inputs/*.txt` and `tests/outputs/*.txt`:
 ```bash
-npm --prefix problem-bank run generate -- two-sum
+npm run problems:test:generate -- [problem-slug]
 ```
 
-*(Omit the slug to process all problems in the problem bank: `npm --prefix problem-bank run generate`)*
-
-The generator creates:
-- `boilerplate/`: Starter templates shown to users in the editor.
-- `boilerplate-full/`: Complete driver harnesses used for execution.
-
-### 6. Validate the Problem Package
-
-Run the validator:
-
+#### 2. Cross-Verify Solutions
+Runs both `reference/solution.js` and `reference/baseline-solution.js` against generated test cases and asserts 100% agreement:
 ```bash
-npm --prefix problem-bank run validate -- two-sum
+npm run problems:test:verify -- [problem-slug]
 ```
 
-The validator verifies:
-- Problem metadata format and required fields.
-- Existence and matching counts of inputs and outputs.
-- Starter template syntax and `{{USER_CODE}}` placeholder placement.
-
-### 7. Import the Problem into PostgreSQL
-
-Import the problem package into the database:
-
+#### 3. Audit Test Distribution & Sizes
+Prints a summary table showing total tests, public sample count, hidden count, array size range $[N_{min}, N_{max}]$, value range, and disk storage:
 ```bash
-npm --prefix problem-bank run import -- two-sum
+npm run problems:test:summary -- [problem-slug]
 ```
 
-The importer upserts the record into the `problems` table, generating:
-- Content hash for version tracking.
-- Test case records with proper visibility flags (first 3 are `SAMPLE`, remainder are `HIDDEN`).
-- Language configuration and driver templates.
-
-### 8. Understand the Import Manifest
-
-The importer maintains:
-```text
-problem-bank/import-manifest.json
-```
-This file tracks problem slugs, content hashes, package versions, test counts, and import timestamps for auditing.
-
-### 9. Checklist Before Opening a Pull Request
-
-- [ ] The problem folder uses a unique, lowercase, kebab-case slug.
-- [ ] `Problem.md` contains a clear statement, examples, and constraints.
-- [ ] `Structure.md` follows the required format.
-- [ ] Difficulty and topics are defined correctly.
-- [ ] Function name and input/output fields match the problem statement.
-- [ ] Every test input has a matching expected output file.
-- [ ] Normal, boundary, and edge cases are covered.
-- [ ] Boilerplate generation succeeds without errors.
-- [ ] Package validation passes.
-- [ ] Database import succeeds and is verified in Prisma Studio.
-- [ ] Hidden tests remain private.
-
-### 10. Complete Workflow Summary
-
-For a problem named `two-sum`:
-
+#### 4. Generate Multi-Language Boilerplates
+Builds the starter templates (`boilerplate/`) and execution drivers (`boilerplate-full/`) for C++, Java, Python, and JavaScript:
 ```bash
-# 1. Generate language templates
-npm --prefix problem-bank run generate -- two-sum
-
-# 2. Validate the package
-npm --prefix problem-bank run validate -- two-sum
-
-# 3. Import into PostgreSQL
-npm --prefix problem-bank run import -- two-sum
-
-# 4. Open Prisma Studio to verify
-npx prisma studio
+npm run problems:generate -- [problem-slug]
 ```
+
+#### 5. Validate Package Integrity
+Verifies metadata syntax, placeholder placement (`{{USER_CODE}}`), token formatting, and matching input/output counts:
+```bash
+npm run problems:validate -- [problem-slug]
+```
+
+#### 6. Import Problem into PostgreSQL
+Calculates package SHA-256 content hashes, updates `import-manifest.json`, and upserts problems and test cases into PostgreSQL:
+```bash
+npm run problems:import -- [problem-slug]
+```
+
+*(Note: Omitting the `[problem-slug]` argument runs the command across **all** problems in the problem bank).*
+
+---
+
+### Step 7: Pre-Flight Checklist & Quality Standards
+
+Before submitting a new problem or opening a pull request, ensure the following checklist passes:
+
+- [ ] **Slug**: Folder name is unique, lowercase, and kebab-case.
+- [ ] **Problem.md**: Contains description, formatted examples, constraints, and follow-up.
+- [ ] **Structure.md**: Specifies valid problem title, difficulty (`EASY`/`MEDIUM`/`HARD`), topics, function name, and supported input/output types.
+- [ ] **Sample Matching**: First $K$ test cases (`0.txt` to `(K-1).txt`) strictly match the $K$ examples in `Problem.md`.
+- [ ] **Reference Solutions**: Both `reference/solution.js` and `reference/baseline-solution.js` exist and are tested.
+- [ ] **6-Tier Coverage**: Test generator produces ~80 tests covering basic, edge, boundary, random, stress ($N=10,000$), and adversarial traps.
+- [ ] **Verification**: `npm run problems:test:verify` passes with 100% agreement and zero constraint violations.
+- [ ] **Validation**: `npm run problems:validate` reports `OK` with zero errors.
+- [ ] **Database Import**: `npm run problems:import` imports successfully and updates `import-manifest.json`.
+- [ ] **Automated Tests**: Root test suite (`npm test`) passes with 100% success rate across all workspaces.
+- [ ] **Live UI Check**: Tested in the web editor (`npm run dev:web`) with both "Run Code" (sample test runner) and "Submit" (full hidden test evaluation).

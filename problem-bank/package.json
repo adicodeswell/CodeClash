@@ -8,6 +8,9 @@
     "problems:import": "node scripts/import-problems.js",
     "generate": "node scripts/generate-boilerplate.js",
     "validate": "node scripts/validate-problem.js",
-    "import": "node scripts/import-problems.js"
+    "import": "node scripts/import-problems.js",
+    "test:generate": "node scripts/generate-tests.js",
+    "test:verify": "node scripts/verify-reference.js",
+    "test:summary": "node scripts/test-summary.js"
   }
 }
