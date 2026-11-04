@@ -62,3 +62,22 @@ export async function getSubmission(req, res, next) {
     return next(err);
   }
 }
+
+export async function getMySubmissions(req, res, next) {
+  try {
+    const userId = req.user.id;
+    const { cursor, limit, problemSlug } = res.locals.validatedQuery ?? req.query;
+
+    const data = await submissionsService.getUserSubmissions({
+      userId,
+      cursor,
+      limit,
+      problemSlug,
+    });
+
+    return res.status(200).json(data);
+  } catch (err) {
+    return next(err);
+  }
+}
+

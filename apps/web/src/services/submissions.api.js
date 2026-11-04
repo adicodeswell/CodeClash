@@ -57,3 +57,12 @@ export async function getSubmissionStatus(submissionId) {
   const response = await submissionsAPI.getStatus(submissionId);
   return response.submission;
 }
+
+/**
+ * Fetch the authenticated user's paginated submission history.
+ */
+export async function fetchMySubmissions({ cursor, limit = 10, problemSlug } = {}) {
+  const response = await submissionsAPI.getMySubmissions({ cursor, limit, problemSlug });
+  return response; // { submissions: [...], nextCursor: ... }
+}
+

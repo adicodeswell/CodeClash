@@ -3,6 +3,7 @@ import {
   getJudge0LanguageId,
   executeJudge0WithWait,
   mapJudge0Result,
+  extractExecutionMetrics,
   normalizeOutput,
   wrapSourceWithTiming,
 } from "@codeclash/common";
@@ -85,6 +86,7 @@ export async function executeRunCode({ problemSlug, language, sourceCode }) {
     const evaluatedCases = rawResults.map((res, idx) => {
       const tc = sampleCases[idx];
       const { verdict, runtimeMs, errorSummary } = mapJudge0Result(res, tc.expectedOutput);
+      const { cleanStderr } = extractExecutionMetrics(res);
       const memoryKb = res.memory || 0;
 
       maxRuntimeMs = Math.max(maxRuntimeMs, runtimeMs);
@@ -114,7 +116,7 @@ export async function executeRunCode({ problemSlug, language, sourceCode }) {
         status: verdict,
         runtimeMs,
         memoryKb,
-        error: res.compileOutput || res.stderr || null,
+        error: res.compileOutput || cleanStderr || null,
       };
     });
 

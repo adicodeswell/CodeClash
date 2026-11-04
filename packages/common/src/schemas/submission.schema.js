@@ -24,3 +24,28 @@ export const createSubmissionSchema = z
 export const submissionIdParamSchema = z.object({
   id: z.string().min(1, "Submission ID is required"),
 });
+
+export const submissionHistoryQuerySchema = z
+  .object({
+    problemSlug: z
+      .string()
+      .trim()
+      .min(1)
+      .max(160)
+      .optional(),
+
+    cursor: z
+      .string()
+      .trim()
+      .min(1, "Cursor cannot be empty")
+      .max(100, "Cursor must not exceed 100 characters")
+      .optional(),
+
+    limit: z.coerce
+      .number()
+      .int("Limit must be an integer")
+      .min(1, "Limit must be at least 1")
+      .max(50, "Limit cannot exceed 50")
+      .default(10),
+  })
+  .strict();

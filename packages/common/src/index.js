@@ -6,6 +6,7 @@ export {
 export {
   createSubmissionSchema,
   submissionIdParamSchema,
+  submissionHistoryQuerySchema,
 } from "./schemas/submission.schema.js";
 export {
   LANGUAGE_MAP,

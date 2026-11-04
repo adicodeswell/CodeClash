@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import { fetchProblemBySlug } from "../services/problems.api.js";
-import { runCode, submitCode } from "../services/submissions.api.js";
+import { runCode, submitCode, fetchMySubmissions } from "../services/submissions.api.js";
 import { ArenaHeader } from "../components/arena/ArenaHeader.jsx";
 import { ProblemMetadata } from "../components/problems/ProblemMetadata.jsx";
 import { ProblemStatement } from "../components/problems/ProblemStatement.jsx";
-import { ProblemExamples } from "../components/problems/ProblemExamples.jsx";
-import { ProblemConstraints } from "../components/problems/ProblemConstraints.jsx";
+import { SubmissionStatusBadge } from "../components/submissions/SubmissionStatus.jsx";
+import { SubmissionMetrics } from "../components/submissions/SubmissionMetrics.jsx";
 import { EditorToolbar } from "../components/editor/EditorToolbar.jsx";
 import { CodeEditor } from "../components/editor/CodeEditor.jsx";
 import { ExecutionResult } from "../components/editor/ExecutionResult.jsx";
@@ -21,6 +21,7 @@ import {
   Clock,
   Cpu,
   Zap,
+  RefreshCw,
 } from "lucide-react";
 
 export function ProblemDetailPage() {
@@ -48,6 +49,23 @@ export function ProblemDetailPage() {
   const [submissionError, setSubmissionError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Problem submission history
+  const [problemSubmissions, setProblemSubmissions] = useState([]);
+  const [loadingHistory, setLoadingHistory] = useState(false);
+
+  const loadProblemSubmissions = useCallback(async () => {
+    if (!slug) return;
+    setLoadingHistory(true);
+    try {
+      const data = await fetchMySubmissions({ problemSlug: slug, limit: 30 });
+      setProblemSubmissions(data.submissions || []);
+    } catch (err) {
+      console.error("Failed to load problem submissions:", err);
+    } finally {
+      setLoadingHistory(false);
+    }
+  }, [slug]);
+
   // Real-time polling hook
   const {
     submission: polledSubmission,
@@ -58,10 +76,18 @@ export function ProblemDetailPage() {
     onComplete: (completed) => {
       setSubmissionResult(completed);
       sessionStorage.removeItem(`codeclash_submission_${slug}`);
+      loadProblemSubmissions();
     },
   });
 
   const activeSubmission = polledSubmission || submissionResult;
+
+  // Load submissions whenever switching to submissions tab
+  useEffect(() => {
+    if (leftTab === "submissions") {
+      loadProblemSubmissions();
+    }
+  }, [leftTab, loadProblemSubmissions]);
 
   // Fetch problem details by slug
   useEffect(() => {
@@ -290,87 +316,89 @@ export function ProblemDetailPage() {
               <>
                 <ProblemMetadata problem={problem} />
                 <ProblemStatement statement={problem.statement} />
-                <ProblemExamples rawMarkdown={problem.statement} />
-                <ProblemConstraints rawMarkdown={problem.statement} />
               </>
             ) : (
               <div className="space-y-4">
-                {activeSubmission ? (
-                  <div className="rounded-xl border border-clash-border bg-clash-surface/60 p-5 space-y-4">
-                    <div className="flex items-center justify-between border-b border-clash-border pb-3">
-                      <div className="flex items-center gap-2">
-                        {activeSubmission.verdict === "ACCEPTED" ? (
-                          <CheckCircle2 size={18} className="text-emerald-400" />
-                        ) : activeSubmission.status === "COMPLETED" ? (
-                          <AlertCircle size={18} className="text-red-400" />
-                        ) : (
-                          <Clock size={18} className="text-brand-primary animate-pulse" />
-                        )}
-                        <span
-                          className={`font-bold text-sm ${
-                            activeSubmission.verdict === "ACCEPTED"
-                              ? "text-emerald-400"
-                              : activeSubmission.status === "COMPLETED"
-                              ? "text-red-400"
-                              : "text-brand-primary"
-                          }`}
-                        >
-                          {activeSubmission.verdict || activeSubmission.status}
-                        </span>
-                      </div>
+                {/* Active in-flight submission banner */}
+                {activeSubmission && (activeSubmission.status === "QUEUED" || activeSubmission.status === "RUNNING") && (
+                  <div className="rounded-xl border border-brand-primary/30 bg-brand-primary/10 p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <SubmissionStatusBadge status={activeSubmission.status} />
                       <span className="text-[11px] font-mono text-clash-muted">
-                        {activeSubmission.id}
+                        ID: {activeSubmission.id}
                       </span>
                     </div>
-
-                    <div className="grid grid-cols-2 gap-3 text-xs">
-                      <div className="rounded-lg bg-black/20 p-2.5 border border-white/5">
-                        <div className="text-clash-muted text-[11px]">Language</div>
-                        <div className="font-semibold text-clash-text uppercase mt-0.5">
-                          {activeSubmission.language || selectedLanguage}
-                        </div>
-                      </div>
-                      <div className="rounded-lg bg-black/20 p-2.5 border border-white/5">
-                        <div className="text-clash-muted text-[11px]">Test Cases</div>
-                        <div className="font-semibold text-clash-text mt-0.5">
-                          {activeSubmission.passedTestCount != null
-                            ? `${activeSubmission.passedTestCount} / ${activeSubmission.totalTestCount}`
-                            : "Evaluating..."}
-                        </div>
-                      </div>
-                      {activeSubmission.runtimeMs != null && (
-                        <div className="rounded-lg bg-black/20 p-2.5 border border-white/5 flex items-center gap-2">
-                          <Zap size={14} className="text-amber-400" />
-                          <div>
-                            <div className="text-clash-muted text-[10px]">Runtime</div>
-                            <div className="font-bold text-clash-text font-mono text-xs">
-                              {activeSubmission.runtimeMs} ms
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                      {activeSubmission.memoryKb != null && (
-                        <div className="rounded-lg bg-black/20 p-2.5 border border-white/5 flex items-center gap-2">
-                          <Cpu size={14} className="text-blue-400" />
-                          <div>
-                            <div className="text-clash-muted text-[10px]">Memory</div>
-                            <div className="font-bold text-clash-text font-mono text-xs">
-                              {(activeSubmission.memoryKb / 1024).toFixed(1)} MB
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      Evaluating your solution against all test cases in real-time...
+                    </p>
                   </div>
-                ) : (
-                  <div className="py-12 text-center text-clash-muted">
+                )}
+
+                {/* Submissions Header */}
+                <div className="flex items-center justify-between pt-1">
+                  <span className="text-xs font-bold text-slate-200">
+                    My Submissions ({problemSubmissions.length})
+                  </span>
+                  <button
+                    type="button"
+                    onClick={loadProblemSubmissions}
+                    disabled={loadingHistory}
+                    className="text-[11px] font-semibold text-brand-primary hover:text-brand-primary/80 flex items-center gap-1 cursor-pointer disabled:opacity-50"
+                  >
+                    <RefreshCw size={12} className={loadingHistory ? "animate-spin" : ""} />
+                    <span>Refresh</span>
+                  </button>
+                </div>
+
+                {/* Submissions List / Empty State */}
+                {loadingHistory && problemSubmissions.length === 0 ? (
+                  <div className="py-12 text-center text-xs text-clash-muted flex flex-col items-center gap-2">
+                    <div className="w-6 h-6 border-2 border-brand-primary/30 border-t-brand-primary rounded-full animate-spin"></div>
+                    <span>Loading your submissions...</span>
+                  </div>
+                ) : problemSubmissions.length === 0 ? (
+                  <div className="py-12 text-center text-clash-muted rounded-xl border border-clash-border bg-clash-surface/30 p-6">
                     <Inbox size={28} className="mx-auto mb-2 text-clash-subtle" />
                     <h4 className="text-sm font-bold text-clash-text mb-1">
-                      No Active Submissions
+                      No Submissions Yet
                     </h4>
                     <p className="text-xs max-w-xs mx-auto text-clash-muted">
-                      Submit a solution using the top bar to evaluate it against hidden test cases and view real-time verdicts here.
+                      Click "Submit" in the header to evaluate your solution against test cases.
                     </p>
+                  </div>
+                ) : (
+                  <div className="space-y-2.5">
+                    {problemSubmissions.map((sub) => (
+                      <div
+                        key={sub.id}
+                        className="rounded-xl border border-clash-border bg-clash-surface/60 p-4 space-y-2.5 hover:border-clash-border-light transition"
+                      >
+                        <div className="flex items-center justify-between">
+                          <SubmissionStatusBadge status={sub.status} verdict={sub.verdict} />
+                          <span className="text-[11px] font-mono text-clash-muted">
+                            {new Date(sub.createdAt).toLocaleString(undefined, {
+                              month: "short",
+                              day: "numeric",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
+                          </span>
+                        </div>
+
+                        <div className="flex flex-wrap items-center justify-between gap-2 text-xs pt-1 border-t border-white/5">
+                          <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 uppercase font-mono text-[11px] text-slate-300">
+                            {sub.language}
+                          </span>
+                          <SubmissionMetrics
+                            runtimeMs={sub.runtimeMs}
+                            memoryKb={sub.memoryKb}
+                            passedTestCount={sub.passedTestCount}
+                            totalTestCount={sub.totalTestCount}
+                            compact={true}
+                          />
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>

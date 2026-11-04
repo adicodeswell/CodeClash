@@ -1,4 +1,33 @@
 import { Clock } from "lucide-react";
+import { VerdictBadge } from "./VerdictBadge.jsx";
+
+/**
+ * Compact inline badge rendering normalized pending state or completed verdict:
+ * QUEUED -> "In Queue"
+ * RUNNING -> "Judging"
+ * COMPLETED -> VerdictBadge
+ */
+export function SubmissionStatusBadge({ status, verdict }) {
+  if (status === "QUEUED") {
+    return (
+      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/15 text-amber-400 border border-amber-500/30">
+        <Clock size={12} className="animate-pulse" />
+        <span>In Queue</span>
+      </span>
+    );
+  }
+
+  if (status === "RUNNING") {
+    return (
+      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-primary/15 text-brand-primary border border-brand-primary/30">
+        <span className="w-1.5 h-1.5 rounded-full bg-brand-primary animate-ping"></span>
+        <span>Judging</span>
+      </span>
+    );
+  }
+
+  return <VerdictBadge verdict={verdict} />;
+}
 
 /**
  * Renders the intermediate state of an in-flight submission (QUEUED, RUNNING).
@@ -27,7 +56,7 @@ export function SubmissionStatus({ status, submissionId, totalTestCount }) {
           ) : (
             <span className="w-2.5 h-2.5 rounded-full bg-brand-primary animate-ping"></span>
           )}
-          <span>{isQueued ? "Submission Queued" : "Judging in Progress"}</span>
+          <span>{isQueued ? "In Queue" : "Judging"}</span>
         </div>
         {submissionId && (
           <span className="text-[11px] font-mono text-clash-muted">

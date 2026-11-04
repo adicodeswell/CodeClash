@@ -5,6 +5,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
 import { LandingPage } from "./pages/LandingPage.jsx";
 import { ProblemsPage } from "./pages/ProblemsPage.jsx";
 import { ProblemDetailPage } from "./pages/ProblemDetailPage.jsx";
+import { SubmissionHistoryPage } from "./pages/SubmissionHistoryPage.jsx";
 
 // Catalog & Platform layout (includes Navbar for authenticated browsing)
 function PlatformLayout() {
@@ -56,9 +57,10 @@ function App() {
 
           {/* Protected Routes - User MUST login before accessing */}
           <Route element={<ProtectedRoute />}>
-            {/* Problem Catalog with Platform Navbar */}
+            {/* Problem Catalog & History with Platform Navbar */}
             <Route element={<PlatformLayout />}>
               <Route path="/problems" element={<ProblemsPage />} />
+              <Route path="/submissions" element={<SubmissionHistoryPage />} />
             </Route>
 
             {/* Standalone Problem Workspace Arena (custom ArenaHeader instead of Navbar) */}

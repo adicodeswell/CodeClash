@@ -5,6 +5,7 @@ import {
   Clock,
   Terminal,
   Info,
+  HardDrive,
 } from "lucide-react";
 
 export function getVerdictConfig(verdict) {
@@ -26,6 +27,12 @@ export function getVerdictConfig(verdict) {
         title: "Time Limit Exceeded",
         className: "bg-amber-500/15 border-amber-500/30 text-amber-400",
         icon: createElement(Clock, { size: 16, className: "text-amber-400" }),
+      };
+    case "MEMORY_LIMIT_EXCEEDED":
+      return {
+        title: "Memory Limit Exceeded",
+        className: "bg-amber-500/15 border-amber-500/30 text-amber-400",
+        icon: createElement(HardDrive, { size: 16, className: "text-amber-400" }),
       };
     case "COMPILATION_ERROR":
       return {

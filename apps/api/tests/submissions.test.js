@@ -230,4 +230,126 @@ describe("Submissions API Tests (/api/submissions)", () => {
       assert.equal(tc.passed, true, "all test cases should pass for correct code");
     }
   });
+
+  test("returns 401 when submission history is unauthenticated", async () => {
+    const res = await fetch(`${ctx.baseUrl}/api/submissions/me`);
+    assert.equal(res.status, 401);
+  });
+
+  test("GET /api/submissions/me returns paginated submission history for authenticated user", async () => {
+    const testUser = await prisma.user.findUnique({
+      where: { emailNormalized: "adi.test@example.com" },
+    });
+    // Insert 2 dummy submissions for test user to verify ordering and structure
+    const problem = await prisma.problem.findFirst({ where: { slug: "two-sum" } });
+    const sub1 = await prisma.submission.create({
+      data: {
+        userId: testUser.id,
+        problemId: problem.id,
+        language: "python",
+        sourceCode: "print(1)",
+        packageVersion: "1",
+        status: "COMPLETED",
+        verdict: "ACCEPTED",
+        runtimeMs: 15,
+        memoryKb: 512,
+        createdAt: new Date(Date.now() - 10000),
+      },
+    });
+
+    const sub2 = await prisma.submission.create({
+      data: {
+        userId: testUser.id,
+        problemId: problem.id,
+        language: "javascript",
+        sourceCode: "console.log(2)",
+        packageVersion: "1",
+        status: "COMPLETED",
+        verdict: "WRONG_ANSWER",
+        runtimeMs: 20,
+        memoryKb: 1024,
+        createdAt: new Date(),
+      },
+    });
+
+    const res = await ctx.fetchAuth("/api/submissions/me?limit=10");
+    assert.equal(res.status, 200);
+    const body = await res.json();
+    assert.ok(Array.isArray(body.submissions));
+    assert.ok(body.submissions.length >= 2);
+
+    // Verify ordering: newest (sub2) first
+    const ids = body.submissions.map((s) => s.id);
+    const idx2 = ids.indexOf(sub2.id);
+    const idx1 = ids.indexOf(sub1.id);
+    assert.ok(idx2 !== -1 && idx1 !== -1);
+    assert.ok(idx2 < idx1, "newer submission sub2 must appear before sub1");
+
+    // Verify projection & security: problem metadata present, sourceCode absent
+    const item = body.submissions.find((s) => s.id === sub2.id);
+    assert.ok(item.problem);
+    assert.equal(item.problem.slug, "two-sum");
+    assert.equal(item.problem.title, "Two Sum");
+    assert.equal(item.language, "javascript");
+    assert.equal(item.verdict, "WRONG_ANSWER");
+    assert.equal(item.sourceCode, undefined, "sourceCode must not be leaked in history list");
+
+    // Clean up
+    await prisma.submission.deleteMany({
+      where: { id: { in: [sub1.id, sub2.id] } },
+    });
+  });
+
+  test("GET /api/submissions/me supports cursor pagination", async () => {
+    const testUser = await prisma.user.findUnique({
+      where: { emailNormalized: "adi.test@example.com" },
+    });
+    const problem = await prisma.problem.findFirst({ where: { slug: "two-sum" } });
+    const s1 = await prisma.submission.create({
+      data: {
+        userId: testUser.id,
+        problemId: problem.id,
+        language: "python",
+        sourceCode: "1",
+        packageVersion: "1",
+        status: "COMPLETED",
+        createdAt: new Date(Date.now() - 5000),
+      },
+    });
+    const s2 = await prisma.submission.create({
+      data: {
+        userId: testUser.id,
+        problemId: problem.id,
+        language: "python",
+        sourceCode: "2",
+        packageVersion: "1",
+        status: "COMPLETED",
+        createdAt: new Date(),
+      },
+    });
+
+    // Page 1 with limit=1
+    const p1 = await ctx.fetchAuth("/api/submissions/me?limit=1");
+    assert.equal(p1.status, 200);
+    const b1 = await p1.json();
+    assert.equal(b1.submissions.length, 1);
+    assert.ok(b1.nextCursor != null, "nextCursor must be returned when more items exist");
+
+    // Page 2 using cursor
+    const p2 = await ctx.fetchAuth(`/api/submissions/me?limit=1&cursor=${b1.nextCursor}`);
+    assert.equal(p2.status, 200);
+    const b2 = await p2.json();
+    assert.equal(b2.submissions.length, 1);
+    assert.notEqual(b1.submissions[0].id, b2.submissions[0].id, "cursor page must advance to next record");
+
+    // Clean up
+    await prisma.submission.deleteMany({
+      where: { id: { in: [s1.id, s2.id] } },
+    });
+  });
+
+  test("GET /api/submissions/me rejects invalid cursor with 400", async () => {
+    const res = await ctx.fetchAuth("/api/submissions/me?cursor=nonexistent_invalid_cursor_id");
+    assert.equal(res.status, 400);
+  });
 });

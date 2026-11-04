@@ -91,4 +91,15 @@ export const submissionsAPI = {
       method: "GET",
     });
   },
+
+  async getMySubmissions({ cursor, limit, problemSlug } = {}) {
+    const params = new URLSearchParams();
+    if (problemSlug) params.set("problemSlug", problemSlug);
+    if (cursor) params.set("cursor", cursor);
+    if (limit) params.set("limit", String(limit));
+    const qs = params.toString();
+    return request(qs ? `/api/submissions/me?${qs}` : "/api/submissions/me", {
+      method: "GET",
+    });
+  },
 };

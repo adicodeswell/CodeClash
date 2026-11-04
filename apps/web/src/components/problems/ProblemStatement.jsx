@@ -1,24 +1,4 @@
 import ReactMarkdown from "react-markdown";
-import { HelpCircle } from "lucide-react";
-
-function parseDescriptionFromMarkdown(raw = "") {
-  if (!raw) return "";
-  if (raw.includes("## Examples")) {
-    const descMatch = raw.match(/## Problem Description([\s\S]*?)(?=## Examples)/i);
-    if (descMatch) {
-      return descMatch[1].trim();
-    }
-    const beforeExamples = raw.split(/## Examples/i)[0];
-    return beforeExamples.replace(/^#\s+[^\n]*\n+/, "").trim();
-  }
-  return raw;
-}
-
-function parseFollowUpFromMarkdown(raw = "") {
-  if (!raw) return "";
-  const match = raw.match(/## Follow-up([\s\S]*?)$/i);
-  return match ? match[1].trim() : "";
-}
 
 export function ProblemStatement({ statement }) {
   if (!statement) {
@@ -29,95 +9,90 @@ export function ProblemStatement({ statement }) {
     );
   }
 
-  const description = parseDescriptionFromMarkdown(statement);
-  const followUp = parseFollowUpFromMarkdown(statement);
+  // Strip leading "# <Title>" if present, since ProblemMetadata displays the title and badges at the top
+  const content = statement.replace(/^#\s+[^\n]*\n+/, "").trim();
 
   return (
-    <div className="space-y-6">
-      {/* Main Description */}
-      <div className="problem-markdown prose-invert text-left text-xs sm:text-sm leading-relaxed text-slate-300">
-        <ReactMarkdown
-          components={{
-            h1: ({ children }) => (
-              <h1 className="text-xl font-bold text-clash-text mt-4 mb-3 border-b border-clash-border pb-2">
+    <div className="problem-markdown text-left text-sm leading-relaxed text-slate-300">
+      <ReactMarkdown
+        components={{
+          h1: ({ children }) => (
+            <h1 className="text-xl font-bold text-slate-100 mt-6 mb-3 pb-2 border-b border-clash-border">
+              {children}
+            </h1>
+          ),
+          h2: ({ children }) => (
+            <h2 className="text-base font-bold text-slate-100 mt-6 mb-3 pb-1 border-b border-clash-border/50">
+              {children}
+            </h2>
+          ),
+          h3: ({ children }) => (
+            <h3 className="text-sm font-semibold text-slate-200 mt-4 mb-2">
+              {children}
+            </h3>
+          ),
+          p: ({ children }) => (
+            <p className="mb-3 leading-relaxed text-slate-300 text-sm">
+              {children}
+            </p>
+          ),
+          strong: ({ children }) => (
+            <strong className="font-semibold text-slate-100">
+              {children}
+            </strong>
+          ),
+          ul: ({ children }) => (
+            <ul className="list-disc pl-5 mb-4 space-y-1.5 text-slate-300 text-sm">
+              {children}
+            </ul>
+          ),
+          ol: ({ children }) => (
+            <ol className="list-decimal pl-5 mb-4 space-y-1.5 text-slate-300 text-sm">
+              {children}
+            </ol>
+          ),
+          li: ({ children }) => (
+            <li className="leading-relaxed">
+              {children}
+            </li>
+          ),
+          code: ({ children }) => (
+            <code className="px-1.5 py-0.5 rounded bg-white/[0.08] border border-white/10 font-mono text-[12.5px] text-slate-200">
+              {children}
+            </code>
+          ),
+          pre: ({ children }) => (
+            <pre className="p-3.5 my-3 rounded-lg bg-black/40 border border-clash-border font-mono text-xs overflow-x-auto text-slate-200 leading-relaxed [&>code]:bg-transparent [&>code]:border-0 [&>code]:p-0">
+              {children}
+            </pre>
+          ),
+          blockquote: ({ children }) => (
+            <blockquote className="border-l-2 border-brand-primary/60 pl-3.5 my-3 text-slate-400 italic text-sm">
+              {children}
+            </blockquote>
+          ),
+          hr: () => <hr className="my-5 border-clash-border/60" />,
+          table: ({ children }) => (
+            <div className="overflow-x-auto my-4">
+              <table className="w-full border-collapse text-sm border border-clash-border">
                 {children}
-              </h1>
-            ),
-            h2: ({ children }) => (
-              <h2 className="text-base font-bold text-clash-text mt-5 mb-2 tracking-tight flex items-center gap-2">
-                <span className="w-1.5 h-3.5 rounded-full bg-brand-primary"></span>
-                {children}
-              </h2>
-            ),
-            h3: ({ children }) => (
-              <h3 className="text-sm font-semibold text-emerald-300 mt-3 mb-2">
-                {children}
-              </h3>
-            ),
-            p: ({ children }) => <p className="mb-3.5 leading-relaxed">{children}</p>,
-            ul: ({ children }) => (
-              <ul className="list-disc pl-5 mb-4 space-y-1.5 text-slate-300">
-                {children}
-              </ul>
-            ),
-            ol: ({ children }) => (
-              <ol className="list-decimal pl-5 mb-4 space-y-1.5 text-slate-300">
-                {children}
-              </ol>
-            ),
-            li: ({ children }) => <li className="leading-normal">{children}</li>,
-            code: ({ inline, children }) => {
-              if (inline) {
-                return (
-                  <code className="px-1.5 py-0.5 rounded-md bg-clash-surface border border-clash-border font-mono text-[12px] text-emerald-300">
-                    {children}
-                  </code>
-                );
-              }
-              return (
-                <pre className="p-3 my-3 rounded-xl bg-clash-surface/90 border border-clash-border font-mono text-xs overflow-x-auto text-emerald-300">
-                  <code>{children}</code>
-                </pre>
-              );
-            },
-            pre: ({ children }) => <div className="my-3">{children}</div>,
-            strong: ({ children }) => (
-              <strong className="font-bold text-clash-text">{children}</strong>
-            ),
-            blockquote: ({ children }) => (
-              <blockquote className="border-l-2 border-brand-primary/50 pl-3 my-3 text-clash-muted italic">
-                {children}
-              </blockquote>
-            ),
-          }}
-        >
-          {description}
-        </ReactMarkdown>
-      </div>
-
-      {/* Follow-up Note (if present) */}
-      {followUp && (
-        <div className="rounded-xl border border-clash-border bg-clash-card/70 p-4 space-y-1.5 text-xs">
-          <div className="flex items-center gap-1.5 text-brand-primary font-bold">
-            <HelpCircle size={14} />
-            <span>Follow-up</span>
-          </div>
-          <div className="text-clash-muted leading-relaxed">
-            <ReactMarkdown
-              components={{
-                p: ({ children }) => <p className="m-0">{children}</p>,
-                code: ({ children }) => (
-                  <code className="px-1.5 py-0.5 rounded-md bg-white/5 border border-white/5 font-mono text-emerald-300 text-[12px]">
-                    {children}
-                  </code>
-                ),
-              }}
-            >
-              {followUp}
-            </ReactMarkdown>
-          </div>
-        </div>
-      )}
+              </table>
+            </div>
+          ),
+          th: ({ children }) => (
+            <th className="bg-clash-surface px-3 py-2 text-left font-semibold text-slate-200 border border-clash-border">
+              {children}
+            </th>
+          ),
+          td: ({ children }) => (
+            <td className="px-3 py-2 border border-clash-border text-slate-300">
+              {children}
+            </td>
+          ),
+        }}
+      >
+        {content}
+      </ReactMarkdown>
     </div>
   );
 }

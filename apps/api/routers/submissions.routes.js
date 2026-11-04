@@ -2,11 +2,12 @@ import { Router } from "express";
 
 import * as submissionsController from "../controllers/submission.controller.js";
 import { requireAuth } from "../middleware/requireAuth.js";
-import { validateBody, validateParams } from "../middleware/validate.js";
+import { validateBody, validateParams, validateQuery } from "../middleware/validate.js";
 
 import {
   createSubmissionSchema,
   submissionIdParamSchema,
+  submissionHistoryQuerySchema,
 } from "@codeclash/common";
 
 const router = Router();
@@ -26,6 +27,13 @@ router.post(
   "/run",
   validateBody(createSubmissionSchema),
   submissionsController.runCode,
+);
+
+// GET /me — Retrieve paginated submission history for the authenticated user.
+router.get(
+  "/me",
+  validateQuery(submissionHistoryQuerySchema),
+  submissionsController.getMySubmissions,
 );
 
 // GET /:id — Retrieve a submission's sanitized status.

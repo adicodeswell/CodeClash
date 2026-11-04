@@ -175,3 +175,87 @@ export async function getSubmissionById({ userId, submissionId }) {
   delete submission.userId;
   return submission;
 }
+
+/**
+ * Retrieve paginated submission history for a specific authenticated user.
+ *
+ * @param {object} params
+ * @param {string} params.userId
+ * @param {string} [params.cursor]
+ * @param {number} [params.limit=10]
+ * @returns {Promise<{ submissions: Array<object>, nextCursor: string|null }>}
+ */
+export async function getUserSubmissions({ userId, cursor, limit = 10, problemSlug }) {
+  if (!userId) {
+    throw createServiceError(401, "User ID is required");
+  }
+
+  const take = Math.min(Math.max(Number(limit) || 10, 1), 50);
+
+  // If a cursor is provided, ensure it exists and belongs to this user
+  if (cursor) {
+    const cursorExists = await prisma.submission.findFirst({
+      where: {
+        id: cursor,
+        userId,
+        ...(problemSlug ? { problem: { slug: problemSlug } } : {}),
+      },
+      select: { id: true },
+    });
+
+    if (!cursorExists) {
+      throw createServiceError(400, "Invalid pagination cursor");
+    }
+  }
+
+  try {
+    const records = await prisma.submission.findMany({
+      where: {
+        userId,
+        ...(problemSlug ? { problem: { slug: problemSlug } } : {}),
+      },
+      take: take + 1,
+      ...(cursor
+        ? {
+            skip: 1,
+            cursor: { id: cursor },
+          }
+        : {}),
+      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+      select: {
+        id: true,
+        language: true,
+        status: true,
+        verdict: true,
+        passedTestCount: true,
+        totalTestCount: true,
+        runtimeMs: true,
+        memoryKb: true,
+        createdAt: true,
+        completedAt: true,
+        problem: {
+          select: {
+            slug: true,
+            title: true,
+            difficulty: true,
+          },
+        },
+      },
+    });
+
+    const hasMore = records.length > take;
+    const submissions = hasMore ? records.slice(0, take) : records;
+    const nextCursor = hasMore ? submissions[submissions.length - 1].id : null;
+
+    return {
+      submissions,
+      nextCursor,
+    };
+  } catch (err) {
+    if (err.code === "P2025") {
+      throw createServiceError(400, "Invalid pagination cursor");
+    }
+    throw err;
+  }
+}
+
