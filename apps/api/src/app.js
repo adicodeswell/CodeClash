@@ -14,6 +14,7 @@ import errorHandler from "../middleware/errorHandler.js";
 import authRoutes from "../routers/auth.routes.js";
 import problemRouter from "../routers/problems.route.js";
 import submissionsRouter from "../routers/submissions.routes.js";
+import usersRoutes from "../routers/users.routes.js";
 
 
 const app = express();
@@ -35,6 +36,7 @@ app.get("/api/health", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/problems", problemRouter);
 app.use("/api/submissions", submissionsRouter);
+app.use("/api/users", usersRoutes);
 
 // Temporary Prisma Client test
 // app.get("/api/prisma-test", async (req, res, next) => {

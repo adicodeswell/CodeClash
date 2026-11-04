@@ -65,13 +65,21 @@ export async function getUserProgressForProblems({ userId, problemIds = [] }) {
 export async function getUserOverallProgress(userId) {
   if (!userId) {
     return {
+      attemptedCount: 0,
+      solvedCount: 0,
+      unsolvedAttemptedCount: 0,
       totalSolved: 0,
       totalAttempted: 0,
-      byDifficulty: { EASY: 0, MEDIUM: 0, HARD: 0 },
+      algorithmAttemptCount: 0,
+      byDifficulty: {
+        EASY: { attempted: 0, solved: 0 },
+        MEDIUM: { attempted: 0, solved: 0 },
+        HARD: { attempted: 0, solved: 0 },
+      },
     };
   }
 
-  // Fetch all user submissions with associated problem metadata
+  // Fetch all user submissions with associated problem difficulty
   const userSubmissions = await prisma.submission.findMany({
     where: { userId },
     select: {
@@ -85,12 +93,13 @@ export async function getUserOverallProgress(userId) {
     },
   });
 
-  const attemptedProblemIds = new Set();
-  const solvedProblemMap = new Map(); // problemId -> difficulty
+  const attemptedProblemsMap = new Map(); // problemId -> difficulty
+  const solvedProblemsMap = new Map(); // problemId -> difficulty
   let algorithmAttemptCount = 0;
 
   for (const sub of userSubmissions) {
-    attemptedProblemIds.add(sub.problemId);
+    const difficulty = sub.problem?.difficulty || "EASY";
+    attemptedProblemsMap.set(sub.problemId, difficulty);
 
     // Rule: Exclude JUDGE_ERROR from algorithmic user mistake metrics
     if (sub.verdict !== "JUDGE_ERROR") {
@@ -98,21 +107,40 @@ export async function getUserOverallProgress(userId) {
     }
 
     if (sub.verdict === "ACCEPTED") {
-      solvedProblemMap.set(sub.problemId, sub.problem?.difficulty || "EASY");
+      solvedProblemsMap.set(sub.problemId, difficulty);
     }
   }
 
-  const byDifficulty = { EASY: 0, MEDIUM: 0, HARD: 0 };
-  for (const difficulty of solvedProblemMap.values()) {
-    if (byDifficulty[difficulty] != null) {
-      byDifficulty[difficulty]++;
+  const byDifficulty = {
+    EASY: { attempted: 0, solved: 0 },
+    MEDIUM: { attempted: 0, solved: 0 },
+    HARD: { attempted: 0, solved: 0 },
+  };
+
+  for (const difficulty of attemptedProblemsMap.values()) {
+    if (byDifficulty[difficulty]) {
+      byDifficulty[difficulty].attempted++;
     }
   }
+
+  for (const difficulty of solvedProblemsMap.values()) {
+    if (byDifficulty[difficulty]) {
+      byDifficulty[difficulty].solved++;
+    }
+  }
+
+  const attemptedCount = attemptedProblemsMap.size;
+  const solvedCount = solvedProblemsMap.size;
+  const unsolvedAttemptedCount = Math.max(0, attemptedCount - solvedCount);
 
   return {
-    totalSolved: solvedProblemMap.size,
-    totalAttempted: attemptedProblemIds.size,
+    attemptedCount,
+    solvedCount,
+    unsolvedAttemptedCount,
     algorithmAttemptCount,
+    // Preserved for backward compatibility
+    totalSolved: solvedCount,
+    totalAttempted: attemptedCount,
     byDifficulty,
   };
 }

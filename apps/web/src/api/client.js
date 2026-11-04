@@ -103,3 +103,11 @@ export const submissionsAPI = {
     });
   },
 };
+
+export const usersAPI = {
+  async getMyProgress() {
+    return request("/api/users/me/progress", {
+      method: "GET",
+    });
+  },
+};
