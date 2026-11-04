@@ -134,22 +134,36 @@ function fullTemplate(spec, languageKey) {
 
   const args = spec.inputs.map((x) => x.name).join(", ");
 
-  const readValue = (field) =>
-    field.type === "int" ? "readInt()" : "readIntList()";
-
   if (languageKey === "cpp") {
-    const reads = spec.inputs
-      .map((x) => `    auto ${x.name} = ${readValue(x)};`)
+    const declares = spec.inputs
+      .map((x) => (x.type === "int" ? `    int ${x.name};` : `    vector<int> ${x.name};`))
       .join("\n");
+
+    const firstField = spec.inputs[0];
+    const firstRead =
+      firstField.type === "int"
+        ? `readInt(${firstField.name})`
+        : `readIntList(${firstField.name})`;
+
+    const subsequentReads = spec.inputs
+      .slice(1)
+      .map((x) =>
+        x.type === "int"
+          ? `        if (!readInt(${x.name})) break;`
+          : `        if (!readIntList(${x.name})) break;`
+      )
+      .join("\n");
+
+    const subsequentBlock = subsequentReads ? subsequentReads + "\n" : "";
 
     const print =
       spec.output.type === "int"
-        ? `    cout << result << '\\n';`
-        : `    for (size_t i = 0; i < result.size(); i++) {
-        if (i) cout << ' ';
-        cout << result[i];
-    }
-    cout << '\\n';`;
+        ? `        cout << result << '\\n';`
+        : `        for (size_t i = 0; i < result.size(); i++) {
+            if (i) cout << ' ';
+            cout << result[i];
+        }
+        cout << '\\n';`;
 
     return `#include <bits/stdc++.h>
 using namespace std;
@@ -157,28 +171,31 @@ using namespace std;
 // Replace this marker with the participant's Solution class.
 {{USER_CODE}}
 
-int readInt() {
-    int value;
-    if (!(cin >> value)) throw runtime_error("Missing integer input");
-    return value;
+bool readInt(int &value) {
+    return bool(cin >> value);
 }
 
-vector<int> readIntList() {
-    int n = readInt();
+bool readIntList(vector<int> &values) {
+    int n;
+    if (!(cin >> n)) return false;
     if (n < 0) throw runtime_error("Negative list length");
-    vector<int> values(n);
-    for (int &value : values) value = readInt();
-    return values;
+    values.resize(n);
+    for (int &value : values) {
+        if (!(cin >> value)) return false;
+    }
+    return true;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-${reads}
-    Solution solution;
-    auto result = solution.${spec.functionName}(${args});
+${declares}
+    while (${firstRead}) {
+${subsequentBlock}        Solution solution;
+        auto result = solution.${spec.functionName}(${args});
 ${print}
+    }
     return 0;
 }
 `;
@@ -186,24 +203,35 @@ ${print}
 
   if (languageKey === "java") {
     const reads = spec.inputs
-      .map((x) =>
-        x.type === "int"
-          ? `        int ${x.name} = scanner.nextInt();`
-          : `        int n_${x.name} = scanner.nextInt();
-        if (n_${x.name} < 0) throw new IllegalArgumentException("Negative list length");
-        int[] ${x.name} = new int[n_${x.name}];
-        for (int i = 0; i < n_${x.name}; i++) ${x.name}[i] = scanner.nextInt();`
-      )
+      .map((x, idx) => {
+        if (x.type === "int") {
+          return idx === 0
+            ? `            int ${x.name} = scanner.nextInt();`
+            : `            if (!scanner.hasNextInt()) break;
+            int ${x.name} = scanner.nextInt();`;
+        } else {
+          return idx === 0
+            ? `            int n_${x.name} = scanner.nextInt();
+            if (n_${x.name} < 0) throw new IllegalArgumentException("Negative list length");
+            int[] ${x.name} = new int[n_${x.name}];
+            for (int i = 0; i < n_${x.name}; i++) ${x.name}[i] = scanner.nextInt();`
+            : `            if (!scanner.hasNextInt()) break;
+            int n_${x.name} = scanner.nextInt();
+            if (n_${x.name} < 0) throw new IllegalArgumentException("Negative list length");
+            int[] ${x.name} = new int[n_${x.name}];
+            for (int i = 0; i < n_${x.name}; i++) ${x.name}[i] = scanner.nextInt();`;
+        }
+      })
       .join("\n");
 
     const print =
       spec.output.type === "int"
-        ? `        System.out.println(result);`
-        : `        for (int i = 0; i < result.length; i++) {
-            if (i > 0) System.out.print(" ");
-            System.out.print(result[i]);
-        }
-        System.out.println();`;
+        ? `            System.out.println(result);`
+        : `            for (int i = 0; i < result.length; i++) {
+                if (i > 0) System.out.print(" ");
+                System.out.print(result[i]);
+            }
+            System.out.println();`;
 
     return `import java.util.*;
 
@@ -213,11 +241,13 @@ ${print}
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNextInt()) {
 ${reads}
-        Solution solution = new Solution();
-        ${spec.output.type === "int" ? "int" : "int[]"} result =
-            solution.${spec.functionName}(${args});
+            Solution solution = new Solution();
+            ${spec.output.type === "int" ? "int" : "int[]"} result =
+                solution.${spec.functionName}(${args});
 ${print}
+        }
     }
 }
 `;
@@ -227,17 +257,19 @@ ${print}
     const reads = spec.inputs
       .map((x) =>
         x.type === "int"
-          ? `    ${x.name} = read_int()`
-          : `    ${x.name} = read_int_list()`
+          ? `        ${x.name} = read_int()\n        if ${x.name} is None:\n            break`
+          : `        ${x.name} = read_int_list()\n        if ${x.name} is None:\n            break`
       )
       .join("\n");
 
     const print =
       spec.output.type === "int"
-        ? "    print(result)"
-        : `    print(" ".join(map(str, result)))`;
+        ? "        print(result)"
+        : `        print(" ".join(map(str, result)))`;
 
-    return `import sys
+    return `from __future__ import annotations
+import sys
+from typing import List, Dict, Tuple, Set, Optional
 
 # Replace this marker with the participant's Solution class.
 {{USER_CODE}}
@@ -248,17 +280,20 @@ def read_int():
     try:
         return next(data)
     except StopIteration:
-        raise ValueError("Missing integer input")
+        return None
 
 def read_int_list():
     n = read_int()
+    if n is None:
+        return None
     if n < 0:
         raise ValueError("Negative list length")
     return [read_int() for _ in range(n)]
 
 def main():
+    while True:
 ${reads}
-    result = Solution().${spec.functionName}(${args})
+        result = Solution().${spec.functionName}(${args})
 ${print}
 
 if __name__ == "__main__":
@@ -270,17 +305,17 @@ if __name__ == "__main__":
     const reads = spec.inputs
       .map((x) =>
         x.type === "int"
-          ? `  const ${x.name} = readInt();`
-          : `  const ${x.name} = readIntList();`
+          ? `    const ${x.name} = readInt();\n    if (${x.name} === null) break;`
+          : `    const ${x.name} = readIntList();\n    if (${x.name} === null) break;`
       )
       .join("\n");
 
     const print =
       spec.output.type === "int"
-        ? "  console.log(result);"
-        : `  console.log(result.join(" "));`;
+        ? "    console.log(result);"
+        : `    console.log(result.join(" "));`;
 
-    return `const fs = require("node:fs");
+    return `const fs = require("fs");
 
 // Replace this marker with the participant's Solution class.
 {{USER_CODE}}
@@ -290,7 +325,7 @@ let cursor = 0;
 
 function readInt() {
   if (cursor >= tokens.length || tokens[cursor] === "") {
-    throw new Error("Missing integer input");
+    return null;
   }
 
   const value = Number(tokens[cursor++]);
@@ -305,17 +340,29 @@ function readInt() {
 function readIntList() {
   const n = readInt();
 
+  if (n === null) {
+    return null;
+  }
+
   if (n < 0) {
     throw new Error("Negative list length");
   }
 
-  return Array.from({ length: n }, readInt);
+  const arr = new Array(n);
+  for (let i = 0; i < n; i++) {
+    const val = readInt();
+    if (val === null) throw new Error("Unexpected end of input");
+    arr[i] = val;
+  }
+  return arr;
 }
 
 function main() {
+  while (cursor < tokens.length && tokens[cursor] !== "") {
 ${reads}
-  const result = new Solution().${spec.functionName}(${args});
+    const result = new Solution().${spec.functionName}(${args});
 ${print}
+  }
 }
 
 main();

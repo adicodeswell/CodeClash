@@ -4,27 +4,30 @@ using namespace std;
 // Replace this marker with the participant's Solution class.
 {{USER_CODE}}
 
-int readInt() {
-    int value;
-    if (!(cin >> value)) throw runtime_error("Missing integer input");
-    return value;
+bool readInt(int &value) {
+    return bool(cin >> value);
 }
 
-vector<int> readIntList() {
-    int n = readInt();
+bool readIntList(vector<int> &values) {
+    int n;
+    if (!(cin >> n)) return false;
     if (n < 0) throw runtime_error("Negative list length");
-    vector<int> values(n);
-    for (int &value : values) value = readInt();
-    return values;
+    values.resize(n);
+    for (int &value : values) {
+        if (!(cin >> value)) return false;
+    }
+    return true;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    auto nums = readIntList();
-    Solution solution;
-    auto result = solution.majorityElement(nums);
-    cout << result << '\n';
+    vector<int> nums;
+    while (readIntList(nums)) {
+        Solution solution;
+        auto result = solution.majorityElement(nums);
+        cout << result << '\n';
+    }
     return 0;
 }

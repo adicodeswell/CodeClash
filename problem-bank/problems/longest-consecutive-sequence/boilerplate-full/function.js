@@ -1,4 +1,4 @@
-const fs = require("node:fs");
+const fs = require("fs");
 
 // Replace this marker with the participant's Solution class.
 {{USER_CODE}}
@@ -8,7 +8,7 @@ let cursor = 0;
 
 function readInt() {
   if (cursor >= tokens.length || tokens[cursor] === "") {
-    throw new Error("Missing integer input");
+    return null;
   }
 
   const value = Number(tokens[cursor++]);
@@ -23,17 +23,30 @@ function readInt() {
 function readIntList() {
   const n = readInt();
 
+  if (n === null) {
+    return null;
+  }
+
   if (n < 0) {
     throw new Error("Negative list length");
   }
 
-  return Array.from({ length: n }, readInt);
+  const arr = new Array(n);
+  for (let i = 0; i < n; i++) {
+    const val = readInt();
+    if (val === null) throw new Error("Unexpected end of input");
+    arr[i] = val;
+  }
+  return arr;
 }
 
 function main() {
-  const nums = readIntList();
-  const result = new Solution().longestConsecutive(nums);
-  console.log(result);
+  while (cursor < tokens.length && tokens[cursor] !== "") {
+    const nums = readIntList();
+    if (nums === null) break;
+    const result = new Solution().longestConsecutive(nums);
+    console.log(result);
+  }
 }
 
 main();

@@ -21,5 +21,6 @@ export {
   createJudge0Submission,
   pollJudge0Submission,
   executeJudge0WithWait,
+  executeJudge0Batch,
 } from "./judge/judge0.client.js";
 export { wrapSourceWithTiming } from "./judge/timing-wrapper.js";
