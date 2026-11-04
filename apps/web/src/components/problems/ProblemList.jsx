@@ -59,7 +59,8 @@ export function ProblemList({ problems, loading, error, onRetry, onClearFilters 
         <table className="w-full text-left border-collapse min-w-[600px]">
           <thead>
             <tr className="border-b border-clash-border text-xs font-bold text-clash-muted uppercase tracking-wider bg-clash-surface/60">
-              <th className="py-3 px-4 w-12 text-center">#</th>
+              <th className="py-3 px-3 w-12 text-center" title="Problem status">Status</th>
+              <th className="py-3 px-3 w-10 text-center">#</th>
               <th className="py-3 px-4">Title</th>
               <th className="py-3 px-4 w-32">Difficulty</th>
               <th className="py-3 px-4">Topics</th>

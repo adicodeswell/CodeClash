@@ -1,12 +1,23 @@
 import { Link } from "react-router-dom";
 import { DifficultyBadge } from "./DifficultyBadge.jsx";
+import { ProblemProgressBadge } from "./ProblemProgressBadge.jsx";
 import { ChevronRight, Code2 } from "lucide-react";
 
 export function ProblemRow({ problem, index }) {
   return (
     <tr className="border-b border-clash-border/60 hover:bg-clash-card-hover/40 transition-colors group">
+      {/* Solved / Attempted Progress Status */}
+      <td className="py-3.5 px-3 w-12 text-center">
+        <div className="flex items-center justify-center">
+          <ProblemProgressBadge
+            isSolved={problem.isSolved}
+            isAttempted={problem.isAttempted}
+          />
+        </div>
+      </td>
+
       {/* Index */}
-      <td className="py-3.5 px-4 text-xs font-mono text-clash-subtle w-12 text-center">
+      <td className="py-3.5 px-3 text-xs font-mono text-clash-subtle w-10 text-center">
         {index + 1}
       </td>
 

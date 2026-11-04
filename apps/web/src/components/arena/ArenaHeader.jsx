@@ -3,8 +3,17 @@ import { useAuth } from "../../context/AuthContext.jsx";
 import { Swords, ArrowLeft, User, LogOut } from "lucide-react";
 import { RunButton } from "../editor/RunButton.jsx";
 import { SubmitButton } from "../editor/SubmitButton.jsx";
+import { ProblemProgressBadge } from "../problems/ProblemProgressBadge.jsx";
 
-export function ArenaHeader({ problemTitle, onRun, onSubmit, isRunning = false, isSubmitting = false }) {
+export function ArenaHeader({
+  problemTitle,
+  isSolved = false,
+  isAttempted = false,
+  onRun,
+  onSubmit,
+  isRunning = false,
+  isSubmitting = false,
+}) {
   const { user, logout } = useAuth();
 
   return (
@@ -37,6 +46,7 @@ export function ArenaHeader({ problemTitle, onRun, onSubmit, isRunning = false, 
             <span className="text-xs font-semibold text-clash-text truncate max-w-[200px] hidden md:inline">
               {problemTitle}
             </span>
+            <ProblemProgressBadge isSolved={isSolved} isAttempted={isAttempted} asPill={true} />
           </>
         )}
       </div>

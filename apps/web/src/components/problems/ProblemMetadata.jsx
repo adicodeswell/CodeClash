@@ -1,4 +1,5 @@
 import { DifficultyBadge } from "./DifficultyBadge.jsx";
+import { ProblemProgressBadge } from "./ProblemProgressBadge.jsx";
 import { Clock, HardDrive, Tag } from "lucide-react";
 
 export function ProblemMetadata({ problem }) {
@@ -21,6 +22,11 @@ export function ProblemMetadata({ problem }) {
         </h1>
         <div className="flex flex-wrap items-center gap-2">
           <DifficultyBadge difficulty={problem.difficulty} />
+          <ProblemProgressBadge
+            isSolved={problem.isSolved}
+            isAttempted={problem.isAttempted}
+            asPill={true}
+          />
           
           <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium text-clash-muted bg-white/5 border border-clash-border">
             <Clock size={12} className="text-emerald-400" />

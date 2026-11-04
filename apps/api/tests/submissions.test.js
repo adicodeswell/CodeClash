@@ -450,4 +450,90 @@ describe("Submissions API Tests (/api/submissions)", () => {
       where: { id: { in: [judgeErrSub.id, acceptedSub.id] } },
     });
   });
+
+  test("Task 3: returns full submission detail including exact submitted sourceCode and problem metadata", async () => {
+    const testUser = await prisma.user.findUnique({
+      where: { emailNormalized: "adi.test@example.com" },
+    });
+    const problem = await prisma.problem.findFirst({ where: { slug: "two-sum" } });
+
+    const submissionCode = "def twoSum(nums, target):\n    # Exact submission code\n    return [0, 1]\n";
+    const sub = await prisma.submission.create({
+      data: {
+        userId: testUser.id,
+        problemId: problem.id,
+        language: "python",
+        sourceCode: submissionCode,
+        packageVersion: "1",
+        status: "COMPLETED",
+        verdict: "ACCEPTED",
+        passedTestCount: 4,
+        totalTestCount: 4,
+        runtimeMs: 14,
+        memoryKb: 51200,
+        errorSummary: null,
+      },
+    });
+
+    const res = await ctx.fetchAuth(`/api/submissions/${sub.id}`);
+    assert.equal(res.status, 200);
+    const body = await res.json();
+    assert.ok(body.submission);
+
+    // Verify exact original source code
+    assert.equal(body.submission.sourceCode, submissionCode);
+    assert.equal(body.submission.language, "python");
+    assert.equal(body.submission.status, "COMPLETED");
+    assert.equal(body.submission.verdict, "ACCEPTED");
+    assert.equal(body.submission.runtimeMs, 14);
+    assert.equal(body.submission.memoryKb, 51200);
+    assert.equal(body.submission.passedTestCount, 4);
+    assert.equal(body.submission.totalTestCount, 4);
+
+    // Verify associated problem metadata
+    assert.ok(body.submission.problem);
+    assert.equal(body.submission.problem.slug, "two-sum");
+    assert.equal(body.submission.problem.title, "Two Sum");
+
+    // Clean up
+    await prisma.submission.delete({ where: { id: sub.id } });
+  });
+
+  test("Task 3: cross-user isolation returns 404 Not Found to prevent enumeration", async () => {
+    const testUser = await prisma.user.findUnique({
+      where: { emailNormalized: "adi.test@example.com" },
+    });
+    const problem = await prisma.problem.findFirst({ where: { slug: "two-sum" } });
+
+    const sub = await prisma.submission.create({
+      data: {
+        userId: testUser.id,
+        problemId: problem.id,
+        language: "python",
+        sourceCode: "private user code",
+        packageVersion: "1",
+        status: "COMPLETED",
+        verdict: "ACCEPTED",
+      },
+    });
+
+    // Generate JWT cookie for a completely different user
+    const jwtModule = await import("jsonwebtoken");
+    const otherToken = jwtModule.default.sign(
+      { sub: "different-user-999" },
+      process.env.JWT_SECRET || "replace-with-a-long-random-secret"
+    );
+
+    const res = await fetch(`${ctx.baseUrl}/api/submissions/${sub.id}`, {
+      headers: { cookie: `token=${otherToken}` },
+    });
+
+    // Must return 404 Not Found, never 403 or 200, to prevent disclosure of other user's records
+    assert.equal(res.status, 404);
+    const body = await res.json();
+    assert.equal(body.submission, undefined);
+
+    // Clean up
+    await prisma.submission.delete({ where: { id: sub.id } });
+  });
 });

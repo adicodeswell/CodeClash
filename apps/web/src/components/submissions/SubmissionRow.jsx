@@ -47,15 +47,19 @@ export function SubmissionRow({ submission }) {
 
       {/* Verdict / Status */}
       <td className="py-4 px-4 text-xs">
-        <div className="flex flex-col gap-1">
+        <Link
+          to={`/submissions/${id}`}
+          className="flex flex-col gap-1 group/link hover:opacity-90 w-fit"
+          title="Inspect submission code and details"
+        >
           <SubmissionStatusBadge status={status} verdict={verdict} />
           {status === "COMPLETED" && totalTestCount != null && totalTestCount > 0 && (
-            <span className="text-[11px] font-mono text-clash-muted flex items-center gap-1">
+            <span className="text-[11px] font-mono text-clash-muted flex items-center gap-1 group-hover/link:text-brand-primary transition">
               <CheckCircle2 size={11} className="text-clash-subtle" />
               <span>{passedTestCount ?? 0}/{totalTestCount} passed</span>
             </span>
           )}
-        </div>
+        </Link>
       </td>
 
       {/* Language */}
@@ -89,9 +93,17 @@ export function SubmissionRow({ submission }) {
         )}
       </td>
 
-      {/* Timestamp */}
-      <td className="py-4 px-4 sm:px-6 text-xs text-clash-muted text-right font-mono">
-        {formattedDate}
+      {/* Timestamp & Detail Link */}
+      <td className="py-4 px-4 sm:px-6 text-xs text-right font-mono">
+        <div className="flex items-center justify-end gap-3">
+          <span className="text-clash-muted">{formattedDate}</span>
+          <Link
+            to={`/submissions/${id}`}
+            className="text-[11px] font-sans font-semibold text-brand-primary hover:text-white opacity-0 group-hover:opacity-100 transition px-2.5 py-1 rounded-md bg-brand-primary/10 hover:bg-brand-primary/20 border border-brand-primary/30"
+          >
+            Details
+          </Link>
+        </div>
       </td>
     </tr>
   );

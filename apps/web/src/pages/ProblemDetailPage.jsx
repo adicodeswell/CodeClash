@@ -240,6 +240,8 @@ export function ProblemDetailPage() {
       {/* Top Navbar */}
       <ArenaHeader
         problemTitle={problem.title}
+        isSolved={problem.isSolved}
+        isAttempted={problem.isAttempted}
         onRun={handleRun}
         onSubmit={handleSubmit}
         isRunning={isRunning}
@@ -369,13 +371,15 @@ export function ProblemDetailPage() {
                 ) : (
                   <div className="space-y-2.5">
                     {problemSubmissions.map((sub) => (
-                      <div
+                      <Link
                         key={sub.id}
-                        className="rounded-xl border border-clash-border bg-clash-surface/60 p-4 space-y-2.5 hover:border-clash-border-light transition"
+                        to={`/submissions/${sub.id}`}
+                        className="block rounded-xl border border-clash-border bg-clash-surface/60 p-4 space-y-2.5 hover:border-brand-primary/40 hover:bg-clash-surface/80 transition group"
+                        title="Click to inspect exact submitted code and diagnostics"
                       >
                         <div className="flex items-center justify-between">
                           <SubmissionStatusBadge status={sub.status} verdict={sub.verdict} />
-                          <span className="text-[11px] font-mono text-clash-muted">
+                          <span className="text-[11px] font-mono text-clash-muted group-hover:text-slate-300 transition">
                             {new Date(sub.createdAt).toLocaleString(undefined, {
                               month: "short",
                               day: "numeric",
@@ -397,7 +401,7 @@ export function ProblemDetailPage() {
                             compact={true}
                           />
                         </div>
-                      </div>
+                      </Link>
                     ))}
                   </div>
                 )}

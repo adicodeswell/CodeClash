@@ -6,6 +6,7 @@ import { LandingPage } from "./pages/LandingPage.jsx";
 import { ProblemsPage } from "./pages/ProblemsPage.jsx";
 import { ProblemDetailPage } from "./pages/ProblemDetailPage.jsx";
 import { SubmissionHistoryPage } from "./pages/SubmissionHistoryPage.jsx";
+import { SubmissionDetailPage } from "./pages/SubmissionDetailPage.jsx";
 
 // Catalog & Platform layout (includes Navbar for authenticated browsing)
 function PlatformLayout() {
@@ -61,6 +62,7 @@ function App() {
             <Route element={<PlatformLayout />}>
               <Route path="/problems" element={<ProblemsPage />} />
               <Route path="/submissions" element={<SubmissionHistoryPage />} />
+              <Route path="/submissions/:submissionId" element={<SubmissionDetailPage />} />
             </Route>
 
             {/* Standalone Problem Workspace Arena (custom ArenaHeader instead of Navbar) */}

@@ -48,10 +48,12 @@ export async function submitCode(req, res, next) {
 export async function getSubmission(req, res, next) {
   try {
     const userId = req.user.id;
+    const userRole = req.user.role;
     const { id } = res.locals.validatedParams ?? req.params;
 
     const submission = await submissionsService.getSubmissionById({
       userId,
+      userRole,
       submissionId: id,
     });
 

@@ -59,6 +59,18 @@ export async function getSubmissionStatus(submissionId) {
 }
 
 /**
+ * Fetch full submission detail including exact persisted source code and diagnostics.
+ */
+export async function fetchSubmissionDetail(submissionId) {
+  if (!submissionId) {
+    throw new Error("Submission ID is required.");
+  }
+
+  const response = await submissionsAPI.getStatus(submissionId);
+  return response.submission;
+}
+
+/**
  * Fetch the authenticated user's paginated submission history.
  */
 export async function fetchMySubmissions({ cursor, limit = 10, problemSlug } = {}) {

@@ -1,6 +1,8 @@
 import { prisma } from "@codeclash/db";
+import { getUserProgressForProblems } from "./progress.service.js";
 
 export async function listPublishedProblems({
+  userId,
   search,
   difficulty,
   topic,
@@ -56,6 +58,7 @@ export async function listPublishedProblems({
         createdAt: "desc",
       },
       select: {
+        id: true,
         slug: true,
         title: true,
         difficulty: true,
@@ -68,8 +71,24 @@ export async function listPublishedProblems({
     }),
   ]);
 
+  // Batch-load progress for all problems in this page in a single query (zero N+1)
+  const problemIds = problems.map((p) => p.id);
+  const progressMap = await getUserProgressForProblems({ userId, problemIds });
+
+  const enrichedProblems = problems.map((p) => {
+    const progress = progressMap[p.id] || { isAttempted: false, isSolved: false };
+    return {
+      slug: p.slug,
+      title: p.title,
+      difficulty: p.difficulty,
+      topics: p.topics,
+      isAttempted: progress.isAttempted,
+      isSolved: progress.isSolved,
+    };
+  });
+
   return {
-    problems,
+    problems: enrichedProblems,
     total,
     page,
     limit,
@@ -77,13 +96,14 @@ export async function listPublishedProblems({
   };
 }
 
-export async function getPublishedProblemBySlug(slug) {
+export async function getPublishedProblemBySlug(slug, userId) {
   const problem = await prisma.problem.findFirst({
     where: {
       slug,
       status: "PUBLISHED",
     },
     select: {
+      id: true,
       slug: true,
       title: true,
       statement: true,
@@ -97,6 +117,18 @@ export async function getPublishedProblemBySlug(slug) {
   });
 
   if (!problem) return null;
+
+  // Compute progress for this problem if user is authenticated
+  let isAttempted = false;
+  let isSolved = false;
+  if (userId) {
+    const progressMap = await getUserProgressForProblems({ userId, problemIds: [problem.id] });
+    const prog = progressMap[problem.id];
+    if (prog) {
+      isAttempted = prog.isAttempted;
+      isSolved = prog.isSolved;
+    }
+  }
 
   // Extract public sample test cases (marked as SAMPLE or first 2)
   const allTests = Array.isArray(problem.testCases) ? problem.testCases : [];
@@ -123,12 +155,15 @@ export async function getPublishedProblemBySlug(slug) {
     }
   }
 
-  // Remove full testCases so hidden tests are never exposed
+  // Remove internal database ID and full testCases so hidden tests are never exposed
+  delete problem.id;
   delete problem.testCases;
 
   return {
     ...problem,
     languages: publicLanguages,
     sampleTestCases,
+    isAttempted,
+    isSolved,
   };
 }

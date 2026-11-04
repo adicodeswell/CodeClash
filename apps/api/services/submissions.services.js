@@ -143,14 +143,14 @@ export async function createSubmission({
   };
 }
 
-export async function getSubmissionById({ userId, submissionId }) {
+export async function getSubmissionById({ userId, userRole, submissionId }) {
   const submission = await prisma.submission.findUnique({
     where: { id: submissionId },
     select: {
       id: true,
       userId: true,
-      problemId: true,
       language: true,
+      sourceCode: true,
       status: true,
       verdict: true,
       passedTestCount: true,
@@ -160,6 +160,13 @@ export async function getSubmissionById({ userId, submissionId }) {
       errorSummary: true,
       createdAt: true,
       completedAt: true,
+      problem: {
+        select: {
+          slug: true,
+          title: true,
+          difficulty: true,
+        },
+      },
     },
   });
 
@@ -168,8 +175,13 @@ export async function getSubmissionById({ userId, submissionId }) {
   }
 
   // Ownership check: users may only inspect their own submissions.
-  if (submission.userId !== userId) {
-    throw createServiceError(403, "Access denied to this submission");
+  // Explicit authorization allows administrators to inspect if role is ADMIN.
+  // To avoid disclosing whether a submission exists for another user, return 404 Not Found.
+  const isOwner = submission.userId === userId;
+  const isAdmin = userRole === "ADMIN";
+
+  if (!isOwner && !isAdmin) {
+    throw createServiceError(404, "Submission not found");
   }
 
   delete submission.userId;
