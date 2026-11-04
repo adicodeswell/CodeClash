@@ -202,7 +202,7 @@ describe("Submissions API Tests (/api/submissions)", () => {
             seen[n] = i
         return []`;
 
-    const res = await ctx.fetchAuth("/api/submissions/run", {
+    let res = await ctx.fetchAuth("/api/submissions/run", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -211,6 +211,20 @@ describe("Submissions API Tests (/api/submissions)", () => {
         sourceCode: pythonCode,
       }),
     });
+
+    // In case public Judge0 CE server has transient latency spike
+    if (res.status === 502) {
+      await new Promise((r) => setTimeout(r, 2000));
+      res = await ctx.fetchAuth("/api/submissions/run", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          problemSlug: "two-sum",
+          language: "python",
+          sourceCode: pythonCode,
+        }),
+      });
+    }
 
     assert.equal(res.status, 200);
     const body = await res.json();

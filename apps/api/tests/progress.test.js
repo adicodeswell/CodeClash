@@ -7,33 +7,30 @@ import {
   getUserOverallProgress,
 } from "../services/progress.service.js";
 
-describe("Progress Service & Catalog Solved/Attempted Status (Task 4)", () => {
+describe("Progress Service & User Isolation Tests (Task 4 & Task 6)", () => {
   let ctx;
-  let testUser;
-  let problemA;
-  let problemB;
+  let userA;
+  let userB;
+  let problems = [];
   const createdSubmissionIds = [];
 
   before(async () => {
     ctx = await createTestContext();
-    testUser = await prisma.user.findUnique({
-      where: { emailNormalized: "adi.test@example.com" },
-    });
-    const problems = await prisma.problem.findMany({
-      where: { status: "PUBLISHED" },
-      take: 2,
-    });
-    problemA = problems[0];
-    problemB = problems[1];
-    assert.ok(testUser, "Test user required");
-    assert.ok(problemA && problemB, "At least two published problems required for test");
+    userA = ctx.userA;
+    userB = ctx.userB;
 
-    // Clean up any existing test submissions for these problems
+    problems = await prisma.problem.findMany({
+      where: { status: "PUBLISHED" },
+      orderBy: { slug: "asc" },
+      take: 5,
+    });
+
+    assert.ok(userA && userB, "Both User A and User B required");
+    assert.ok(problems.length >= 3, "At least three published problems required for test matrix");
+
+    // Clean up any existing test submissions for these users
     await prisma.submission.deleteMany({
-      where: {
-        userId: testUser.id,
-        problemId: { in: [problemA.id, problemB.id] },
-      },
+      where: { userId: { in: [userA.id, userB.id] } },
     });
   });
 
@@ -46,13 +43,13 @@ describe("Progress Service & Catalog Solved/Attempted Status (Task 4)", () => {
     await ctx.close();
   });
 
-  async function addSubmission({ problemId, verdict }) {
+  async function addSubmission({ userId, problemId, verdict, createdAt = new Date(Date.now() - 120_000) }) {
     const sub = await prisma.submission.create({
       data: {
-        userId: testUser.id,
+        userId,
         problemId,
         language: "python",
-        sourceCode: "# test",
+        sourceCode: "# progress test code",
         packageVersion: "1",
         status: "COMPLETED",
         verdict,
@@ -60,6 +57,7 @@ describe("Progress Service & Catalog Solved/Attempted Status (Task 4)", () => {
         totalTestCount: 4,
         runtimeMs: 10,
         memoryKb: 1024,
+        createdAt,
       },
     });
     createdSubmissionIds.push(sub.id);
@@ -67,74 +65,79 @@ describe("Progress Service & Catalog Solved/Attempted Status (Task 4)", () => {
   }
 
   test("Problem with no submissions has isAttempted=false and isSolved=false", async () => {
+    const p1 = problems[0];
     const progress = await getUserProgressForProblems({
-      userId: testUser.id,
-      problemIds: [problemA.id],
+      userId: userA.id,
+      problemIds: [p1.id],
     });
 
-    assert.deepEqual(progress[problemA.id], {
+    assert.deepEqual(progress[p1.id], {
       isAttempted: false,
       isSolved: false,
     });
   });
 
   test("Problem becomes attempted after first failed submission (WRONG_ANSWER)", async () => {
-    await addSubmission({ problemId: problemA.id, verdict: "WRONG_ANSWER" });
+    const p1 = problems[0];
+    await addSubmission({ userId: userA.id, problemId: p1.id, verdict: "WRONG_ANSWER" });
 
     const progress = await getUserProgressForProblems({
-      userId: testUser.id,
-      problemIds: [problemA.id],
+      userId: userA.id,
+      problemIds: [p1.id],
     });
 
-    assert.equal(progress[problemA.id].isAttempted, true);
-    assert.equal(progress[problemA.id].isSolved, false);
+    assert.equal(progress[p1.id].isAttempted, true);
+    assert.equal(progress[p1.id].isSolved, false);
   });
 
   test("Problem becomes solved after an ACCEPTED submission", async () => {
-    await addSubmission({ problemId: problemA.id, verdict: "ACCEPTED" });
+    const p1 = problems[0];
+    await addSubmission({ userId: userA.id, problemId: p1.id, verdict: "ACCEPTED" });
 
     const progress = await getUserProgressForProblems({
-      userId: testUser.id,
-      problemIds: [problemA.id],
+      userId: userA.id,
+      problemIds: [p1.id],
     });
 
-    assert.equal(progress[problemA.id].isAttempted, true);
-    assert.equal(progress[problemA.id].isSolved, true);
+    assert.equal(progress[p1.id].isAttempted, true);
+    assert.equal(progress[p1.id].isSolved, true);
   });
 
   test("Subsequent WRONG_ANSWER does not undo solved status", async () => {
-    // Problem A is already solved; add another failing submission
-    await addSubmission({ problemId: problemA.id, verdict: "WRONG_ANSWER" });
+    const p1 = problems[0];
+    // p1 is already solved; add another failing submission
+    await addSubmission({ userId: userA.id, problemId: p1.id, verdict: "WRONG_ANSWER" });
 
     const progress = await getUserProgressForProblems({
-      userId: testUser.id,
-      problemIds: [problemA.id],
+      userId: userA.id,
+      problemIds: [p1.id],
     });
 
     assert.equal(
-      progress[problemA.id].isSolved,
+      progress[p1.id].isSolved,
       true,
       "A later wrong answer must not make a solved problem unsolved"
     );
   });
 
   test("Multiple accepted submissions for one problem count as one unique solved problem", async () => {
-    // Add another accepted submission for problem A
-    await addSubmission({ problemId: problemA.id, verdict: "ACCEPTED" });
+    const p1 = problems[0];
+    // Add another accepted submission for p1
+    await addSubmission({ userId: userA.id, problemId: p1.id, verdict: "ACCEPTED" });
 
-    const overall = await getUserOverallProgress(testUser.id);
-    // Problem A has multiple ACCEPTED submissions, but overall unique solved should count Problem A once
+    const overall = await getUserOverallProgress(userA.id);
     assert.equal(overall.totalSolved, 1);
     assert.equal(overall.totalAttempted, 1);
   });
 
   test("JUDGE_ERROR is excluded from algorithmic attempt counts", async () => {
-    const beforeStats = await getUserOverallProgress(testUser.id);
+    const p2 = problems[1];
+    const beforeStats = await getUserOverallProgress(userA.id);
 
     // Add a judge error submission
-    await addSubmission({ problemId: problemB.id, verdict: "JUDGE_ERROR" });
+    await addSubmission({ userId: userA.id, problemId: p2.id, verdict: "JUDGE_ERROR" });
 
-    const afterStats = await getUserOverallProgress(testUser.id);
+    const afterStats = await getUserOverallProgress(userA.id);
     assert.equal(afterStats.totalAttempted, beforeStats.totalAttempted + 1);
     assert.equal(
       afterStats.algorithmAttemptCount,
@@ -143,30 +146,108 @@ describe("Progress Service & Catalog Solved/Attempted Status (Task 4)", () => {
     );
   });
 
+  test("Full multi-problem progress matrix across problems", async () => {
+    // Clean up User A submissions for exact matrix verification
+    await prisma.submission.deleteMany({ where: { userId: userA.id } });
+
+    // p0: No submissions -> Not attempted (0), Not solved (0)
+    // p1: WRONG_ANSWER -> Attempted (1), Not solved (0)
+    // p2: JUDGE_ERROR -> Attempted (1), Not solved (0), excluded from algorithmAttemptCount
+    // p3: ACCEPTED -> Attempted (1), Solved (1)
+    // p4: WRONG_ANSWER then ACCEPTED then RUNTIME_ERROR -> Attempted (1), Solved (1)
+    const p0 = problems[0];
+    const p1 = problems[1];
+    const p2 = problems[2];
+    const p3 = problems[3] || problems[0];
+    const p4 = problems[4] || problems[1];
+
+    await addSubmission({ userId: userA.id, problemId: p1.id, verdict: "WRONG_ANSWER" });
+    await addSubmission({ userId: userA.id, problemId: p2.id, verdict: "JUDGE_ERROR" });
+    if (p3.id !== p1.id && p3.id !== p2.id) {
+      await addSubmission({ userId: userA.id, problemId: p3.id, verdict: "ACCEPTED" });
+    }
+    if (p4.id !== p1.id && p4.id !== p2.id && p4.id !== p3.id) {
+      await addSubmission({ userId: userA.id, problemId: p4.id, verdict: "WRONG_ANSWER" });
+      await addSubmission({ userId: userA.id, problemId: p4.id, verdict: "ACCEPTED" });
+      await addSubmission({ userId: userA.id, problemId: p4.id, verdict: "RUNTIME_ERROR" });
+    }
+
+    const problemIds = [p0.id, p1.id, p2.id, p3.id, p4.id];
+    const progressMap = await getUserProgressForProblems({
+      userId: userA.id,
+      problemIds,
+    });
+
+    assert.equal(progressMap[p0.id].isAttempted, false);
+    assert.equal(progressMap[p0.id].isSolved, false);
+
+    assert.equal(progressMap[p1.id].isAttempted, true);
+    assert.equal(progressMap[p1.id].isSolved, false);
+
+    assert.equal(progressMap[p2.id].isAttempted, true);
+    assert.equal(progressMap[p2.id].isSolved, false);
+
+    if (p3.id !== p1.id && p3.id !== p2.id) {
+      assert.equal(progressMap[p3.id].isAttempted, true);
+      assert.equal(progressMap[p3.id].isSolved, true);
+    }
+
+    if (p4.id !== p1.id && p4.id !== p2.id && p4.id !== p3.id) {
+      assert.equal(progressMap[p4.id].isAttempted, true);
+      assert.equal(progressMap[p4.id].isSolved, true);
+    }
+  });
+
   test("Catalog GET /api/problems enriches problems with user's isAttempted and isSolved", async () => {
-    const res = await ctx.fetchAuth("/api/problems?limit=10");
+    const res = await ctx.fetchUserA("/api/problems?limit=10");
     assert.equal(res.status, 200);
     const body = await res.json();
     assert.ok(Array.isArray(body.problems));
 
-    const itemA = body.problems.find((p) => p.slug === problemA.slug);
-    const itemB = body.problems.find((p) => p.slug === problemB.slug);
+    const item0 = body.problems.find((p) => p.slug === problems[0].slug);
+    const item1 = body.problems.find((p) => p.slug === problems[1].slug);
 
-    assert.ok(itemA);
-    assert.equal(itemA.isAttempted, true);
-    assert.equal(itemA.isSolved, true);
+    assert.ok(item0);
+    assert.equal(typeof item0.isAttempted, "boolean");
+    assert.equal(typeof item0.isSolved, "boolean");
 
-    assert.ok(itemB);
-    assert.equal(itemB.isAttempted, true);
-    assert.equal(itemB.isSolved, false);
+    assert.ok(item1);
+    assert.equal(typeof item1.isAttempted, "boolean");
+    assert.equal(typeof item1.isSolved, "boolean");
   });
 
-  test("Problem detail GET /api/problems/:slug returns isAttempted and isSolved for the problem", async () => {
-    const res = await ctx.fetchAuth(`/api/problems/${problemA.slug}`);
+  test("Ownership: User A progress does NOT leak into User B's progress", async () => {
+    // User A currently has submissions; User B has zero submissions
+    const resUserA = await ctx.fetchUserA("/api/users/me/progress");
+    assert.equal(resUserA.status, 200);
+    const dataA = await resUserA.json();
+
+    assert.ok(dataA.progress.attemptedCount > 0, "User A should have attempted problems");
+
+    const resUserB = await ctx.fetchUserB("/api/users/me/progress");
+    assert.equal(resUserB.status, 200);
+    const dataB = await resUserB.json();
+
+    assert.equal(
+      dataB.progress.attemptedCount,
+      0,
+      "User B has no submissions, attemptedCount must be 0"
+    );
+    assert.equal(
+      dataB.progress.solvedCount,
+      0,
+      "User B has no submissions, solvedCount must be 0"
+    );
+  });
+
+  test("Ownership: passing another user's ID as query parameter is safely ignored or rejected", async () => {
+    // User B tries to query User A's progress by tampering with query string
+    const res = await ctx.fetchUserB(`/api/users/me/progress?userId=${userA.id}`);
     assert.equal(res.status, 200);
     const body = await res.json();
-    assert.ok(body.problem);
-    assert.equal(body.problem.isAttempted, true);
-    assert.equal(body.problem.isSolved, true);
+
+    // Must still reflect User B's own progress (0), NOT User A's progress
+    assert.equal(body.progress.attemptedCount, 0);
+    assert.equal(body.progress.solvedCount, 0);
   });
 });

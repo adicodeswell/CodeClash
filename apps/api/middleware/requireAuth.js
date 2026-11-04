@@ -25,7 +25,7 @@ export function requireAuth(req, res, next) {
       });
     }
 
-    req.user = { id: payload.sub };
+    req.user = { id: payload.sub, role: payload.role };
     next();
   } catch {
     return res.status(401).json({

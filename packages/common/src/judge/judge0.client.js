@@ -69,7 +69,7 @@ export async function executeJudge0WithWait({
   stdin = "",
   cpuTimeLimit = 2,
   memoryLimitKb = 262144,
-  timeoutMs = 15000,
+  timeoutMs = 25000,
 }) {
   const payload = {
     language_id: languageId,
