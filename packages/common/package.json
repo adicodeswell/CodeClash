@@ -7,6 +7,9 @@
   "exports": {
     ".": "./src/index.js"
   },
+  "scripts": {
+    "test": "node --test tests/**/*.test.js"
+  },
   "dependencies": {
     "zod": "^4.6.7"
   }

@@ -7,6 +7,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { getVerdictConfig } from "./verdictConfig.js";
+import { formatRuntime, formatMemory } from "./SubmissionMetrics.jsx";
 
 /**
  * Renders the terminal outcome of a submission including verdict, metrics, and safe diagnostics.
@@ -46,7 +47,7 @@ export function SubmissionResult({ submission }) {
           <div>
             <div className="text-[11px] font-medium text-clash-muted">Runtime</div>
             <div className="text-sm font-bold text-clash-text font-mono">
-              {submission.runtimeMs != null ? `${submission.runtimeMs} ms` : "—"}
+              {formatRuntime(submission.runtimeMs) || "—"}
             </div>
           </div>
         </div>
@@ -58,9 +59,7 @@ export function SubmissionResult({ submission }) {
           <div>
             <div className="text-[11px] font-medium text-clash-muted">Memory</div>
             <div className="text-sm font-bold text-clash-text font-mono">
-              {submission.memoryKb != null
-                ? `${(submission.memoryKb / 1024).toFixed(1)} MB`
-                : "—"}
+              {formatMemory(submission.memoryKb) || "—"}
             </div>
           </div>
         </div>

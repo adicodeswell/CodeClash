@@ -352,4 +352,102 @@ describe("Submissions API Tests (/api/submissions)", () => {
     const res = await ctx.fetchAuth("/api/submissions/me?cursor=nonexistent_invalid_cursor_id");
     assert.equal(res.status, 400);
   });
+
+  test("Task 2: pending submissions preserve null verdict until execution completes", async () => {
+    const testUser = await prisma.user.findUnique({
+      where: { emailNormalized: "adi.test@example.com" },
+    });
+    const problem = await prisma.problem.findFirst({ where: { slug: "two-sum" } });
+
+    const pendingSub = await prisma.submission.create({
+      data: {
+        userId: testUser.id,
+        problemId: problem.id,
+        language: "python",
+        sourceCode: "pass",
+        packageVersion: "1",
+        status: "RUNNING",
+        verdict: null,
+        passedTestCount: 0,
+        totalTestCount: 4,
+        runtimeMs: null,
+        memoryKb: null,
+      },
+    });
+
+    const res = await ctx.fetchAuth(`/api/submissions/${pendingSub.id}`);
+    assert.equal(res.status, 200);
+    const body = await res.json();
+    assert.equal(body.submission.status, "RUNNING");
+    assert.equal(body.submission.verdict, null, "Pending submission must have a null verdict");
+    assert.equal(body.submission.runtimeMs, null);
+    assert.equal(body.submission.memoryKb, null);
+
+    // Clean up
+    await prisma.submission.delete({ where: { id: pendingSub.id } });
+  });
+
+  test("Task 2: history API returns accurate metrics and distinguishes JUDGE_ERROR from user errors", async () => {
+    const testUser = await prisma.user.findUnique({
+      where: { emailNormalized: "adi.test@example.com" },
+    });
+    const problem = await prisma.problem.findFirst({ where: { slug: "two-sum" } });
+
+    const judgeErrSub = await prisma.submission.create({
+      data: {
+        userId: testUser.id,
+        problemId: problem.id,
+        language: "python",
+        sourceCode: "pass",
+        packageVersion: "1",
+        status: "COMPLETED",
+        verdict: "JUDGE_ERROR",
+        errorCode: "PROVIDER_OUTAGE",
+        errorSummary: "Judge execution provider error",
+        passedTestCount: 0,
+        totalTestCount: 4,
+        runtimeMs: 0,
+        memoryKb: 0,
+      },
+    });
+
+    const acceptedSub = await prisma.submission.create({
+      data: {
+        userId: testUser.id,
+        problemId: problem.id,
+        language: "python",
+        sourceCode: "pass",
+        packageVersion: "1",
+        status: "COMPLETED",
+        verdict: "ACCEPTED",
+        passedTestCount: 4,
+        totalTestCount: 4,
+        runtimeMs: 42,
+        memoryKb: 52140,
+      },
+    });
+
+    const res = await ctx.fetchAuth("/api/submissions/me?limit=5");
+    assert.equal(res.status, 200);
+    const body = await res.json();
+
+    const returnedJudgeErr = body.submissions.find((s) => s.id === judgeErrSub.id);
+    const returnedAccepted = body.submissions.find((s) => s.id === acceptedSub.id);
+
+    assert.ok(returnedJudgeErr);
+    assert.equal(returnedJudgeErr.verdict, "JUDGE_ERROR", "Must be JUDGE_ERROR, not WRONG_ANSWER");
+    assert.notEqual(returnedJudgeErr.verdict, "WRONG_ANSWER");
+
+    assert.ok(returnedAccepted);
+    assert.equal(returnedAccepted.verdict, "ACCEPTED");
+    assert.equal(returnedAccepted.runtimeMs, 42);
+    assert.equal(returnedAccepted.memoryKb, 52140);
+    assert.equal(returnedAccepted.passedTestCount, 4);
+    assert.equal(returnedAccepted.totalTestCount, 4);
+
+    // Clean up
+    await prisma.submission.deleteMany({
+      where: { id: { in: [judgeErrSub.id, acceptedSub.id] } },
+    });
+  });
 });

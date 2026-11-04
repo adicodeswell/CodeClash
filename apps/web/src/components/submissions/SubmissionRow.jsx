@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { SubmissionStatusBadge } from "./SubmissionStatus.jsx";
 import { DifficultyBadge } from "../problems/DifficultyBadge.jsx";
 import { Zap, HardDrive, ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { formatRuntime, formatMemory } from "./SubmissionMetrics.jsx";
 
 export function SubmissionRow({ submission }) {
   const {
@@ -25,11 +26,6 @@ export function SubmissionRow({ submission }) {
     minute: "2-digit",
   });
 
-  const memoryDisplay = memoryKb != null
-    ? memoryKb >= 1024
-      ? `${(memoryKb / 1024).toFixed(1)} MB`
-      : `${memoryKb} KB`
-    : "—";
 
   return (
     <tr className="border-b border-clash-border/50 hover:bg-white/[0.02] transition-colors group">
@@ -71,10 +67,10 @@ export function SubmissionRow({ submission }) {
 
       {/* Runtime */}
       <td className="py-4 px-4 text-xs text-slate-300">
-        {runtimeMs != null ? (
+        {formatRuntime(runtimeMs) ? (
           <span className="inline-flex items-center gap-1 font-mono">
             <Zap size={13} className="text-amber-400 shrink-0" />
-            <span>{runtimeMs} ms</span>
+            <span>{formatRuntime(runtimeMs)}</span>
           </span>
         ) : (
           <span className="text-clash-muted">—</span>
@@ -83,10 +79,10 @@ export function SubmissionRow({ submission }) {
 
       {/* Memory */}
       <td className="py-4 px-4 text-xs text-slate-300 hidden md:table-cell">
-        {memoryKb != null ? (
+        {formatMemory(memoryKb) ? (
           <span className="inline-flex items-center gap-1 font-mono">
             <HardDrive size={13} className="text-teal-400 shrink-0" />
-            <span>{memoryDisplay}</span>
+            <span>{formatMemory(memoryKb)}</span>
           </span>
         ) : (
           <span className="text-clash-muted">—</span>

@@ -7,6 +7,7 @@ import {
   Zap,
   Cpu,
 } from "lucide-react";
+import { formatRuntime, formatMemory } from "./SubmissionMetrics.jsx";
 
 /**
  * Renders the results of running code against the real sample test cases.
@@ -56,16 +57,16 @@ export function RunTestCasesResult({ result, sampleTestCases = [] }) {
           </div>
 
           <div className="flex items-center gap-4 text-xs font-mono text-slate-300">
-            {result.runtimeMs != null && (
+            {formatRuntime(result.runtimeMs) && (
               <span className="flex items-center gap-1">
                 <Zap size={13} className="text-amber-400" />
-                {result.runtimeMs} ms
+                {formatRuntime(result.runtimeMs)}
               </span>
             )}
-            {result.memoryKb != null && (
+            {formatMemory(result.memoryKb) && (
               <span className="flex items-center gap-1">
                 <Cpu size={13} className="text-blue-400" />
-                {(result.memoryKb / 1024).toFixed(1)} MB
+                {formatMemory(result.memoryKb)}
               </span>
             )}
           </div>
@@ -177,15 +178,21 @@ export function RunTestCasesResult({ result, sampleTestCases = [] }) {
             </pre>
           </div>
 
-          {/* Specific testcase error if any */}
-          {activeCase.error && (
-            <div className="rounded-lg border border-red-500/25 bg-red-500/10 p-2.5 text-xs">
-              <div className="font-semibold text-red-400 mb-1">Standard Error:</div>
-              <pre className="font-mono text-red-300 text-[11px] whitespace-pre-wrap">
-                {activeCase.error}
-              </pre>
-            </div>
-          )}
+          {/* Specific testcase error if any (excluding timing markers) */}
+          {(() => {
+            const cleanErr = (activeCase.error || "")
+              .replace(/__CODECLASH_TIME_MS__:[^\n]*\n?/g, "")
+              .trim();
+            if (!cleanErr) return null;
+            return (
+              <div className="rounded-lg border border-red-500/25 bg-red-500/10 p-2.5 text-xs">
+                <div className="font-semibold text-red-400 mb-1">Standard Error:</div>
+                <pre className="font-mono text-red-300 text-[11px] whitespace-pre-wrap">
+                  {cleanErr}
+                </pre>
+              </div>
+            );
+          })()}
         </div>
       )}
     </div>

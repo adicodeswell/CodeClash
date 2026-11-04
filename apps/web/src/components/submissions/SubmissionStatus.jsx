@@ -7,11 +7,11 @@ import { VerdictBadge } from "./VerdictBadge.jsx";
  * RUNNING -> "Judging"
  * COMPLETED -> VerdictBadge
  */
-export function SubmissionStatusBadge({ status, verdict }) {
+export function SubmissionStatusBadge({ status, verdict, asPill = false }) {
   if (status === "QUEUED") {
     return (
       <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/15 text-amber-400 border border-amber-500/30">
-        <Clock size={12} className="animate-pulse" />
+        <Clock size={12} className="animate-pulse shrink-0" />
         <span>In Queue</span>
       </span>
     );
@@ -20,13 +20,18 @@ export function SubmissionStatusBadge({ status, verdict }) {
   if (status === "RUNNING") {
     return (
       <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-primary/15 text-brand-primary border border-brand-primary/30">
-        <span className="w-1.5 h-1.5 rounded-full bg-brand-primary animate-ping"></span>
+        <span className="w-1.5 h-1.5 rounded-full bg-brand-primary animate-ping shrink-0"></span>
         <span>Judging</span>
       </span>
     );
   }
 
-  return <VerdictBadge verdict={verdict} />;
+  // Final verdict displayed only once judging is complete
+  if (verdict) {
+    return <VerdictBadge verdict={verdict} asPill={asPill} />;
+  }
+
+  return null;
 }
 
 /**

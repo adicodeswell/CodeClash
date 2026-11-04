@@ -10,7 +10,7 @@ export function extractExecutionMetrics(result) {
   let cleanStderr = result.stderr || null;
 
   if (result.stderr && result.stderr.includes("__CODECLASH_TIME_MS__:")) {
-    const match = result.stderr.match(/__CODECLASH_TIME_MS__:(\d+(?:\.\d+)?)/);
+    const match = result.stderr.match(/__CODECLASH_TIME_MS__:\s*(\d+(?:\.\d+)?)/);
     if (match) {
       runtimeMs = Math.max(1, Math.round(Number(match[1])));
     }
@@ -49,6 +49,19 @@ export function mapJudge0Result(result, expectedOutput) {
       verdict: "TIME_LIMIT_EXCEEDED",
       runtimeMs,
       errorSummary: "Execution exceeded time limit",
+    };
+  }
+
+  // Memory Limit Exceeded
+  if (
+    (statusDescription && /memory limit/i.test(statusDescription)) ||
+    (result.message && /memory limit/i.test(result.message)) ||
+    (statusId >= 7 && statusId <= 12 && /memory limit|out of memory/i.test(effectiveStderr || ""))
+  ) {
+    return {
+      verdict: "MEMORY_LIMIT_EXCEEDED",
+      runtimeMs,
+      errorSummary: "Execution exceeded memory limit",
     };
   }
 
