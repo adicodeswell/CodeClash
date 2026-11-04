@@ -1,5 +1,3 @@
-import { Zap, HardDrive, CheckCircle2 } from "lucide-react";
-
 /**
  * Normalizes runtime formatting. Returns null if metric is unavailable or misleading (<= 0).
  */
@@ -50,22 +48,15 @@ export function SubmissionMetrics({
     return (
       <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-slate-300">
         {testsDisplay && (
-          <span className="flex items-center gap-1 text-slate-200">
-            <CheckCircle2 size={13} className="text-brand-primary shrink-0" />
-            <span>{testsDisplay}</span>
+          <span className="text-slate-200">
+            {testsDisplay}
           </span>
         )}
-        <span className="flex items-center gap-1 text-slate-200">
-          <Zap size={13} className="text-amber-400 shrink-0" />
-          <span className={runtimeDisplay ? "" : "text-clash-muted"}>
-            {runtimeDisplay || "—"}
-          </span>
+        <span className={runtimeDisplay ? "text-slate-200" : "text-clash-muted"}>
+          {runtimeDisplay || "—"}
         </span>
-        <span className="hidden sm:flex items-center gap-1 text-slate-200">
-          <HardDrive size={13} className="text-teal-400 shrink-0" />
-          <span className={memoryDisplay ? "" : "text-clash-muted"}>
-            {memoryDisplay || "—"}
-          </span>
+        <span className={`hidden sm:inline ${memoryDisplay ? "text-slate-200" : "text-clash-muted"}`}>
+          {memoryDisplay || "—"}
         </span>
       </div>
     );
@@ -76,7 +67,7 @@ export function SubmissionMetrics({
       {testsDisplay && (
         <div className="rounded-lg bg-black/20 p-2.5 border border-white/5 flex flex-col justify-center">
           <span className="text-clash-muted text-[10px] font-medium uppercase tracking-wider">
-            Test Cases
+            Test Cases Passed
           </span>
           <span className="font-bold text-slate-100 font-mono text-xs mt-0.5">
             {testsDisplay}
@@ -85,9 +76,8 @@ export function SubmissionMetrics({
       )}
 
       <div className="rounded-lg bg-black/20 p-2.5 border border-white/5 flex flex-col justify-center">
-        <span className="text-clash-muted text-[10px] font-medium uppercase tracking-wider flex items-center gap-1">
-          <Zap size={11} className="text-amber-400" />
-          <span>Runtime</span>
+        <span className="text-clash-muted text-[10px] font-medium uppercase tracking-wider">
+          Runtime
         </span>
         <span className="font-bold text-slate-100 font-mono text-xs mt-0.5">
           {runtimeDisplay || "—"}
@@ -95,9 +85,8 @@ export function SubmissionMetrics({
       </div>
 
       <div className="rounded-lg bg-black/20 p-2.5 border border-white/5 flex flex-col justify-center">
-        <span className="text-clash-muted text-[10px] font-medium uppercase tracking-wider flex items-center gap-1">
-          <HardDrive size={11} className="text-teal-400" />
-          <span>Memory</span>
+        <span className="text-clash-muted text-[10px] font-medium uppercase tracking-wider">
+          Memory
         </span>
         <span className="font-bold text-slate-100 font-mono text-xs mt-0.5">
           {memoryDisplay || "—"}

@@ -4,8 +4,6 @@ import {
   AlertCircle,
   Terminal,
   Layers,
-  Zap,
-  Cpu,
 } from "lucide-react";
 import { formatRuntime, formatMemory } from "./SubmissionMetrics.jsx";
 
@@ -56,18 +54,15 @@ export function RunTestCasesResult({ result, sampleTestCases = [] }) {
             </span>
           </div>
 
-          <div className="flex items-center gap-4 text-xs font-mono text-slate-300">
+          <div className="flex items-center gap-2.5 text-xs font-mono text-slate-300">
             {formatRuntime(result.runtimeMs) && (
-              <span className="flex items-center gap-1">
-                <Zap size={13} className="text-amber-400" />
-                {formatRuntime(result.runtimeMs)}
-              </span>
+              <span>{formatRuntime(result.runtimeMs)}</span>
+            )}
+            {formatRuntime(result.runtimeMs) && formatMemory(result.memoryKb) && (
+              <span className="text-clash-subtle">•</span>
             )}
             {formatMemory(result.memoryKb) && (
-              <span className="flex items-center gap-1">
-                <Cpu size={13} className="text-blue-400" />
-                {formatMemory(result.memoryKb)}
-              </span>
+              <span>{formatMemory(result.memoryKb)}</span>
             )}
           </div>
         </div>

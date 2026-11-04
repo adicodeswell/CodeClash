@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Editor from "@monaco-editor/react";
-import { Copy, Check, Code, FileCode } from "lucide-react";
+import { Copy, Check } from "lucide-react";
 
 const MONACO_LANGUAGES = {
   python: "python",
@@ -30,7 +30,6 @@ export function SubmissionCode({ sourceCode = "", language = "python" }) {
       {/* Code Header Bar */}
       <div className="h-11 px-4 border-b border-clash-border/70 bg-clash-surface/90 flex items-center justify-between select-none shrink-0">
         <div className="flex items-center gap-2">
-          <FileCode size={16} className="text-brand-primary" />
           <span className="text-xs font-bold text-slate-200 uppercase tracking-wider">
             Submitted Source Code
           </span>

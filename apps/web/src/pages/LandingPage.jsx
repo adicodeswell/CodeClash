@@ -191,13 +191,6 @@ export function LandingPage() {
                 </div>
               </div>
             </div>
-
-            <div className="p-5 rounded-xl bg-brand-primary/10 border border-brand-primary/20">
-              <h4 className="text-sm font-bold text-emerald-200 mb-1">🚀 Ready for the next phase?</h4>
-              <p className="text-xs sm:text-sm text-clash-muted leading-relaxed">
-                Tailwind CSS and global design tokens are fully set up and connected with the backend. You can now build the Problem Catalog UI (Task 2) to display and filter all published problems.
-              </p>
-            </div>
           </div>
         </div>
       )}

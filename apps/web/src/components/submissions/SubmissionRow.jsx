@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { SubmissionStatusBadge } from "./SubmissionStatus.jsx";
 import { DifficultyBadge } from "../problems/DifficultyBadge.jsx";
-import { Zap, HardDrive, ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { formatRuntime, formatMemory } from "./SubmissionMetrics.jsx";
 
 export function SubmissionRow({ submission }) {
@@ -54,9 +54,8 @@ export function SubmissionRow({ submission }) {
         >
           <SubmissionStatusBadge status={status} verdict={verdict} />
           {status === "COMPLETED" && totalTestCount != null && totalTestCount > 0 && (
-            <span className="text-[11px] font-mono text-clash-muted flex items-center gap-1 group-hover/link:text-brand-primary transition">
-              <CheckCircle2 size={11} className="text-clash-subtle" />
-              <span>{passedTestCount ?? 0}/{totalTestCount} passed</span>
+            <span className="text-[11px] font-mono text-clash-muted group-hover/link:text-brand-primary transition">
+              {passedTestCount ?? 0}/{totalTestCount} passed
             </span>
           )}
         </Link>
@@ -72,10 +71,7 @@ export function SubmissionRow({ submission }) {
       {/* Runtime */}
       <td className="py-4 px-4 text-xs text-slate-300">
         {formatRuntime(runtimeMs) ? (
-          <span className="inline-flex items-center gap-1 font-mono">
-            <Zap size={13} className="text-amber-400 shrink-0" />
-            <span>{formatRuntime(runtimeMs)}</span>
-          </span>
+          <span className="font-mono">{formatRuntime(runtimeMs)}</span>
         ) : (
           <span className="text-clash-muted">—</span>
         )}
@@ -84,10 +80,7 @@ export function SubmissionRow({ submission }) {
       {/* Memory */}
       <td className="py-4 px-4 text-xs text-slate-300 hidden md:table-cell">
         {formatMemory(memoryKb) ? (
-          <span className="inline-flex items-center gap-1 font-mono">
-            <HardDrive size={13} className="text-teal-400 shrink-0" />
-            <span>{formatMemory(memoryKb)}</span>
-          </span>
+          <span className="font-mono">{formatMemory(memoryKb)}</span>
         ) : (
           <span className="text-clash-muted">—</span>
         )}

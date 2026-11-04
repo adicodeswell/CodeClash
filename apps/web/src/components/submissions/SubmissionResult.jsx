@@ -1,8 +1,5 @@
 import { useState } from "react";
 import {
-  Zap,
-  Cpu,
-  Terminal,
   ChevronUp,
   ChevronDown,
 } from "lucide-react";
@@ -40,27 +37,17 @@ export function SubmissionResult({ submission }) {
 
       {/* Benchmark Metrics (Runtime & Memory) */}
       <div className="grid grid-cols-2 gap-3">
-        <div className="rounded-xl border border-clash-border bg-clash-surface/60 p-3.5 flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shrink-0">
-            <Zap size={16} />
-          </div>
-          <div>
-            <div className="text-[11px] font-medium text-clash-muted">Runtime</div>
-            <div className="text-sm font-bold text-clash-text font-mono">
-              {formatRuntime(submission.runtimeMs) || "—"}
-            </div>
+        <div className="rounded-xl border border-clash-border bg-clash-surface/60 p-3">
+          <div className="text-[11px] font-medium text-clash-muted">Runtime</div>
+          <div className="text-sm font-bold text-clash-text font-mono mt-0.5">
+            {formatRuntime(submission.runtimeMs) || "—"}
           </div>
         </div>
 
-        <div className="rounded-xl border border-clash-border bg-clash-surface/60 p-3.5 flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
-            <Cpu size={16} />
-          </div>
-          <div>
-            <div className="text-[11px] font-medium text-clash-muted">Memory</div>
-            <div className="text-sm font-bold text-clash-text font-mono">
-              {formatMemory(submission.memoryKb) || "—"}
-            </div>
+        <div className="rounded-xl border border-clash-border bg-clash-surface/60 p-3">
+          <div className="text-[11px] font-medium text-clash-muted">Memory</div>
+          <div className="text-sm font-bold text-clash-text font-mono mt-0.5">
+            {formatMemory(submission.memoryKb) || "—"}
           </div>
         </div>
       </div>
@@ -73,10 +60,7 @@ export function SubmissionResult({ submission }) {
             onClick={() => setShowErrorSummary(!showErrorSummary)}
             className="w-full px-3.5 py-2.5 bg-red-500/15 border-b border-red-500/20 flex items-center justify-between font-semibold text-red-300 text-left cursor-pointer"
           >
-            <span className="flex items-center gap-1.5">
-              <Terminal size={13} />
-              Execution Diagnostics
-            </span>
+            <span>Execution Diagnostics</span>
             {showErrorSummary ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
           </button>
           {showErrorSummary && (

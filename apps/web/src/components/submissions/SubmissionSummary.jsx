@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, ArrowUpRight, Calendar, Code2 } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { DifficultyBadge } from "../problems/DifficultyBadge.jsx";
 import { SubmissionStatusBadge } from "./SubmissionStatus.jsx";
 import { SubmissionMetrics } from "./SubmissionMetrics.jsx";
@@ -55,15 +55,9 @@ export function SubmissionSummary({ submission }) {
           </div>
 
           <div className="flex items-center gap-3 text-xs text-clash-muted font-mono">
-            <span className="flex items-center gap-1">
-              <Calendar size={13} className="text-clash-subtle" />
-              <span>{formattedDate}</span>
-            </span>
+            <span>{formattedDate}</span>
             <span>•</span>
-            <span className="flex items-center gap-1">
-              <Code2 size={13} className="text-clash-subtle" />
-              <span className="uppercase font-semibold text-slate-300">{language}</span>
-            </span>
+            <span className="uppercase font-semibold text-slate-300">{language}</span>
             <span className="hidden sm:inline">•</span>
             <span className="hidden sm:inline text-clash-subtle">ID: {id}</span>
           </div>

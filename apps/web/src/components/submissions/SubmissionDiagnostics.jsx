@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Terminal, ChevronUp, ChevronDown, AlertCircle, Copy, Check } from "lucide-react";
+import { ChevronUp, ChevronDown, Copy, Check } from "lucide-react";
 
 export function SubmissionDiagnostics({ errorSummary }) {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -33,8 +33,7 @@ export function SubmissionDiagnostics({ errorSummary }) {
     <div className="rounded-2xl border border-red-500/25 bg-red-500/5 overflow-hidden text-xs shadow-sm">
       {/* Diagnostics Header */}
       <div className="px-4 py-3 bg-red-500/10 border-b border-red-500/20 flex items-center justify-between">
-        <div className="flex items-center gap-2 text-red-400 font-bold">
-          <Terminal size={15} />
+        <div className="text-red-400 font-bold">
           <span>Compiler / Runtime Diagnostics</span>
         </div>
 

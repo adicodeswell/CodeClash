@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
-import { Swords, ArrowLeft, User, LogOut } from "lucide-react";
+import { Code2, ArrowLeft, User, LogOut } from "lucide-react";
 import { RunButton } from "../editor/RunButton.jsx";
 import { SubmitButton } from "../editor/SubmitButton.jsx";
 import { ProblemProgressBadge } from "../problems/ProblemProgressBadge.jsx";
@@ -21,11 +21,11 @@ export function ArenaHeader({
       {/* Left: Brand + Problem Navigation */}
       <div className="flex items-center gap-3">
         <Link to="/" className="flex items-center gap-2 group" title="CodeClash Home">
-          <div className="w-7 h-7 rounded-lg bg-brand-primary/10 border border-brand-primary/30 flex items-center justify-center text-brand-primary group-hover:border-brand-primary/60 transition">
-            <Swords size={16} />
+          <div className="w-7 h-7 rounded-lg bg-brand-primary/10 border border-brand-primary/30 flex items-center justify-center text-brand-primary group-hover:border-brand-primary/50 transition">
+            <Code2 size={15} />
           </div>
-          <span className="text-sm font-extrabold tracking-tight text-clash-text hidden sm:inline-block">
-            Code<span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent">Clash</span>
+          <span className="text-sm font-bold tracking-tight text-clash-text hidden sm:inline-block">
+            Code<span className="text-brand-primary">Clash</span>
           </span>
         </Link>
 

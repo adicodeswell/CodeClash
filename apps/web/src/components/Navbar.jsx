@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
-import { Swords, User, LogOut, Code2, History } from "lucide-react";
+import { User, LogOut, Code2, History } from "lucide-react";
 
 export function Navbar() {
   const { user, logout } = useAuth();
@@ -10,18 +10,12 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
         {/* Brand & Nav */}
         <div className="flex items-center gap-6 sm:gap-8">
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-primary/20 to-brand-secondary/20 border border-brand-primary/40 flex items-center justify-center text-brand-primary shadow-lg shadow-brand-primary/15 group-hover:border-brand-primary/60 transition">
-              <Swords size={20} />
+          <Link to="/" className="flex items-center gap-2.5 group">
+            <div className="w-8 h-8 rounded-lg bg-brand-primary/10 border border-brand-primary/30 flex items-center justify-center text-brand-primary group-hover:border-brand-primary/60 transition">
+              <Code2 size={18} />
             </div>
-            <span className="text-xl font-extrabold tracking-tight text-clash-text">
-              Code
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent">
-                Clash
-              </span>
-            </span>
-            <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-white/5 border border-clash-border text-clash-muted hidden sm:inline-block">
-              v1.0
+            <span className="text-xl font-bold tracking-tight text-clash-text">
+              Code<span className="text-brand-primary">Clash</span>
             </span>
           </Link>
 
