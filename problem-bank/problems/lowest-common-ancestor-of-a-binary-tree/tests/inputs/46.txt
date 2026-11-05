@@ -1,0 +1,4 @@
+48
+1 2 5 3 4 8 21 6 7 13 16 null null null null 9 11 10 17 22 24 null null 18 20 null null 12 14 null null null null null null 23 null 25 null 15 null null null null null null null 19
+25
+10

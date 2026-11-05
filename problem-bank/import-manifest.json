@@ -1,64 +1,18 @@
 {
-  "generatedAt": "2026-11-04T16:35:11.296Z",
+  "generatedAt": "2026-11-05T13:15:09.944Z",
   "problems": [
     {
-      "slug": "longest-consecutive-sequence",
-      "title": "Longest Consecutive Sequence",
-      "difficulty": "MEDIUM",
+      "slug": "maximum-profit-in-job-scheduling",
+      "title": "Maximum Profit in Job Scheduling",
+      "difficulty": "HARD",
       "topics": [
         "Array",
-        "Hash Table"
+        "Binary Search",
+        "Dynamic Programming",
+        "Sorting"
       ],
       "packageVersion": "1",
-      "contentHash": "b540cecb6cae2274650a9ce4c9a483d90ac050ee9da86a2a12ab0b0e0095507c",
-      "testCaseCount": 80
-    },
-    {
-      "slug": "majority-element",
-      "title": "Majority Element",
-      "difficulty": "EASY",
-      "topics": [
-        "Array",
-        "Hash Table"
-      ],
-      "packageVersion": "1",
-      "contentHash": "172d92f1b7afaee189f600f21b61c03b450c1927963503fd5ddb17aa875bd9f2",
-      "testCaseCount": 80
-    },
-    {
-      "slug": "single-number",
-      "title": "Single Number",
-      "difficulty": "EASY",
-      "topics": [
-        "Array",
-        "Hash Table"
-      ],
-      "packageVersion": "1",
-      "contentHash": "1f83afc96c79f19fc6d8e8e611c61df67d3ad71b6059e9788ae1a747aff6cd3b",
-      "testCaseCount": 80
-    },
-    {
-      "slug": "subarray-sum-equals-k",
-      "title": "Subarray Sum Equals K",
-      "difficulty": "MEDIUM",
-      "topics": [
-        "Array",
-        "Hash Table"
-      ],
-      "packageVersion": "1",
-      "contentHash": "84ee6086a33f7bdc025c70618bdec5cba0d0b3c84b9fb0758105568c7bdb4671",
-      "testCaseCount": 80
-    },
-    {
-      "slug": "two-sum",
-      "title": "Two Sum",
-      "difficulty": "EASY",
-      "topics": [
-        "Array",
-        "Hash Table"
-      ],
-      "packageVersion": "1",
-      "contentHash": "f19286723b94ac5950b1625a8ae01321ff8d8f7e0d64e2090f977efeb8ee474a",
+      "contentHash": "7a1ab7173a6e848f9dda704f1910a7b58a7a8ebd35e24b77927ee66e4529f23a",
       "testCaseCount": 80
     }
   ]

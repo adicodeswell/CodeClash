@@ -1,0 +1,64 @@
+from __future__ import annotations
+import sys
+from typing import List, Dict, Tuple, Set, Optional
+
+# Replace this marker with the participant's Solution class.
+{{USER_CODE}}
+
+data = iter(sys.stdin.buffer.read().decode("utf-8").split())
+
+def read_str():
+    try:
+        return next(data)
+    except StopIteration:
+        return None
+
+def read_int():
+    s = read_str()
+    return int(s) if s is not None else None
+
+def read_float():
+    s = read_str()
+    return float(s) if s is not None else None
+
+def read_bool():
+    s = read_str()
+    return (s == "1") if s is not None else None
+
+def read_int_list():
+    n = read_int()
+    if n is None:
+        return None
+    return [read_int() for _ in range(n)]
+
+def read_str_list():
+    n = read_int()
+    if n is None:
+        return None
+    return [read_str() for _ in range(n)]
+
+def read_int_matrix():
+    r = read_int()
+    if r is None:
+        return None
+    return [read_int_list() for _ in range(r)]
+
+def read_str_matrix():
+    r = read_int()
+    if r is None:
+        return None
+    return [read_str_list() for _ in range(r)]
+
+def main():
+    while True:
+        root = read_str_list()
+        if root is None: break
+        p = read_int()
+        if p is None: break
+        q = read_int()
+        if q is None: break
+        result = Solution().lowestCommonAncestor(root, p, q)
+        print(result)
+
+if __name__ == "__main__":
+    main()

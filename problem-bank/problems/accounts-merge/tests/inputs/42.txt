@@ -1,0 +1,13 @@
+6
+2
+Alex u42_1@test.com
+3
+Bob u42_3@test.com u42_5@test.com
+3
+Charlie u42_6@test.com u42_9@test.com
+4
+Charlie u42_6@test.com u42_7@test.com u42_8@test.com
+4
+David u42_11@test.com u42_12@test.com u42_13@test.com
+4
+David u42_11@test.com u42_12@test.com u42_14@test.com

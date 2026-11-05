@@ -10,7 +10,24 @@ const DIFFICULTIES = [
 const TOPICS = [
   "ALL",
   "Array",
+  "Binary Search",
+  "Binary Tree",
+  "Bit Manipulation",
+  "Breadth-First Search",
+  "Counting",
+  "Depth-First Search",
+  "Dynamic Programming",
+  "Graph",
+  "Greedy",
   "Hash Table",
+  "Math",
+  "Matrix",
+  "Sorting",
+  "Stack",
+  "String",
+  "Topological Sort",
+  "Tree",
+  "Union Find",
 ];
 
 export function ProblemFilters({

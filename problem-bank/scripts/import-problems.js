@@ -203,7 +203,7 @@ async function main() {
           contentHash: problem.contentHash,
           languages: problem.languages,
           testCases: problem.testCases,
-          // New problems use the schema's default DRAFT status.
+          status: "PUBLISHED",
         },
         update: {
           title: problem.title,

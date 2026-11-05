@@ -1,0 +1,9 @@
+4
+3
+John johnsmith@mail.com john_newyork@mail.com
+3
+John johnsmith@mail.com john00@mail.com
+2
+Mary mary@mail.com
+2
+John johnnybravo@mail.com

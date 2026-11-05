@@ -1,0 +1,17 @@
+8
+3
+Alex u50_1@test.com u50_4@test.com
+2
+Bob u50_5@test.com
+2
+Charlie u50_7@test.com
+3
+Charlie u50_7@test.com u50_9@test.com
+4
+David u50_10@test.com u50_12@test.com u50_13@test.com
+5
+David u50_10@test.com u50_11@test.com u50_12@test.com u50_13@test.com
+5
+David u50_10@test.com u50_11@test.com u50_12@test.com u50_13@test.com
+4
+Emma u50_14@test.com u50_15@test.com u50_16@test.com

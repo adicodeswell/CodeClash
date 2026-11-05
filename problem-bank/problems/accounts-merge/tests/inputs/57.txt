@@ -1,0 +1,21 @@
+10
+2
+Alex u57_1@test.com
+3
+Alex u57_1@test.com u57_2@test.com
+3
+Alex u57_1@test.com u57_2@test.com
+3
+Bob u57_3@test.com u57_4@test.com
+4
+Bob u57_3@test.com u57_5@test.com u57_6@test.com
+3
+Bob u57_3@test.com u57_7@test.com
+4
+Charlie u57_8@test.com u57_9@test.com u57_10@test.com
+5
+David u57_11@test.com u57_12@test.com u57_14@test.com u57_15@test.com
+3
+Emma u57_16@test.com u57_17@test.com
+3
+Emma u57_16@test.com u57_18@test.com

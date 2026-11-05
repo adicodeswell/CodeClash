@@ -1,0 +1,81 @@
+40
+3
+Alex user0@bulk.com user1@bulk.com
+3
+Alex user1@bulk.com user2@bulk.com
+3
+Alex user2@bulk.com user3@bulk.com
+3
+Alex user3@bulk.com user4@bulk.com
+3
+Alex user4@bulk.com user5@bulk.com
+3
+Alex user5@bulk.com user6@bulk.com
+3
+Alex user6@bulk.com user7@bulk.com
+3
+Alex user7@bulk.com user8@bulk.com
+3
+Alex user8@bulk.com user9@bulk.com
+3
+Alex user9@bulk.com user10@bulk.com
+3
+Alex user10@bulk.com user11@bulk.com
+3
+Alex user11@bulk.com user12@bulk.com
+3
+Alex user12@bulk.com user13@bulk.com
+3
+Alex user13@bulk.com user14@bulk.com
+3
+Alex user14@bulk.com user15@bulk.com
+3
+Alex user15@bulk.com user16@bulk.com
+3
+Alex user16@bulk.com user17@bulk.com
+3
+Alex user17@bulk.com user18@bulk.com
+3
+Alex user18@bulk.com user19@bulk.com
+3
+Alex user19@bulk.com user20@bulk.com
+3
+Alex user20@bulk.com user21@bulk.com
+3
+Alex user21@bulk.com user22@bulk.com
+3
+Alex user22@bulk.com user23@bulk.com
+3
+Alex user23@bulk.com user24@bulk.com
+3
+Alex user24@bulk.com user25@bulk.com
+3
+Alex user25@bulk.com user26@bulk.com
+3
+Alex user26@bulk.com user27@bulk.com
+3
+Alex user27@bulk.com user28@bulk.com
+3
+Alex user28@bulk.com user29@bulk.com
+3
+Alex user29@bulk.com user30@bulk.com
+3
+Alex user30@bulk.com user31@bulk.com
+3
+Alex user31@bulk.com user32@bulk.com
+3
+Alex user32@bulk.com user33@bulk.com
+3
+Alex user33@bulk.com user34@bulk.com
+3
+Alex user34@bulk.com user35@bulk.com
+3
+Alex user35@bulk.com user36@bulk.com
+3
+Alex user36@bulk.com user37@bulk.com
+3
+Alex user37@bulk.com user38@bulk.com
+3
+Alex user38@bulk.com user39@bulk.com
+3
+Alex user39@bulk.com user40@bulk.com

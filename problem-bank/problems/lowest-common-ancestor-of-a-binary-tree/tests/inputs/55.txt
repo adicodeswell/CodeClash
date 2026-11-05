@@ -1,0 +1,4 @@
+40
+1 2 4 3 9 5 7 6 17 11 null 8 null null null 10 15 null null null null 12 null 14 null null null 13 20 18 21 16 null null null null null null null 19
+10
+19

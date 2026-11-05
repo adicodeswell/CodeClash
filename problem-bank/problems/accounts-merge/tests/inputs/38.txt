@@ -1,0 +1,37 @@
+18
+3
+User u0@domain.com u1@domain.com
+3
+User u1@domain.com u2@domain.com
+3
+User u2@domain.com u3@domain.com
+3
+User u3@domain.com u4@domain.com
+3
+User u4@domain.com u5@domain.com
+3
+User u5@domain.com u6@domain.com
+3
+User u6@domain.com u7@domain.com
+3
+User u7@domain.com u8@domain.com
+3
+User u8@domain.com u9@domain.com
+3
+User u9@domain.com u10@domain.com
+3
+User u10@domain.com u11@domain.com
+3
+User u11@domain.com u12@domain.com
+3
+User u12@domain.com u13@domain.com
+3
+User u13@domain.com u14@domain.com
+3
+User u14@domain.com u15@domain.com
+3
+User u15@domain.com u16@domain.com
+3
+User u16@domain.com u17@domain.com
+3
+User u17@domain.com u18@domain.com

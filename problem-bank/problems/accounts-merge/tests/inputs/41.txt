@@ -1,0 +1,17 @@
+8
+3
+Alex u41_1@test.com u41_2@test.com
+2
+Alex u41_1@test.com
+3
+Bob u41_3@test.com u41_4@test.com
+3
+Bob u41_3@test.com u41_4@test.com
+4
+Charlie u41_5@test.com u41_7@test.com u41_8@test.com
+5
+David u41_10@test.com u41_12@test.com u41_13@test.com u41_14@test.com
+6
+David u41_10@test.com u41_11@test.com u41_12@test.com u41_13@test.com u41_14@test.com
+3
+David u41_10@test.com u41_14@test.com

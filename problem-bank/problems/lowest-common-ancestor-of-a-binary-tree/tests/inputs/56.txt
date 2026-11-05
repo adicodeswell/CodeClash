@@ -1,0 +1,4 @@
+34
+1 2 3 5 6 4 null null null 9 11 7 14 null null null null 8 null 17 null 10 13 null null 12 16 15 null null null 19 null 18
+10
+11

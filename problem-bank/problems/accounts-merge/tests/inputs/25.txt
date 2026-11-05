@@ -1,0 +1,11 @@
+5
+3
+User u0@domain.com u1@domain.com
+3
+User u1@domain.com u2@domain.com
+3
+User u2@domain.com u3@domain.com
+3
+User u3@domain.com u4@domain.com
+3
+User u4@domain.com u5@domain.com

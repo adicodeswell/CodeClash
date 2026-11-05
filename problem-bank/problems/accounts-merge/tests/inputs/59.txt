@@ -1,0 +1,19 @@
+9
+3
+Alex u59_1@test.com u59_4@test.com
+3
+Bob u59_5@test.com u59_8@test.com
+4
+Bob u59_5@test.com u59_6@test.com u59_8@test.com
+3
+Charlie u59_9@test.com u59_10@test.com
+2
+Charlie u59_9@test.com
+2
+Charlie u59_9@test.com
+2
+David u59_11@test.com
+5
+Emma u59_14@test.com u59_16@test.com u59_17@test.com u59_18@test.com
+3
+Frank u59_19@test.com u59_23@test.com

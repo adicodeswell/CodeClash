@@ -1,0 +1,25 @@
+12
+5
+Alex u54_1@test.com u54_2@test.com u54_3@test.com u54_5@test.com
+5
+Alex u54_1@test.com u54_2@test.com u54_3@test.com u54_4@test.com
+3
+Bob u54_6@test.com u54_8@test.com
+3
+Charlie u54_11@test.com u54_12@test.com
+3
+Charlie u54_11@test.com u54_13@test.com
+4
+Charlie u54_11@test.com u54_12@test.com u54_13@test.com
+2
+David u54_14@test.com
+4
+David u54_14@test.com u54_15@test.com u54_16@test.com
+5
+Emma u54_17@test.com u54_18@test.com u54_20@test.com u54_21@test.com
+3
+Emma u54_17@test.com u54_19@test.com
+4
+Frank u54_22@test.com u54_23@test.com u54_25@test.com
+4
+Frank u54_22@test.com u54_23@test.com u54_25@test.com

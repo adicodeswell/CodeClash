@@ -1,0 +1,19 @@
+9
+4
+Alex u46_1@test.com u46_3@test.com u46_5@test.com
+2
+Bob u46_6@test.com
+2
+Charlie u46_8@test.com
+4
+Charlie u46_8@test.com u46_9@test.com u46_10@test.com
+4
+David u46_12@test.com u46_13@test.com u46_14@test.com
+4
+David u46_12@test.com u46_13@test.com u46_14@test.com
+4
+Emma u46_15@test.com u46_16@test.com u46_17@test.com
+3
+Emma u46_15@test.com u46_17@test.com
+2
+Emma u46_15@test.com

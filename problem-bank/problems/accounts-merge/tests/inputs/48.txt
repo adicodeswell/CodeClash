@@ -1,0 +1,15 @@
+7
+3
+Alex u48_1@test.com u48_2@test.com
+3
+Alex u48_1@test.com u48_2@test.com
+2
+Alex u48_1@test.com
+3
+Bob u48_3@test.com u48_4@test.com
+3
+Bob u48_3@test.com u48_4@test.com
+4
+Bob u48_3@test.com u48_4@test.com u48_5@test.com
+4
+Charlie u48_6@test.com u48_8@test.com u48_9@test.com

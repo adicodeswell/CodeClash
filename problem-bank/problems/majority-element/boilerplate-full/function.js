@@ -6,38 +6,56 @@ const fs = require("fs");
 const tokens = fs.readFileSync(0, "utf8").trim().split(/\s+/);
 let cursor = 0;
 
+function readStr() {
+  if (cursor >= tokens.length || tokens[cursor] === "") return null;
+  return tokens[cursor++];
+}
+
 function readInt() {
-  if (cursor >= tokens.length || tokens[cursor] === "") {
-    return null;
-  }
+  const s = readStr();
+  return s === null ? null : Number(s);
+}
 
-  const value = Number(tokens[cursor++]);
+function readFloat() {
+  const s = readStr();
+  return s === null ? null : parseFloat(s);
+}
 
-  if (!Number.isSafeInteger(value)) {
-    throw new Error("Expected a safe integer");
-  }
-
-  return value;
+function readBool() {
+  const s = readStr();
+  return s === null ? null : s === "1";
 }
 
 function readIntList() {
   const n = readInt();
-
-  if (n === null) {
-    return null;
-  }
-
-  if (n < 0) {
-    throw new Error("Negative list length");
-  }
-
+  if (n === null) return null;
   const arr = new Array(n);
-  for (let i = 0; i < n; i++) {
-    const val = readInt();
-    if (val === null) throw new Error("Unexpected end of input");
-    arr[i] = val;
-  }
+  for (let i = 0; i < n; i++) arr[i] = readInt();
   return arr;
+}
+
+function readStrList() {
+  const n = readInt();
+  if (n === null) return null;
+  const arr = new Array(n);
+  for (let i = 0; i < n; i++) arr[i] = readStr();
+  return arr;
+}
+
+function readIntMatrix() {
+  const r = readInt();
+  if (r === null) return null;
+  const mat = new Array(r);
+  for (let i = 0; i < r; i++) mat[i] = readIntList();
+  return mat;
+}
+
+function readStrMatrix() {
+  const r = readInt();
+  if (r === null) return null;
+  const mat = new Array(r);
+  for (let i = 0; i < r; i++) mat[i] = readStrList();
+  return mat;
 }
 
 function main() {

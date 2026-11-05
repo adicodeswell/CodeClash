@@ -1,0 +1,33 @@
+16
+4
+Alex u49_1@test.com u49_2@test.com u49_4@test.com
+4
+Alex u49_1@test.com u49_3@test.com u49_4@test.com
+4
+Alex u49_1@test.com u49_3@test.com u49_4@test.com
+5
+Bob u49_5@test.com u49_6@test.com u49_8@test.com u49_9@test.com
+4
+Bob u49_5@test.com u49_6@test.com u49_8@test.com
+3
+Bob u49_5@test.com u49_9@test.com
+2
+Charlie u49_10@test.com
+3
+Charlie u49_10@test.com u49_11@test.com
+3
+David u49_13@test.com u49_14@test.com
+3
+David u49_13@test.com u49_15@test.com
+3
+David u49_13@test.com u49_14@test.com
+5
+Emma u49_16@test.com u49_17@test.com u49_18@test.com u49_19@test.com
+3
+Emma u49_16@test.com u49_18@test.com
+4
+Frank u49_20@test.com u49_21@test.com u49_22@test.com
+2
+Frank u49_20@test.com
+3
+Frank u49_20@test.com u49_22@test.com

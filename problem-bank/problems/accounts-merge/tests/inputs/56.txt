@@ -1,0 +1,17 @@
+8
+3
+Alex u56_1@test.com u56_3@test.com
+3
+Bob u56_4@test.com u56_5@test.com
+4
+Charlie u56_6@test.com u56_7@test.com u56_10@test.com
+4
+David u56_11@test.com u56_12@test.com u56_13@test.com
+3
+David u56_11@test.com u56_13@test.com
+2
+Emma u56_14@test.com
+3
+Emma u56_14@test.com u56_15@test.com
+3
+Frank u56_17@test.com u56_18@test.com

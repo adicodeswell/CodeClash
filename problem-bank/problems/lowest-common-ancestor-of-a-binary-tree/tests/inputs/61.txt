@@ -1,0 +1,4 @@
+197
+1 2 9 3 4 10 12 5 28 7 19 26 37 16 52 6 8 56 67 11 20 75 null 41 47 43 61 66 null 85 null 14 36 13 24 null null 68 92 21 23 22 25 null null 77 88 53 55 44 62 69 null null null null null 17 29 54 null 15 18 27 84 null null null null 90 97 39 63 30 40 31 35 81 null null null null null 64 null null null null null 71 74 33 50 79 null null null 51 59 45 null null null null null 95 null 99 null 42 null 65 73 32 60 83 null 89 null null null null null 72 null 80 null null null 48 null null null null null null null 70 null 57 null null null null null 46 82 100 null 87 null 34 38 null null null null null null null null null null 76 null null null null null 58 78 null null null null 96 null null null 49 null null null null null null null null null 86 94 91 null null null 93 98
+18
+85

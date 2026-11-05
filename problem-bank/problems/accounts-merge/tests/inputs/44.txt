@@ -1,0 +1,27 @@
+13
+4
+Alex u44_1@test.com u44_2@test.com u44_3@test.com
+3
+Alex u44_1@test.com u44_2@test.com
+4
+Alex u44_1@test.com u44_3@test.com u44_5@test.com
+2
+Bob u44_6@test.com
+3
+Bob u44_6@test.com u44_8@test.com
+4
+Charlie u44_10@test.com u44_11@test.com u44_12@test.com
+3
+Charlie u44_10@test.com u44_12@test.com
+2
+Charlie u44_10@test.com
+4
+David u44_14@test.com u44_16@test.com u44_17@test.com
+4
+Emma u44_18@test.com u44_20@test.com u44_21@test.com
+3
+Frank u44_22@test.com u44_23@test.com
+3
+Frank u44_22@test.com u44_23@test.com
+3
+Frank u44_22@test.com u44_23@test.com
