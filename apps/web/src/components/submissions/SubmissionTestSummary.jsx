@@ -15,7 +15,7 @@ export function SubmissionTestSummary({
   const isCompleted = status === "COMPLETED";
 
   return (
-    <div className="rounded-2xl border border-clash-border bg-clash-card p-5 space-y-3.5 shadow-sm">
+    <div className="rounded-xl border border-clash-border bg-clash-card p-5 space-y-3 shadow-sm">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300">
           Test Cases Passed
@@ -31,7 +31,7 @@ export function SubmissionTestSummary({
       </div>
 
       {/* Progress Bar */}
-      <div className="w-full h-2 bg-black/40 rounded-full overflow-hidden border border-white/5">
+      <div className="w-full h-1.5 bg-black/40 rounded-full overflow-hidden border border-white/5">
         <div
           className={`h-full transition-all duration-500 rounded-full ${
             isAccepted ? "bg-emerald-500" : percent > 0 ? "bg-amber-500" : "bg-red-500"

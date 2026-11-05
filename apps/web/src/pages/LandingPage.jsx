@@ -49,14 +49,14 @@ export function LandingPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Hero & Value Props */}
           <div className="lg:col-span-7 text-left">
-            <div className="inline-flex items-center gap-2 text-xs font-semibold text-brand-primary bg-brand-primary/10 border border-brand-primary/30 px-3.5 py-1.5 rounded-full mb-6">
-              <Sparkles size={14} className="text-brand-secondary" />
-              <span>Real-Time Competitive Coding Arena</span>
+            <div className="inline-flex items-center gap-2 text-xs font-medium text-slate-300 bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-full mb-6">
+              <Sparkles size={13} className="text-brand-primary" />
+              <span>Competitive Coding & Interview Prep</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-clash-text leading-[1.1] mb-5">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-clash-text leading-[1.15] mb-5">
               Code. Battle. <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent">
+              <span className="text-brand-primary">
                 Master DSA.
               </span>
             </h1>
@@ -135,15 +135,15 @@ export function LandingPage() {
       ) : (
         /* Authenticated Dashboard Welcome State */
         <div className="flex justify-center pt-6">
-          <div className="w-full max-w-3xl p-8 sm:p-10 rounded-2xl bg-clash-card/80 border border-clash-border backdrop-blur-xl text-left shadow-2xl shadow-black/50">
-            <div className="flex items-center gap-5">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-primary/20 to-brand-secondary/20 border border-brand-primary/40 text-brand-primary flex items-center justify-center shadow-lg shadow-brand-primary/20 shrink-0">
-                <Terminal size={32} />
+          <div className="w-full max-w-3xl p-8 sm:p-10 rounded-2xl bg-clash-card border border-clash-border text-left shadow-xl">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 text-brand-primary flex items-center justify-center shrink-0">
+                <Terminal size={24} />
               </div>
               <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-clash-text tracking-tight mb-1">
+                <h2 className="text-2xl sm:text-3xl font-bold text-clash-text tracking-tight mb-1">
                   Welcome back,{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent">
+                  <span className="text-brand-primary">
                     @{user.username}
                   </span>
                   !
@@ -152,41 +152,41 @@ export function LandingPage() {
               </div>
             </div>
 
-            <div className="my-8 border-t border-clash-border"></div>
+            <div className="my-7 border-t border-clash-border"></div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <Link
                 to="/problems"
-                className="p-5 rounded-xl bg-clash-bg/60 border border-clash-border hover:border-brand-primary/40 hover:bg-clash-card-hover/40 transition flex flex-col justify-between gap-4 group cursor-pointer"
+                className="p-5 rounded-xl bg-clash-surface border border-clash-border hover:border-white/20 transition flex flex-col justify-between gap-4 group cursor-pointer"
               >
-                <div className="w-10 h-10 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <BookOpen size={22} />
+                <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 text-brand-primary flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <BookOpen size={18} />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-clash-text mb-1 group-hover:text-brand-primary transition-colors">
+                  <h3 className="text-sm font-semibold text-clash-text mb-1 group-hover:text-brand-primary transition-colors">
                     Problem Catalog
                   </h3>
-                  <p className="text-xs sm:text-sm text-clash-muted">
+                  <p className="text-xs text-clash-muted">
                     {problemCount !== null
                       ? `${problemCount} Published Problem(s) Ready`
                       : "Arrays & Hashing Problems Ready in DB"}
                   </p>
                 </div>
-                <div className="inline-flex items-center gap-1.5 self-start text-xs font-bold text-brand-primary bg-brand-primary/10 px-2.5 py-1 rounded-md group-hover:bg-brand-primary/20 transition">
+                <div className="inline-flex items-center gap-1.5 self-start text-xs font-medium text-brand-primary group-hover:underline transition">
                   <span>Explore Problems</span>
                   <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
                 </div>
               </Link>
 
-              <div className="p-5 rounded-xl bg-clash-bg/60 border border-clash-border hover:border-emerald-500/40 transition flex flex-col justify-between gap-4">
-                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
-                  <Trophy size={22} />
+              <div className="p-5 rounded-xl bg-clash-surface border border-clash-border hover:border-white/20 transition flex flex-col justify-between gap-4">
+                <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 text-slate-300 flex items-center justify-center">
+                  <Trophy size={18} />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-clash-text mb-1">Arena Status</h3>
-                  <p className="text-xs sm:text-sm text-clash-muted">Rank: Challenger • Submissions: 0</p>
+                  <h3 className="text-sm font-semibold text-clash-text mb-1">Arena Status</h3>
+                  <p className="text-xs text-clash-muted">Rank: Challenger • Submissions: 0</p>
                 </div>
-                <div className="inline-flex items-center gap-1.5 self-start text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md">
+                <div className="inline-flex items-center gap-1.5 self-start text-xs font-medium text-slate-300 bg-white/5 border border-white/10 px-2.5 py-1 rounded-md">
                   <span>Active Session</span>
                 </div>
               </div>

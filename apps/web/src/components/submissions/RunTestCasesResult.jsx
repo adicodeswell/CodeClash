@@ -25,20 +25,18 @@ export function RunTestCasesResult({ result, sampleTestCases = [] }) {
     <div className="space-y-3.5">
       {/* 1. Overall Execution Status Banner (when executed) */}
       {isExecuted && (
-        <div
-          className={`rounded-xl border p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs ${
-            result.verdict === "ACCEPTED"
-              ? "bg-emerald-500/15 border-emerald-500/30 text-emerald-400"
-              : "bg-red-500/15 border-red-500/30 text-red-400"
-          }`}
-        >
-          <div className="flex items-center gap-2 font-bold text-sm">
+        <div className="rounded-xl border border-clash-border bg-clash-card p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-sm">
+          <div className="flex items-center gap-2 font-semibold text-sm">
             {result.verdict === "ACCEPTED" ? (
-              <CheckCircle2 size={18} className="text-emerald-400" />
+              <CheckCircle2 size={16} className="text-emerald-400" />
             ) : (
-              <AlertCircle size={18} className="text-red-400" />
+              <AlertCircle size={16} className="text-red-400" />
             )}
-            <span>
+            <span
+              className={
+                result.verdict === "ACCEPTED" ? "text-emerald-400 font-bold" : "text-red-400 font-bold"
+              }
+            >
               {result.verdict === "ACCEPTED"
                 ? "Accepted"
                 : result.verdict === "COMPILATION_ERROR"
@@ -49,7 +47,7 @@ export function RunTestCasesResult({ result, sampleTestCases = [] }) {
                 ? "Time Limit Exceeded"
                 : "Wrong Answer"}
             </span>
-            <span className="text-xs font-semibold px-2 py-0.5 rounded bg-black/30 border border-white/10 ml-1">
+            <span className="text-xs font-mono font-medium px-2 py-0.5 rounded bg-white/5 border border-white/10 text-slate-300 ml-1">
               {result.passedTestCount} / {result.totalTestCount} passed
             </span>
           </div>
@@ -92,9 +90,9 @@ export function RunTestCasesResult({ result, sampleTestCases = [] }) {
               key={tc.id || tc.ordinal || idx}
               type="button"
               onClick={() => setActiveCaseIdx(idx)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer shrink-0 ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer shrink-0 ${
                 isSelected
-                  ? "bg-clash-surface text-brand-primary border border-brand-primary/40 shadow-sm"
+                  ? "bg-white/10 text-slate-100 border border-white/15 shadow-sm"
                   : "text-clash-muted hover:text-clash-text hover:bg-white/5"
               }`}
             >
@@ -107,7 +105,7 @@ export function RunTestCasesResult({ result, sampleTestCases = [] }) {
               ) : (
                 <Layers
                   size={13}
-                  className={isSelected ? "text-brand-primary" : "text-clash-subtle"}
+                  className={isSelected ? "text-slate-200" : "text-clash-subtle"}
                 />
               )}
               <span>Case {idx + 1}</span>
@@ -130,10 +128,10 @@ export function RunTestCasesResult({ result, sampleTestCases = [] }) {
         <div className="space-y-3 font-sans text-xs">
           {/* Input Box */}
           <div>
-            <div className="text-[11px] font-semibold text-clash-muted mb-1 select-none">
+            <div className="text-[11px] font-medium text-clash-muted mb-1 select-none">
               Input:
             </div>
-            <pre className="font-mono text-emerald-300 bg-clash-surface/90 border border-clash-border rounded-lg p-2.5 text-xs overflow-x-auto">
+            <pre className="font-mono text-slate-200 bg-black/40 border border-clash-border rounded-lg p-2.5 text-xs overflow-x-auto">
               <code>{activeCase.input}</code>
             </pre>
           </div>
@@ -141,7 +139,7 @@ export function RunTestCasesResult({ result, sampleTestCases = [] }) {
           {/* Actual Output Box (when code has been run) */}
           {isExecuted && (
             <div>
-              <div className="text-[11px] font-semibold text-clash-muted mb-1 select-none flex items-center justify-between">
+              <div className="text-[11px] font-medium text-clash-muted mb-1 select-none flex items-center justify-between">
                 <span>Your Output:</span>
                 <span
                   className={`font-mono text-[10px] font-bold ${
@@ -152,10 +150,10 @@ export function RunTestCasesResult({ result, sampleTestCases = [] }) {
                 </span>
               </div>
               <pre
-                className={`font-mono bg-clash-surface/90 border rounded-lg p-2.5 text-xs overflow-x-auto ${
+                className={`font-mono bg-black/40 border rounded-lg p-2.5 text-xs overflow-x-auto ${
                   activeCase.passed
-                    ? "border-emerald-500/40 text-emerald-300"
-                    : "border-red-500/40 text-red-300"
+                    ? "border-clash-border text-slate-200"
+                    : "border-red-500/30 text-red-300"
                 }`}
               >
                 <code>{activeCase.actualOutput || (activeCase.passed ? "—" : "(no output)")}</code>
@@ -165,10 +163,10 @@ export function RunTestCasesResult({ result, sampleTestCases = [] }) {
 
           {/* Expected Output Box */}
           <div>
-            <div className="text-[11px] font-semibold text-clash-muted mb-1 select-none">
+            <div className="text-[11px] font-medium text-clash-muted mb-1 select-none">
               Expected Output:
             </div>
-            <pre className="font-mono text-slate-300 bg-clash-surface/90 border border-clash-border rounded-lg p-2.5 text-xs overflow-x-auto">
+            <pre className="font-mono text-slate-200 bg-black/40 border border-clash-border rounded-lg p-2.5 text-xs overflow-x-auto">
               <code>{activeCase.expectedOutput || activeCase.expected}</code>
             </pre>
           </div>

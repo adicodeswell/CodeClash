@@ -72,7 +72,7 @@ export function ArenaHeader({
         {user ? (
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-2 px-2.5 py-1 rounded-lg bg-white/5 border border-clash-border">
-              <div className="w-5 h-5 rounded-full bg-brand-primary flex items-center justify-center text-slate-950 text-[10px] font-bold">
+              <div className="w-5 h-5 rounded-full bg-brand-primary flex items-center justify-center text-white text-[10px] font-bold">
                 <User size={12} />
               </div>
               <span className="text-xs font-semibold text-clash-text truncate max-w-[120px]">

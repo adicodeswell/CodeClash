@@ -49,9 +49,9 @@ export function ExecutionResult({
           <button
             type="button"
             onClick={() => onTabChange && onTabChange("run")}
-            className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold transition cursor-pointer ${
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-medium transition cursor-pointer ${
               isCurrentTabRun
-                ? "bg-clash-card text-brand-primary border border-brand-primary/30 shadow-sm"
+                ? "bg-white/10 text-slate-100 border border-white/15 shadow-sm"
                 : "text-clash-muted hover:text-clash-text hover:bg-white/5"
             }`}
           >
@@ -65,8 +65,8 @@ export function ExecutionResult({
               <span
                 className={`text-[10px] px-1.5 py-0.2 rounded font-bold ${
                   runResult.verdict === "ACCEPTED"
-                    ? "bg-emerald-500/20 text-emerald-400"
-                    : "bg-red-500/20 text-red-400"
+                    ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                    : "bg-red-500/10 text-red-400 border border-red-500/20"
                 }`}
               >
                 {runResult.verdict === "ACCEPTED" ? "Passed" : "Failed"}
@@ -78,9 +78,9 @@ export function ExecutionResult({
           <button
             type="button"
             onClick={() => onTabChange && onTabChange("submit")}
-            className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold transition cursor-pointer ${
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-medium transition cursor-pointer ${
               !isCurrentTabRun
-                ? "bg-clash-card text-emerald-400 border border-emerald-500/30 shadow-sm"
+                ? "bg-white/10 text-slate-100 border border-white/15 shadow-sm"
                 : "text-clash-muted hover:text-clash-text hover:bg-white/5"
             }`}
           >
@@ -94,15 +94,15 @@ export function ExecutionResult({
               <span
                 className={`text-[10px] px-1.5 py-0.2 rounded font-bold ${
                   submissionResult.verdict === "ACCEPTED"
-                    ? "bg-emerald-500/20 text-emerald-400"
-                    : "bg-red-500/20 text-red-400"
+                    ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                    : "bg-red-500/10 text-red-400 border border-red-500/20"
                 }`}
               >
                 {submissionResult.verdict}
               </span>
             )}
             {submissionResult?.status === "QUEUED" && (
-              <span className="text-[10px] px-1.5 py-0.2 rounded font-bold bg-amber-500/20 text-amber-400">
+              <span className="text-[10px] px-1.5 py-0.2 rounded font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
                 Queued
               </span>
             )}
@@ -207,12 +207,12 @@ export function ExecutionResult({
               {/* No submission yet */}
               {!isSubmitting && !submissionResult && !submissionError && (
                 <div className="py-12 text-center text-clash-muted space-y-2">
-                  <div className="w-9 h-9 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mx-auto">
-                    <Send size={16} />
+                  <div className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 mx-auto">
+                    <Send size={15} />
                   </div>
-                  <h4 className="text-xs font-bold text-clash-text">No active submission</h4>
+                  <h4 className="text-xs font-semibold text-clash-text">No active submission</h4>
                   <p className="text-[11px] max-w-xs mx-auto text-clash-muted">
-                    Click <strong className="text-emerald-400 font-semibold">Submit</strong> in the toolbar above to run your solution against the full hidden benchmark test suite.
+                    Click <strong className="text-brand-primary font-medium">Submit</strong> in the toolbar above to run your solution against the full hidden benchmark test suite.
                   </p>
                 </div>
               )}

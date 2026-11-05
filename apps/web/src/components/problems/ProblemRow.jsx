@@ -25,7 +25,7 @@ export function ProblemRow({ problem, index }) {
       <td className="py-3.5 px-4">
         <Link
           to={`/problems/${problem.slug}`}
-          className="text-sm font-semibold text-clash-text group-hover:text-brand-primary transition-colors flex items-center gap-2"
+          className="text-sm font-medium text-clash-text group-hover:text-brand-primary transition-colors flex items-center gap-2"
         >
           <Code2 size={15} className="text-clash-subtle group-hover:text-brand-primary transition-colors shrink-0" />
           <span>{problem.title}</span>

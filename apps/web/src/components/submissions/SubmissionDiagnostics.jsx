@@ -30,7 +30,7 @@ export function SubmissionDiagnostics({ errorSummary }) {
   };
 
   return (
-    <div className="rounded-2xl border border-red-500/25 bg-red-500/5 overflow-hidden text-xs shadow-sm">
+    <div className="rounded-xl border border-red-500/25 bg-red-500/5 overflow-hidden text-xs shadow-sm">
       {/* Diagnostics Header */}
       <div className="px-4 py-3 bg-red-500/10 border-b border-red-500/20 flex items-center justify-between">
         <div className="text-red-400 font-bold">

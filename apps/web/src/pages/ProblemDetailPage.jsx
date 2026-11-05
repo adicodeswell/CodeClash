@@ -253,9 +253,9 @@ export function ProblemDetailPage() {
         <button
           type="button"
           onClick={() => setMobileTab("description")}
-          className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 text-xs font-semibold rounded-lg ${
+          className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 text-xs font-medium rounded-lg ${
             mobileTab === "description"
-              ? "bg-clash-card text-brand-primary border border-brand-primary/30"
+              ? "bg-white/10 text-slate-100 border border-white/15"
               : "text-clash-muted"
           }`}
         >
@@ -265,9 +265,9 @@ export function ProblemDetailPage() {
         <button
           type="button"
           onClick={() => setMobileTab("editor")}
-          className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 text-xs font-semibold rounded-lg ${
+          className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 text-xs font-medium rounded-lg ${
             mobileTab === "editor"
-              ? "bg-clash-card text-brand-primary border border-brand-primary/30"
+              ? "bg-white/10 text-slate-100 border border-white/15"
               : "text-clash-muted"
           }`}
         >
@@ -323,7 +323,7 @@ export function ProblemDetailPage() {
               <div className="space-y-4">
                 {/* Active in-flight submission banner */}
                 {activeSubmission && (activeSubmission.status === "QUEUED" || activeSubmission.status === "RUNNING") && (
-                  <div className="rounded-xl border border-brand-primary/30 bg-brand-primary/10 p-4 space-y-3">
+                  <div className="rounded-xl border border-clash-border bg-clash-card p-4 space-y-3 shadow-sm">
                     <div className="flex items-center justify-between">
                       <SubmissionStatusBadge status={activeSubmission.status} />
                       <span className="text-[11px] font-mono text-clash-muted">

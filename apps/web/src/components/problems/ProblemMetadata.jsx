@@ -1,23 +1,19 @@
 import { DifficultyBadge } from "./DifficultyBadge.jsx";
 import { ProblemProgressBadge } from "./ProblemProgressBadge.jsx";
-import { Clock, HardDrive, Tag } from "lucide-react";
+import { Tag } from "lucide-react";
 
 export function ProblemMetadata({ problem }) {
   if (!problem) return null;
-
-  const memoryMb = problem.memoryLimitKb
-    ? Math.round(problem.memoryLimitKb / 1024)
-    : 256;
 
   const supportedLanguages = problem.languages
     ? Object.keys(problem.languages).filter((k) => problem.languages[k]?.enabled)
     : [];
 
   return (
-    <div className="space-y-4 pb-4 border-b border-clash-border">
+    <div className="space-y-3.5 pb-4 border-b border-clash-border">
       {/* Title & Difficulty */}
       <div>
-        <h1 className="text-xl sm:text-2xl font-extrabold text-clash-text tracking-tight mb-2">
+        <h1 className="text-xl sm:text-2xl font-bold text-clash-text tracking-tight mb-2.5">
           {problem.title}
         </h1>
         <div className="flex flex-wrap items-center gap-2">
@@ -27,16 +23,6 @@ export function ProblemMetadata({ problem }) {
             isAttempted={problem.isAttempted}
             asPill={true}
           />
-          
-          <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium text-clash-muted bg-white/5 border border-clash-border">
-            <Clock size={12} className="text-emerald-400" />
-            <span>{problem.timeLimitMs || 2000} ms</span>
-          </div>
-
-          <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium text-clash-muted bg-white/5 border border-clash-border">
-            <HardDrive size={12} className="text-teal-400" />
-            <span>{memoryMb} MB</span>
-          </div>
         </div>
       </div>
 
@@ -49,7 +35,7 @@ export function ProblemMetadata({ problem }) {
             {problem.topics.map((t) => (
               <span
                 key={t}
-                className="px-2 py-0.5 rounded-md bg-clash-surface border border-clash-border text-clash-muted font-medium"
+                className="px-2 py-0.5 rounded-md bg-white/5 border border-clash-border text-clash-muted text-[11px] font-medium"
               >
                 {t}
               </span>

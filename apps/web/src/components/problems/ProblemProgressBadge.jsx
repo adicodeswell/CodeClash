@@ -15,8 +15,8 @@ export function ProblemProgressBadge({
   if (isSolved) {
     if (asPill) {
       return (
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
-          <CheckCircle2 size={13} className="shrink-0" />
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <CheckCircle2 size={12} className="shrink-0" />
           <span>Solved</span>
         </span>
       );
@@ -36,8 +36,8 @@ export function ProblemProgressBadge({
   if (isAttempted) {
     if (asPill) {
       return (
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/15 text-amber-400 border border-amber-500/30">
-          <CircleDot size={13} className="shrink-0" />
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">
+          <CircleDot size={12} className="shrink-0" />
           <span>Attempted</span>
         </span>
       );

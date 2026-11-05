@@ -50,10 +50,10 @@ export function SubmissionHistoryPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 border-b border-clash-border/60 pb-6">
         <div>
           <div className="flex items-center gap-2.5 mb-1.5">
-            <div className="w-8 h-8 rounded-lg bg-brand-primary/10 border border-brand-primary/30 flex items-center justify-center text-brand-primary">
-              <History size={18} />
+            <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-brand-primary">
+              <History size={16} />
             </div>
-            <h1 className="text-2xl font-extrabold text-clash-text tracking-tight">
+            <h1 className="text-2xl font-bold text-clash-text tracking-tight">
               My Submissions
             </h1>
           </div>

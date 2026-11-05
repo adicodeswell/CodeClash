@@ -261,7 +261,7 @@ export function AuthForm({ onSuccess }) {
 
         <button
           type="submit"
-          className="w-full mt-2 py-3 px-4 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-brand-primary/25 hover:shadow-brand-primary/40 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed transition cursor-pointer"
+          className="w-full mt-2 py-2.5 px-4 rounded-xl bg-brand-primary hover:bg-brand-secondary text-slate-950 font-semibold text-sm flex items-center justify-center gap-2 shadow-md shadow-brand-primary/15 transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={isSubmitting || cooldown > 0}
         >
           {isSubmitting ? (

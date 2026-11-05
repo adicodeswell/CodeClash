@@ -26,7 +26,7 @@ export function SubmissionCode({ sourceCode = "", language = "python" }) {
   const lineCount = sourceCode ? sourceCode.split("\n").length : 0;
 
   return (
-    <div className="rounded-2xl border border-clash-border bg-[#10151c] overflow-hidden flex flex-col shadow-sm">
+    <div className="rounded-xl border border-clash-border bg-[#131316] overflow-hidden flex flex-col shadow-sm">
       {/* Code Header Bar */}
       <div className="h-11 px-4 border-b border-clash-border/70 bg-clash-surface/90 flex items-center justify-between select-none shrink-0">
         <div className="flex items-center gap-2">

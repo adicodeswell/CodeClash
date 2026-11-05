@@ -6,11 +6,11 @@ export function SubmissionList({ submissions }) {
   }
 
   return (
-    <div className="w-full overflow-hidden rounded-2xl border border-clash-border bg-clash-surface/60 shadow-xl backdrop-blur-sm">
+    <div className="w-full overflow-hidden rounded-xl border border-clash-border bg-clash-card shadow-sm">
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="border-b border-clash-border bg-white/[0.02] text-[11px] font-bold uppercase tracking-wider text-clash-muted">
+            <tr className="border-b border-clash-border bg-white/[0.02] text-[11px] font-medium uppercase tracking-wider text-clash-muted">
               <th className="py-3.5 px-4 sm:px-6">Problem</th>
               <th className="py-3.5 px-4">Status / Verdict</th>
               <th className="py-3.5 px-4">Language</th>

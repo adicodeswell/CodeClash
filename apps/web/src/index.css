@@ -1,51 +1,51 @@
 @import "tailwindcss";
 
 @theme {
-  /* Green / Emerald & Mint Brand Palette */
-  --color-brand-primary: #10b981;      /* Emerald 500 */
-  --color-brand-secondary: #34d399;    /* Mint / Emerald 400 */
-  --color-brand-accent: #14b8a6;       /* Teal 500 */
-  --color-brand-glow: rgba(16, 185, 129, 0.25);
+  /* LeetCode / NeetCode Inspired Classy Warm Amber Brand Palette */
+  --color-brand-primary: #ffa116;      /* Signature warm gold/amber */
+  --color-brand-secondary: #ffb84d;    /* Soft amber */
+  --color-brand-accent: #f59e0b;       /* Pure amber */
+  --color-brand-glow: rgba(255, 161, 22, 0.15);
 
-  /* Refined Carbon & Obsidian Dark Theme Surfaces */
-  --color-clash-bg: #07090b;           /* Deep obsidian backdrop */
-  --color-clash-surface: #0d1117;      /* Inner card/tab surface */
-  --color-clash-card: #121820;         /* Card background */
-  --color-clash-card-hover: #17222c;   /* Card interactive hover */
+  /* Refined Charcoal & Neutral Dark Theme Surfaces */
+  --color-clash-bg: #0d0d0f;           /* Deep sleek neutral canvas */
+  --color-clash-surface: #141416;      /* Inner card/tab surface */
+  --color-clash-card: #18181c;         /* Card background */
+  --color-clash-card-hover: #212126;   /* Card interactive hover */
   --color-clash-border: rgba(255, 255, 255, 0.08);
-  --color-clash-border-light: rgba(255, 255, 255, 0.16);
-  --color-clash-border-focus: #10b981;
+  --color-clash-border-light: rgba(255, 255, 255, 0.14);
+  --color-clash-border-focus: #ffa116;
 
   /* Typography Colors */
-  --color-clash-text: #f1f5f9;         /* Slate 100 */
-  --color-clash-muted: #94a3b8;        /* Slate 400 */
-  --color-clash-subtle: #64748b;       /* Slate 500 */
+  --color-clash-text: #f4f4f5;         /* Zinc 100 */
+  --color-clash-muted: #a1a1aa;        /* Zinc 400 */
+  --color-clash-subtle: #71717a;       /* Zinc 500 */
 
-  /* Difficulty Levels */
-  --color-diff-easy: #10b981;          /* Emerald */
-  --color-diff-medium: #f59e0b;        /* Amber */
-  --color-diff-hard: #f43f5e;          /* Rose */
+  /* Difficulty Levels (Standard Competitive Coding Colors) */
+  --color-diff-easy: #00b8a3;          /* Teal-Emerald */
+  --color-diff-medium: #ffc01e;        /* Warm Gold */
+  --color-diff-hard: #ff375f;          /* Rose-Red */
 
   /* Status Colors */
-  --color-status-success: #10b981;
+  --color-status-success: #22c55e;
   --color-status-error: #ef4444;
   --color-status-warning: #f59e0b;
 
-  /* Custom Typography */
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  /* Custom Typography - Clean Inter and JetBrains Mono */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
 }
 
-/* Custom Base Layer with Subtle Emerald Glow */
+/* Custom Base Layer with Subtle Warm Vignette */
 body {
   background-color: var(--color-clash-bg);
   color: var(--color-clash-text);
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
   overflow-x: hidden;
-  background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.12), transparent),
-    radial-gradient(circle at 85% 85%, rgba(20, 184, 166, 0.07), transparent);
+  background-image: radial-gradient(ellipse 70% 40% at 50% 0%, rgba(255, 161, 22, 0.03), transparent);
   background-attachment: fixed;
 }
 
@@ -62,5 +62,5 @@ body {
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(16, 185, 129, 0.4);
+  background: rgba(255, 255, 255, 0.25);
 }

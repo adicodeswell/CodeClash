@@ -6,7 +6,7 @@ export function Navbar() {
   const { user, logout } = useAuth();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-clash-border bg-clash-bg/85 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-clash-border bg-clash-bg/85 backdrop-blur-md select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
         {/* Brand & Nav */}
         <div className="flex items-center gap-6 sm:gap-8">
@@ -19,7 +19,7 @@ export function Navbar() {
             </span>
           </Link>
 
-          <nav className="flex items-center gap-1">
+          <nav className="flex items-center gap-1.5">
             <NavLink
               to="/problems"
               className={({ isActive }) =>

@@ -34,7 +34,7 @@ export function ProblemSearch({ value = "", onChange }) {
         placeholder="Search title or slug..."
         value={term}
         onChange={(e) => setTerm(e.target.value)}
-        className="w-full py-2 pl-9 pr-9 bg-clash-card border border-clash-border rounded-xl text-clash-text text-xs sm:text-sm placeholder:text-clash-subtle focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition"
+        className="w-full py-2 pl-9 pr-9 bg-clash-card border border-clash-border rounded-lg text-clash-text text-xs sm:text-sm placeholder:text-clash-subtle focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary/30 transition"
       />
       {term && (
         <button

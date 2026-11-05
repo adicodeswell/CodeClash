@@ -31,7 +31,7 @@ export function SubmissionSummary({ submission }) {
   });
 
   return (
-    <div className="rounded-2xl border border-clash-border bg-clash-card p-5 sm:p-6 space-y-5 shadow-sm">
+    <div className="rounded-xl border border-clash-border bg-clash-card p-5 sm:p-6 space-y-5 shadow-sm">
       {/* Top Bar: Problem Title & Verdict Badge */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-clash-border/70">
         <div className="space-y-1.5">
@@ -71,7 +71,7 @@ export function SubmissionSummary({ submission }) {
 
       {/* Metrics Row: Runtime, Memory, Passed Tests */}
       <div>
-        <div className="text-[11px] font-semibold uppercase tracking-wider text-clash-muted mb-2">
+        <div className="text-[11px] font-medium uppercase tracking-wider text-clash-subtle mb-2">
           Execution Metrics
         </div>
         <SubmissionMetrics

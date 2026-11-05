@@ -19,17 +19,15 @@ export function SubmissionResult({ submission }) {
   return (
     <div className="space-y-4">
       {/* Verdict Header Card */}
-      <div
-        className={`rounded-xl border p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${badge.className}`}
-      >
+      <div className="rounded-xl border border-clash-border bg-clash-card p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
         <div className="flex items-center gap-2.5">
           {badge.icon}
-          <span className="text-base font-bold tracking-wide">
+          <span className={`text-base font-bold tracking-wide ${badge.textClass}`}>
             {badge.title}
           </span>
         </div>
         {typeof submission.passedTestCount === "number" && (
-          <div className="text-xs font-semibold px-2.5 py-1 rounded-md bg-black/30 border border-white/10 w-fit">
+          <div className="text-xs font-mono font-medium px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-300 w-fit">
             {submission.passedTestCount} / {submission.totalTestCount} test cases passed
           </div>
         )}

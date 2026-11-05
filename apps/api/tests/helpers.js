@@ -36,13 +36,13 @@ export async function ensureTestUsers() {
   }
 
   let userB = await prisma.user.findUnique({
-    where: { emailNormalized: "adicodeswell@gmail.com" },
+    where: { emailNormalized: "adi.test.b@example.com" },
   });
   if (!userB) {
     userB = await prisma.user.create({
       data: {
-        username: "adicodes_user_b",
-        emailNormalized: "adicodeswell@gmail.com",
+        username: "adi_test_user_b",
+        emailNormalized: "adi.test.b@example.com",
         passwordHash: "$argon2id$v=19$m=65536,t=3,p=4$fakeHashForTests",
       },
     });
