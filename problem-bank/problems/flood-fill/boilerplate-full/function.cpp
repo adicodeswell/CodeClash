@@ -65,12 +65,17 @@ int main() {
     int sr;
     int sc;
     int color;
+    long long _cc_max_us = 0;
     while (readIntMatrix(image)) {
         if (!readInt(sr)) break;
         if (!readInt(sc)) break;
         if (!readInt(color)) break;
         Solution solution;
+        auto _cc_t0 = chrono::high_resolution_clock::now();
         auto result = solution.floodFill(image, sr, sc, color);
+        auto _cc_t1 = chrono::high_resolution_clock::now();
+        long long _cc_dur = chrono::duration_cast<chrono::microseconds>(_cc_t1 - _cc_t0).count();
+        if (_cc_dur > _cc_max_us) _cc_max_us = _cc_dur;
         for (const auto &row : result) {
             for (size_t j = 0; j < row.size(); j++) {
                 if (j) cout << ' ';
@@ -79,5 +84,6 @@ int main() {
             cout << '\n';
         }
     }
+    cerr << "__CODECLASH_TIME_MS__:" << max(1LL, (_cc_max_us + 500) / 1000) << '\n';
     return 0;
 }

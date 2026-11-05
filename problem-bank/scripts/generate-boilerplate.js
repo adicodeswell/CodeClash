@@ -232,11 +232,17 @@ int main() {
     cin.tie(nullptr);
 
 ${declares}
+    long long _cc_max_us = 0;
     while (${firstRead}) {
 ${subsequentBlock}        Solution solution;
+        auto _cc_t0 = chrono::high_resolution_clock::now();
         auto result = solution.${spec.functionName}(${args});
+        auto _cc_t1 = chrono::high_resolution_clock::now();
+        long long _cc_dur = chrono::duration_cast<chrono::microseconds>(_cc_t1 - _cc_t0).count();
+        if (_cc_dur > _cc_max_us) _cc_max_us = _cc_dur;
 ${printCode}
     }
+    cerr << "__CODECLASH_TIME_MS__:" << max(1LL, (_cc_max_us + 500) / 1000) << '\\n';
     return 0;
 }
 `;
@@ -328,13 +334,19 @@ ${printCode}
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        long _cc_max_ns = 0;
         while (scanner.hasNext()) {
 ${reads}
             Solution solution = new Solution();
+            long _cc_t0 = System.nanoTime();
             ${javaType(spec.output.type)} result =
                 solution.${spec.functionName}(${args});
+            long _cc_t1 = System.nanoTime();
+            long _cc_dur = _cc_t1 - _cc_t0;
+            if (_cc_dur > _cc_max_ns) _cc_max_ns = _cc_dur;
 ${printCode}
         }
+        System.err.println("__CODECLASH_TIME_MS__:" + Math.max(1, Math.round(_cc_max_ns / 1000000.0)));
     }
 }
 `;
@@ -423,10 +435,17 @@ def read_str_matrix():
     return [read_str_list() for _ in range(r)]
 
 def main():
+    import time as _cc_time, sys as _cc_sys
+    _cc_max_s = 0.0
     while True:
 ${reads}
+        _cc_t0 = _cc_time.perf_counter()
         result = Solution().${spec.functionName}(${args})
+        _cc_t1 = _cc_time.perf_counter()
+        _cc_dur = _cc_t1 - _cc_t0
+        if _cc_dur > _cc_max_s: _cc_max_s = _cc_dur
 ${printCode}
+    _cc_sys.stderr.write(f"__CODECLASH_TIME_MS__:{max(1, round(_cc_max_s * 1000))}\\n")
 
 if __name__ == "__main__":
     main()
@@ -518,11 +537,17 @@ function readStrMatrix() {
 }
 
 function main() {
+  let _cc_max_ms = 0;
   while (cursor < tokens.length && tokens[cursor] !== "") {
 ${reads}
+    const _cc_t0 = performance.now();
     const result = new Solution().${spec.functionName}(${args});
+    const _cc_t1 = performance.now();
+    const _cc_dur = _cc_t1 - _cc_t0;
+    if (_cc_dur > _cc_max_ms) _cc_max_ms = _cc_dur;
 ${printCode}
   }
+  process.stderr.write("__CODECLASH_TIME_MS__:" + Math.max(1, Math.round(_cc_max_ms)) + "\\n");
 }
 
 main();

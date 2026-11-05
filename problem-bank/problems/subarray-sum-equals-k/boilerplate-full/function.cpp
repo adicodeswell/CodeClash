@@ -63,11 +63,17 @@ int main() {
 
     vector<int> nums;
     int k;
+    long long _cc_max_us = 0;
     while (readIntList(nums)) {
         if (!readInt(k)) break;
         Solution solution;
+        auto _cc_t0 = chrono::high_resolution_clock::now();
         auto result = solution.subarraySum(nums, k);
+        auto _cc_t1 = chrono::high_resolution_clock::now();
+        long long _cc_dur = chrono::duration_cast<chrono::microseconds>(_cc_t1 - _cc_t0).count();
+        if (_cc_dur > _cc_max_us) _cc_max_us = _cc_dur;
         cout << result << '\n';
     }
+    cerr << "__CODECLASH_TIME_MS__:" << max(1LL, (_cc_max_us + 500) / 1000) << '\n';
     return 0;
 }

@@ -136,7 +136,15 @@ export async function processSubmission(
     });
 
     const { statusId, statusDescription, compileOutput } = rawResult;
-    const { runtimeMs, cleanStderr } = extractExecutionMetrics(rawResult);
+    let { runtimeMs, cleanStderr } = extractExecutionMetrics(rawResult);
+
+    // If no in-process timing marker was detected in stderr, rawResult.time represents
+    // the cumulative wall-clock / CPU time for all test cases in the multi-test driver.
+    // Normalize to single test case runtime (average per test case):
+    if (!rawResult.stderr?.includes("__CODECLASH_TIME_MS__:") && testCases.length > 1) {
+      runtimeMs = Math.max(1, Math.round(runtimeMs / testCases.length));
+    }
+
     const effectiveStderr = cleanStderr || null;
     const memoryKb = rawResult.memory || 0;
 

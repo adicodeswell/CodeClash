@@ -64,6 +64,7 @@ export function ProblemList({ problems, loading, error, onRetry, onClearFilters 
               <th className="py-3 px-4">Title</th>
               <th className="py-3 px-4 w-32">Difficulty</th>
               <th className="py-3 px-4">Topics</th>
+              <th className="py-3 px-4 w-16 text-center" title="Original Problem Reference">Link</th>
             </tr>
           </thead>
           <tbody>

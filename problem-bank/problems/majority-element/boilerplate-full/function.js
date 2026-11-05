@@ -59,12 +59,18 @@ function readStrMatrix() {
 }
 
 function main() {
+  let _cc_max_ms = 0;
   while (cursor < tokens.length && tokens[cursor] !== "") {
     const nums = readIntList();
     if (nums === null) break;
+    const _cc_t0 = performance.now();
     const result = new Solution().majorityElement(nums);
+    const _cc_t1 = performance.now();
+    const _cc_dur = _cc_t1 - _cc_t0;
+    if (_cc_dur > _cc_max_ms) _cc_max_ms = _cc_dur;
     console.log(result);
   }
+  process.stderr.write("__CODECLASH_TIME_MS__:" + Math.max(1, Math.round(_cc_max_ms)) + "\n");
 }
 
 main();

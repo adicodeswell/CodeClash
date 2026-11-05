@@ -50,13 +50,20 @@ def read_str_matrix():
     return [read_str_list() for _ in range(r)]
 
 def main():
+    import time as _cc_time, sys as _cc_sys
+    _cc_max_s = 0.0
     while True:
         ransomNote = read_str()
         if ransomNote is None: break
         magazine = read_str()
         if magazine is None: break
+        _cc_t0 = _cc_time.perf_counter()
         result = Solution().canConstruct(ransomNote, magazine)
+        _cc_t1 = _cc_time.perf_counter()
+        _cc_dur = _cc_t1 - _cc_t0
+        if _cc_dur > _cc_max_s: _cc_max_s = _cc_dur
         print(1 if result else 0)
+    _cc_sys.stderr.write(f"__CODECLASH_TIME_MS__:{max(1, round(_cc_max_s * 1000))}\n")
 
 if __name__ == "__main__":
     main()

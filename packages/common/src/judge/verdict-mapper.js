@@ -10,9 +10,10 @@ export function extractExecutionMetrics(result) {
   let cleanStderr = result.stderr || null;
 
   if (result.stderr && result.stderr.includes("__CODECLASH_TIME_MS__:")) {
-    const match = result.stderr.match(/__CODECLASH_TIME_MS__:\s*(\d+(?:\.\d+)?)/);
-    if (match) {
-      runtimeMs = Math.max(1, Math.round(Number(match[1])));
+    const matches = [...result.stderr.matchAll(/__CODECLASH_TIME_MS__:\s*(\d+(?:\.\d+)?)/g)];
+    if (matches.length > 0) {
+      const times = matches.map((m) => Math.round(Number(m[1])));
+      runtimeMs = Math.max(1, ...times);
     }
     cleanStderr =
       result.stderr.replace(/__CODECLASH_TIME_MS__:[^\n]*\n?/g, "").trim() ||

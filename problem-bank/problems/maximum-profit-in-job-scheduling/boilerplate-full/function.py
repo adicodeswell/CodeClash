@@ -50,6 +50,8 @@ def read_str_matrix():
     return [read_str_list() for _ in range(r)]
 
 def main():
+    import time as _cc_time, sys as _cc_sys
+    _cc_max_s = 0.0
     while True:
         startTime = read_int_list()
         if startTime is None: break
@@ -57,8 +59,13 @@ def main():
         if endTime is None: break
         profit = read_int_list()
         if profit is None: break
+        _cc_t0 = _cc_time.perf_counter()
         result = Solution().jobScheduling(startTime, endTime, profit)
+        _cc_t1 = _cc_time.perf_counter()
+        _cc_dur = _cc_t1 - _cc_t0
+        if _cc_dur > _cc_max_s: _cc_max_s = _cc_dur
         print(result)
+    _cc_sys.stderr.write(f"__CODECLASH_TIME_MS__:{max(1, round(_cc_max_s * 1000))}\n")
 
 if __name__ == "__main__":
     main()

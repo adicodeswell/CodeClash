@@ -62,10 +62,16 @@ int main() {
     cin.tie(nullptr);
 
     vector<int> nums;
+    long long _cc_max_us = 0;
     while (readIntList(nums)) {
         Solution solution;
+        auto _cc_t0 = chrono::high_resolution_clock::now();
         auto result = solution.majorityElement(nums);
+        auto _cc_t1 = chrono::high_resolution_clock::now();
+        long long _cc_dur = chrono::duration_cast<chrono::microseconds>(_cc_t1 - _cc_t0).count();
+        if (_cc_dur > _cc_max_us) _cc_max_us = _cc_dur;
         cout << result << '\n';
     }
+    cerr << "__CODECLASH_TIME_MS__:" << max(1LL, (_cc_max_us + 500) / 1000) << '\n';
     return 0;
 }

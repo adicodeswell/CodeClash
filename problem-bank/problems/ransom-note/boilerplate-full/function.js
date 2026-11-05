@@ -59,14 +59,20 @@ function readStrMatrix() {
 }
 
 function main() {
+  let _cc_max_ms = 0;
   while (cursor < tokens.length && tokens[cursor] !== "") {
     const ransomNote = readStr();
     if (ransomNote === null) break;
     const magazine = readStr();
     if (magazine === null) break;
+    const _cc_t0 = performance.now();
     const result = new Solution().canConstruct(ransomNote, magazine);
+    const _cc_t1 = performance.now();
+    const _cc_dur = _cc_t1 - _cc_t0;
+    if (_cc_dur > _cc_max_ms) _cc_max_ms = _cc_dur;
     console.log(result ? 1 : 0);
   }
+  process.stderr.write("__CODECLASH_TIME_MS__:" + Math.max(1, Math.round(_cc_max_ms)) + "\n");
 }
 
 main();

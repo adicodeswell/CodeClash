@@ -1,7 +1,20 @@
 import { Link } from "react-router-dom";
 import { DifficultyBadge } from "./DifficultyBadge.jsx";
 import { ProblemProgressBadge } from "./ProblemProgressBadge.jsx";
-import { ChevronRight, Code2 } from "lucide-react";
+import { ChevronRight, Code2, SquareArrowOutUpRight } from "lucide-react";
+
+const GFG_SLUG_MAP = {
+  // Override mapping for any specific GeeksforGeeks problems if needed
+};
+
+function getExternalUrl(slug) {
+  if (GFG_SLUG_MAP[slug]) return GFG_SLUG_MAP[slug];
+  return `https://leetcode.com/problems/${slug}/`;
+}
+
+function getPlatformLabel(slug) {
+  return GFG_SLUG_MAP[slug] ? "GeeksforGeeks" : "LeetCode";
+}
 
 export function ProblemRow({ problem, index }) {
   return (
@@ -57,6 +70,24 @@ export function ProblemRow({ problem, index }) {
             <span className="text-xs text-clash-subtle">—</span>
           )}
         </div>
+      </td>
+
+      {/* External Practice / Original Link */}
+      <td className="py-3.5 px-4 w-16 text-center">
+        <a
+          href={getExternalUrl(problem.slug)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center text-clash-subtle hover:text-brand-primary transition-colors duration-200 group/link"
+          title={`Practice on ${getPlatformLabel(problem.slug)}`}
+          aria-label={`Open ${problem.title} on ${getPlatformLabel(problem.slug)}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <SquareArrowOutUpRight
+            size={15}
+            className="group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5 transition-transform duration-200"
+          />
+        </a>
       </td>
     </tr>
   );

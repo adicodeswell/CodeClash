@@ -50,11 +50,18 @@ def read_str_matrix():
     return [read_str_list() for _ in range(r)]
 
 def main():
+    import time as _cc_time, sys as _cc_sys
+    _cc_max_s = 0.0
     while True:
         s = read_str()
         if s is None: break
+        _cc_t0 = _cc_time.perf_counter()
         result = Solution().myAtoi(s)
+        _cc_t1 = _cc_time.perf_counter()
+        _cc_dur = _cc_t1 - _cc_t0
+        if _cc_dur > _cc_max_s: _cc_max_s = _cc_dur
         print(result)
+    _cc_sys.stderr.write(f"__CODECLASH_TIME_MS__:{max(1, round(_cc_max_s * 1000))}\n")
 
 if __name__ == "__main__":
     main()

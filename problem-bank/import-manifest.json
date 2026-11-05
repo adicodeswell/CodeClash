@@ -1,6 +1,132 @@
 {
-  "generatedAt": "2026-11-05T13:15:09.944Z",
+  "generatedAt": "2026-11-05T13:41:56.331Z",
   "problems": [
+    {
+      "slug": "01-matrix",
+      "title": "01 Matrix",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Breadth-First Search",
+        "Matrix"
+      ],
+      "packageVersion": "1",
+      "contentHash": "b19712790ddde5a08551293cce5342bd0c9634fdbbb20f70a92d23f9de803e81",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "accounts-merge",
+      "title": "Accounts Merge",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "String",
+        "Union Find"
+      ],
+      "packageVersion": "1",
+      "contentHash": "ca0baf852f5a74832526e239b54d45d73c52af08a0ea8ff7fe56cab286a17bf7",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "add-binary",
+      "title": "Add Binary",
+      "difficulty": "EASY",
+      "topics": [
+        "Math",
+        "String",
+        "Bit Manipulation"
+      ],
+      "packageVersion": "1",
+      "contentHash": "ae53b2eebfe8bd4ab0de5b41a1c367c740730652bb036e3c48aedb4a2ad4a2f5",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "basic-calculator",
+      "title": "Basic Calculator",
+      "difficulty": "HARD",
+      "topics": [
+        "Math",
+        "String",
+        "Stack"
+      ],
+      "packageVersion": "1",
+      "contentHash": "1dc0a9ba4019f8623bc64dd394eaaa4ef461d05a69ee57abf32bb41d20da2c7b",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "first-bad-version",
+      "title": "First Bad Version",
+      "difficulty": "EASY",
+      "topics": [
+        "Binary Search"
+      ],
+      "packageVersion": "1",
+      "contentHash": "43f806dffeb3be16f215944b9ca3073437aaa66ed178b9ccb59e8015df459795",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "flood-fill",
+      "title": "Flood Fill",
+      "difficulty": "EASY",
+      "topics": [
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Matrix"
+      ],
+      "packageVersion": "1",
+      "contentHash": "233033a3e9c0b5dd59111ee8f95fb7f3df1c1b582f7cf686239085ada447ed6e",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "longest-consecutive-sequence",
+      "title": "Longest Consecutive Sequence",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table"
+      ],
+      "packageVersion": "1",
+      "contentHash": "a04ea229a50ccc61771128b74c6652353972139949ba4fdc01b7c00115208758",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "longest-palindrome",
+      "title": "Longest Palindrome",
+      "difficulty": "EASY",
+      "topics": [
+        "Hash Table",
+        "String",
+        "Greedy"
+      ],
+      "packageVersion": "1",
+      "contentHash": "98bb531d9a2b8abf526f91b417872e578e9abb5640096ba5142b1ec5503740ae",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "lowest-common-ancestor-of-a-binary-tree",
+      "title": "Lowest Common Ancestor of a Binary Tree",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Tree",
+        "Depth-First Search",
+        "Binary Tree"
+      ],
+      "packageVersion": "1",
+      "contentHash": "f060d18134fc863d7c7c387cad65d3b631d84f30727352bd2bf73922ec15d3f1",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "majority-element",
+      "title": "Majority Element",
+      "difficulty": "EASY",
+      "topics": [
+        "Array",
+        "Hash Table"
+      ],
+      "packageVersion": "1",
+      "contentHash": "5143ef34cc851de210a47f7044397fecdba8d2d50326439b985eac561c2b3308",
+      "testCaseCount": 80
+    },
     {
       "slug": "maximum-profit-in-job-scheduling",
       "title": "Maximum Profit in Job Scheduling",
@@ -12,7 +138,80 @@
         "Sorting"
       ],
       "packageVersion": "1",
-      "contentHash": "7a1ab7173a6e848f9dda704f1910a7b58a7a8ebd35e24b77927ee66e4529f23a",
+      "contentHash": "509990a10d6f9630f4307789467a27ca86401b6f21d15cb648cfafc0097a8bf0",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "minimum-height-trees",
+      "title": "Minimum Height Trees",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Breadth-First Search",
+        "Graph",
+        "Topological Sort"
+      ],
+      "packageVersion": "1",
+      "contentHash": "c78fde57a68372db1503999222c3676855f29b75a5a1894a313f4b8c73318779",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "ransom-note",
+      "title": "Ransom Note",
+      "difficulty": "EASY",
+      "topics": [
+        "Hash Table",
+        "String",
+        "Counting"
+      ],
+      "packageVersion": "1",
+      "contentHash": "fbfe419a0efd6bab549037cdd285502067c28fa10e5f3ad009008d1e9d1cca68",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "single-number",
+      "title": "Single Number",
+      "difficulty": "EASY",
+      "topics": [
+        "Array",
+        "Hash Table"
+      ],
+      "packageVersion": "1",
+      "contentHash": "b5472325d4f879a5c4726f358161e00f438c3a6da43e6bfcbd637b50be5b04d3",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "string-to-integer-atoi",
+      "title": "String to Integer (atoi)",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "String"
+      ],
+      "packageVersion": "1",
+      "contentHash": "e3a0cbca5eee4107a87b0f1c746c145281f1b203ba58c6472a90b1688c31e7ed",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "subarray-sum-equals-k",
+      "title": "Subarray Sum Equals K",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table"
+      ],
+      "packageVersion": "1",
+      "contentHash": "a9839d69cb1c274cfded3325434d230fe223b2a765b557a1b493395b66b0dc79",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "two-sum",
+      "title": "Two Sum",
+      "difficulty": "EASY",
+      "topics": [
+        "Array",
+        "Hash Table"
+      ],
+      "packageVersion": "1",
+      "contentHash": "ea6c512b32045e7d87c10566db204dd9ddfef8699cd775f78c903819dbf4b5d9",
       "testCaseCount": 80
     }
   ]
