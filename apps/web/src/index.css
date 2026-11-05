@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* LeetCode / NeetCode Inspired Classy Warm Amber Brand Palette */
+  /* CodeClash Signature Classy Warm Amber Brand Palette */
   --color-brand-primary: #ffa116;      /* Signature warm gold/amber */
   --color-brand-secondary: #ffb84d;    /* Soft amber */
   --color-brand-accent: #f59e0b;       /* Pure amber */

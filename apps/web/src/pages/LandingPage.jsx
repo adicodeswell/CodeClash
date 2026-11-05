@@ -62,7 +62,7 @@ export function LandingPage() {
             </h1>
 
             <p className="text-base sm:text-lg text-clash-muted leading-relaxed mb-8 max-w-xl">
-              Sharpen your algorithmic skills with curated LeetCode-style
+              Sharpen your algorithmic skills with curated competitive DSA
               problems, instant multi-language test validation, and head-to-head
               coding clashes.
             </p>
