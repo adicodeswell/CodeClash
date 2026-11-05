@@ -1,0 +1,4 @@
+27
+5 19 8 null 2 3 4 17 null 16 11 null null null 4 16 18 3 6 7 17 null 14 13 14 5 10
+1
+100

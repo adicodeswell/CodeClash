@@ -22,6 +22,9 @@ function areResultsEqual(a, b) {
     }
     return true;
   }
+  if (typeof a === "number" && typeof b === "number") {
+    if (Math.abs(a - b) < 1e-5) return true;
+  }
   return a === b;
 }
 

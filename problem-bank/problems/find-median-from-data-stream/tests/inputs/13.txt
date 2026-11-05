@@ -1,0 +1,9 @@
+4
+addNum findMedian addNum findMedian
+4
+1
+-44
+0
+1
+-87
+0

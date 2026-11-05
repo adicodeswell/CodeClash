@@ -1,0 +1,16 @@
+c b c a a a a
+c b c a a aa
+c b c a aa a
+c b c a aaa
+c b c aa a a
+c b c aa aa
+c b c aaa a
+c b c aaaa
+cbc a a a a
+cbc a a aa
+cbc a aa a
+cbc a aaa
+cbc aa a a
+cbc aa aa
+cbc aaa a
+cbc aaaa

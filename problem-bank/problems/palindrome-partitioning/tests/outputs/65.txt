@@ -1,0 +1,9 @@
+a b b a a b a
+a b b a aba
+a b b aa b a
+a b baab a
+a bb a a b a
+a bb a aba
+a bb aa b a
+abba a b a
+abba aba

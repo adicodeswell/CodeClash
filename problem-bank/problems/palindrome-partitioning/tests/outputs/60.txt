@@ -1,0 +1,3 @@
+c b a a b
+c b aa b
+c baab

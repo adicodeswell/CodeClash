@@ -152,6 +152,8 @@ function fullTemplate(spec, languageKey) {
     let printCode = `        cout << result << '\\n';`;
     if (spec.output.type === "bool") {
       printCode = `        cout << (result ? 1 : 0) << '\\n';`;
+    } else if (spec.output.type === "double") {
+      printCode = `        cout << fixed << setprecision(5) << result << '\\n';`;
     } else if (spec.output.type === "list<int>" || spec.output.type === "list<long>" || spec.output.type === "list<String>") {
       printCode = `        for (size_t i = 0; i < result.size(); i++) {
             if (i) cout << ' ';
@@ -296,6 +298,8 @@ ${printCode}
     let printCode = `            System.out.println(result);`;
     if (spec.output.type === "bool") {
       printCode = `            System.out.println(result ? 1 : 0);`;
+    } else if (spec.output.type === "double") {
+      printCode = `            System.out.printf(Locale.US, "%.5f\\n", result);`;
     } else if (spec.output.type === "list<int>" || spec.output.type === "list<long>") {
       printCode = `            for (int i = 0; i < result.length; i++) {
                 if (i > 0) System.out.print(" ");
@@ -334,6 +338,7 @@ ${printCode}
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        scanner.useLocale(Locale.US);
         long _cc_max_ns = 0;
         while (scanner.hasNext()) {
 ${reads}
@@ -371,6 +376,8 @@ ${printCode}
     let printCode = "        print(result)";
     if (spec.output.type === "bool") {
       printCode = "        print(1 if result else 0)";
+    } else if (spec.output.type === "double") {
+      printCode = `        print(f"{result:.5f}")`;
     } else if (spec.output.type === "list<int>" || spec.output.type === "list<long>") {
       printCode = `        print(" ".join(map(str, result)))`;
     } else if (spec.output.type === "list<String>") {
@@ -470,6 +477,8 @@ if __name__ == "__main__":
     let printCode = "    console.log(result);";
     if (spec.output.type === "bool") {
       printCode = "    console.log(result ? 1 : 0);";
+    } else if (spec.output.type === "double") {
+      printCode = `    console.log(Number(result).toFixed(5));`;
     } else if (spec.output.type === "list<int>" || spec.output.type === "list<long>" || spec.output.type === "list<String>") {
       printCode = `    console.log(result.join(" "));`;
     } else if (spec.output.type === "list<list<int>>" || spec.output.type === "list<list<String>>") {

@@ -1,0 +1,4 @@
+6
+insert search search startsWith insert search
+6
+apple apple app app app app

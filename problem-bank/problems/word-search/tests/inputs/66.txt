@@ -1,0 +1,12 @@
+5
+5
+C C F A B
+5
+A A C C B
+5
+B A C A F
+5
+E F C B F
+5
+F D E E E
+CABA

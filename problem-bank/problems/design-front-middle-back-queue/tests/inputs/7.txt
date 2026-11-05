@@ -1,0 +1,12 @@
+6
+pushBack pushBack pushBack popMiddle popMiddle popMiddle
+6
+1
+1
+1
+2
+1
+3
+0
+0
+0

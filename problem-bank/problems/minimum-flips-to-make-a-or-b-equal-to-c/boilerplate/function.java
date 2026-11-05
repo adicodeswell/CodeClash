@@ -1,0 +1,7 @@
+import java.util.*;
+
+class Solution {
+    public int minFlips(int a, int b, int c) {
+        // Write your code here
+    }
+}

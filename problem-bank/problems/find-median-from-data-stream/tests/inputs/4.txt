@@ -1,0 +1,11 @@
+5
+addNum addNum findMedian addNum findMedian
+5
+1
+2
+1
+16
+0
+1
+20
+0

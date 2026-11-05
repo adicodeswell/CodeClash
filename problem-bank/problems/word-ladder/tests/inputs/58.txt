@@ -1,0 +1,4 @@
+lead
+gold
+3
+load goad gold

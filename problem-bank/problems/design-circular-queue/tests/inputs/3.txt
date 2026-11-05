@@ -1,0 +1,13 @@
+2
+6
+enQueue enQueue deQueue enQueue Front Rear
+6
+1
+1
+1
+2
+0
+1
+3
+0
+0

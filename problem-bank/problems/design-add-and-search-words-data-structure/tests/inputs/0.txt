@@ -1,0 +1,4 @@
+7
+addWord addWord addWord search search search search
+7
+bad dad mad pad bad .ad b..

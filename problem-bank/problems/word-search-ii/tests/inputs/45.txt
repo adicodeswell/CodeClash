@@ -1,0 +1,11 @@
+4
+4
+k n w a
+4
+l u n f
+4
+h v v v
+4
+b w i z
+3
+bwiz ziv notfound

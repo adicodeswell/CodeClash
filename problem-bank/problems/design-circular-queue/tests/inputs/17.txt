@@ -1,0 +1,11 @@
+8
+6
+enQueue isFull Front Rear deQueue isEmpty
+6
+1
+35
+0
+0
+0
+0
+0

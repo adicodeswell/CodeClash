@@ -1,0 +1,53 @@
+25
+count add count add add add add add count add count add add add add count add add add add count add add add add
+25
+2
+1 2
+2
+5 3
+2
+6 1
+2
+0 1
+2
+6 7
+2
+3 0
+2
+1 4
+2
+7 3
+2
+3 4
+2
+0 4
+2
+3 4
+2
+4 4
+2
+5 1
+2
+0 4
+2
+4 4
+2
+0 2
+2
+4 1
+2
+6 7
+2
+5 3
+2
+7 6
+2
+4 6
+2
+5 0
+2
+1 0
+2
+2 4
+2
+1 4

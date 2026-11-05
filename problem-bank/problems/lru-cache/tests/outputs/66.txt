@@ -1,0 +1,1 @@
+null null null null null null null -1 -1 -1 55 null 55 58 null null 18 null null 55 null 19 65 19 65 null -1 -1 null -1 55 -1 64 null null 19 null null 38 91 91 null null null 30 null 31

@@ -1,0 +1,12 @@
+8
+push top getMin top getMin getMin getMin getMin
+8
+1
+-93
+0
+0
+0
+0
+0
+0
+0

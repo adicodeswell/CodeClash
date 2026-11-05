@@ -1,0 +1,1 @@
+null null null null null null null null 14 77 88 null null 96 88 79 null null null null 72 81 18 null null -1 null null 79 21 31 null 87 -1 null 88 50 71 50 31 21 null 71 21 null null null

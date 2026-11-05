@@ -1,0 +1,9 @@
+1
+4
+enQueue isFull deQueue isEmpty
+4
+1
+10
+0
+0
+0

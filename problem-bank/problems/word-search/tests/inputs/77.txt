@@ -1,0 +1,12 @@
+5
+5
+C C C F E
+5
+F B F C D
+5
+D A A A E
+5
+C E B E E
+5
+A B C D A
+CFDA

@@ -1,0 +1,1 @@
+-1 false false true 60 false false true true false false 30 60 false 30 60 60 true true true

@@ -1,0 +1,1 @@
+null null null 66 null null 66 null 168 null null null 66 292 null 66 null null -352 -352 -352 null null null null -352 -352 null 232 232 -352 -352 null null 66 66 66 66 66 null 66 66 null null 84 null null null null 66 null null -34 null -34 null null 426 null 66 66 null null -26 null -26 null -26 -26 -26 null 426 66

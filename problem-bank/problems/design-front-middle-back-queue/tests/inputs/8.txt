@@ -1,0 +1,11 @@
+5
+pushFront pushMiddle pushBack popFront popBack
+5
+1
+5
+1
+10
+1
+15
+0
+0

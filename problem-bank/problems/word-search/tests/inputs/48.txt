@@ -1,0 +1,10 @@
+4
+4
+D C D E
+4
+D E A B
+4
+A A A D
+4
+A E F A
+EAA

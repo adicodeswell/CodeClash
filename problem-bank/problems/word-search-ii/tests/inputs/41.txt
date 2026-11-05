@@ -1,0 +1,11 @@
+4
+4
+p r b d
+4
+g r g b
+4
+h q h s
+4
+z j q j
+3
+jq qjqh notfound

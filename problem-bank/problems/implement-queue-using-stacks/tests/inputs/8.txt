@@ -1,0 +1,10 @@
+4
+push push push peek
+4
+1
+9
+1
+8
+1
+7
+0

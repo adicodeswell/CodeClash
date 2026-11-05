@@ -1,0 +1,1 @@
+true true 28 false true true false 28 30 true 30 true 70 true 70 70 false 70 true false

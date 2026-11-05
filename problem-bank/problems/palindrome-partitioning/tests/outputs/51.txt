@@ -1,0 +1,4 @@
+c b c a a
+c b c aa
+cbc a a
+cbc aa

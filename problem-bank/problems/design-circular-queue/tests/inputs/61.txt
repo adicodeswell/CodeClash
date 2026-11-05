@@ -1,0 +1,26 @@
+3
+20
+Front Front Rear isEmpty deQueue isEmpty isEmpty isEmpty Front Front isEmpty enQueue deQueue isEmpty deQueue enQueue isEmpty isEmpty Front deQueue
+20
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+52
+0
+0
+0
+1
+30
+0
+0
+0
+0

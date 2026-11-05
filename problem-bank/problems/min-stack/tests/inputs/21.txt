@@ -1,0 +1,17 @@
+11
+push getMin push top push pop top top top pop getMin
+11
+1
+-58
+0
+1
+282
+0
+1
+349
+0
+0
+0
+0
+0
+0

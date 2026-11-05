@@ -1,0 +1,24 @@
+export function solve(n, edges) {
+  if (edges.length !== n - 1) return false;
+  const adj = Array.from({ length: n }, () => []);
+  for (const [u, v] of edges) {
+    adj[u].push(v);
+    adj[v].push(u);
+  }
+
+  const visited = new Set();
+  const q = [0];
+  visited.add(0);
+
+  while (q.length > 0) {
+    const u = q.shift();
+    for (const v of adj[u]) {
+      if (!visited.has(v)) {
+        visited.add(v);
+        q.push(v);
+      }
+    }
+  }
+
+  return visited.size === n;
+}

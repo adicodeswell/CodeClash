@@ -1,0 +1,3 @@
+22
+A D B A D C A B C B D E E E D B E E C D E E
+1

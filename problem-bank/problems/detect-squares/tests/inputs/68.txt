@@ -1,0 +1,163 @@
+80
+add add count count add count add add add count add add add add add add count add add add count count add count count count add count add add add add add add add add add add add add add add add add add add add add count count add count count add add count add add add add add add add count count add add count add count add count count add add count count count add add
+80
+2
+8 4
+2
+12 14
+2
+12 2
+2
+8 2
+2
+9 0
+2
+12 8
+2
+13 12
+2
+4 11
+2
+13 8
+2
+3 0
+2
+8 2
+2
+7 7
+2
+12 2
+2
+11 1
+2
+13 1
+2
+0 5
+2
+7 9
+2
+6 3
+2
+1 8
+2
+13 9
+2
+7 2
+2
+8 8
+2
+12 14
+2
+10 7
+2
+1 13
+2
+10 3
+2
+4 8
+2
+5 13
+2
+12 0
+2
+1 11
+2
+4 2
+2
+11 12
+2
+6 13
+2
+2 11
+2
+5 7
+2
+10 11
+2
+5 13
+2
+5 0
+2
+2 1
+2
+0 14
+2
+14 9
+2
+8 4
+2
+1 0
+2
+5 0
+2
+10 3
+2
+2 13
+2
+0 8
+2
+9 4
+2
+2 12
+2
+6 1
+2
+11 4
+2
+8 8
+2
+1 1
+2
+14 0
+2
+12 13
+2
+2 7
+2
+14 10
+2
+7 0
+2
+9 14
+2
+10 4
+2
+2 8
+2
+13 12
+2
+9 10
+2
+0 7
+2
+3 7
+2
+11 9
+2
+11 12
+2
+1 1
+2
+7 1
+2
+6 7
+2
+13 10
+2
+14 11
+2
+5 8
+2
+2 9
+2
+3 13
+2
+1 6
+2
+14 9
+2
+7 6
+2
+5 3
+2
+3 4

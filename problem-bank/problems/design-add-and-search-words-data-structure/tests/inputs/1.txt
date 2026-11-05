@@ -1,0 +1,4 @@
+3
+addWord search search
+3
+cat cat c.t

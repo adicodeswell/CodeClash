@@ -1,0 +1,44 @@
+2
+20
+put put put put get get put put put get put get put put put get get put put get
+20
+2
+2 44
+2
+2 80
+2
+3 25
+2
+1 99
+1
+1
+1
+4
+2
+1 43
+2
+2 18
+2
+1 53
+1
+1
+2
+2 41
+1
+1
+2
+4 15
+2
+1 41
+2
+3 10
+1
+4
+1
+2
+2
+2 68
+2
+2 80
+1
+2

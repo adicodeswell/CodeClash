@@ -1,0 +1,13 @@
+8
+push top push pop top top top top
+8
+1
+-13
+0
+1
+164
+0
+0
+0
+0
+0

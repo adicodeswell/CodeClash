@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-05T13:41:56.331Z",
+  "generatedAt": "2026-11-05T21:18:29.806Z",
   "problems": [
     {
       "slug": "01-matrix",
@@ -10,7 +10,34 @@
         "Matrix"
       ],
       "packageVersion": "1",
-      "contentHash": "b19712790ddde5a08551293cce5342bd0c9634fdbbb20f70a92d23f9de803e81",
+      "contentHash": "ea9464fba05bdaac90b84741854e2a56d0f8899c8bc3c3fa9e8cd9af274975ba",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "132-pattern",
+      "title": "132 Pattern",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Binary Search",
+        "Stack",
+        "Monotonic Stack"
+      ],
+      "packageVersion": "1",
+      "contentHash": "51553859fa01c33033ba65bd973c346235e33610eacd08e28d7bcf7768aec9f6",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "3sum",
+      "title": "3Sum",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Two Pointers",
+        "Sorting"
+      ],
+      "packageVersion": "1",
+      "contentHash": "7beb99d90216f5474888da8a5a0435633ae4491b76ab6f15f4d89164a33eb175",
       "testCaseCount": 80
     },
     {
@@ -24,7 +51,7 @@
         "Union Find"
       ],
       "packageVersion": "1",
-      "contentHash": "ca0baf852f5a74832526e239b54d45d73c52af08a0ea8ff7fe56cab286a17bf7",
+      "contentHash": "f586b21181dc1a41c7e1bc0752597e3538c7fdc2d02d9ea933b4dbc35cf05993",
       "testCaseCount": 80
     },
     {
@@ -37,7 +64,57 @@
         "Bit Manipulation"
       ],
       "packageVersion": "1",
-      "contentHash": "ae53b2eebfe8bd4ab0de5b41a1c367c740730652bb036e3c48aedb4a2ad4a2f5",
+      "contentHash": "a3d1f1609e4762e7ef930d3bbdd7a40f4d5afba2b0d2d835bde8710d20362aa7",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "add-two-numbers",
+      "title": "Add Two Numbers",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Linked List",
+        "Math"
+      ],
+      "packageVersion": "1",
+      "contentHash": "43f139ac38e25146d3fdfa0584fc11c04a529948f9644253f90b5a248491bf63",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "alien-dictionary",
+      "title": "Alien Dictionary",
+      "difficulty": "HARD",
+      "topics": [
+        "String",
+        "Graph",
+        "Topological Sort"
+      ],
+      "packageVersion": "1",
+      "contentHash": "ca371d3616915c1f6c85011a935efb5c85653db2b3fbd90e3d62a24c87ed04f4",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "asteroid-collision",
+      "title": "Asteroid Collision",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Stack",
+        "Simulation"
+      ],
+      "packageVersion": "1",
+      "contentHash": "8d43f711e39cd5b7c9cfaae575530989764dd44b71cc5030126573ec371d7b51",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "balanced-binary-tree",
+      "title": "Balanced Binary Tree",
+      "difficulty": "EASY",
+      "topics": [
+        "Tree",
+        "Binary Tree"
+      ],
+      "packageVersion": "1",
+      "contentHash": "55c035f9d6301f0338e279671952ed86462f3e6508e440df38ab75157607149f",
       "testCaseCount": 80
     },
     {
@@ -50,7 +127,678 @@
         "Stack"
       ],
       "packageVersion": "1",
-      "contentHash": "1dc0a9ba4019f8623bc64dd394eaaa4ef461d05a69ee57abf32bb41d20da2c7b",
+      "contentHash": "99ed27b518010dd9cf58cc4b3d17000d42243c4ee8a800caf77f208bf9e5b4f3",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "basic-calculator-ii",
+      "title": "Basic Calculator II",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Math",
+        "String",
+        "Stack"
+      ],
+      "packageVersion": "1",
+      "contentHash": "636f0deaf375e2ecd4255e41f197d95a7a86643e4caf05525141d63578a625d4",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "best-time-to-buy-and-sell-stock",
+      "title": "Best Time to Buy and Sell Stock",
+      "difficulty": "EASY",
+      "topics": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "981dd4191c0bbd8855819d6dd3d5f20b0e99f4844da783aa0e52cec21477f35a",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "best-time-to-buy-and-sell-stock-with-cooldown",
+      "title": "Best Time to Buy and Sell Stock with Cooldown",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "429dc421b2e04362c37ad046ca76801220719c6bd4c076e8040fff9e0a09c2bb",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "binary-subarrays-with-sum",
+      "title": "Binary Subarrays With Sum",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Sliding Window",
+        "Prefix Sum"
+      ],
+      "packageVersion": "1",
+      "contentHash": "0d5acaee40050f19e64a5309a1805f8d5d0f049f0e3dbc19e096f0a499ec31f1",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "binary-tree-level-order-traversal",
+      "title": "Binary Tree Level Order Traversal",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Tree",
+        "Breadth-First Search",
+        "Binary Tree"
+      ],
+      "packageVersion": "1",
+      "contentHash": "ff28aae84b9226eccfe35d2e7b049d1ce799efa7aa74723de593e785b968ea13",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "binary-tree-maximum-path-sum",
+      "title": "Binary Tree Maximum Path Sum",
+      "difficulty": "HARD",
+      "topics": [
+        "Tree",
+        "Depth-First Search",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "5bdcee49ab533e968de5b96fbb8e4d91c8f3a37e6810848c33bca4226aaf3db0",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "binary-tree-right-side-view",
+      "title": "Binary Tree Right Side View",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Tree",
+        "Breadth-First Search",
+        "Binary Tree"
+      ],
+      "packageVersion": "1",
+      "contentHash": "4206c22d3becd4f7bd6ca97082ca211f2ed3d6f6d610888ff6235f11e4d39712",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "bitwise-and-of-numbers-range",
+      "title": "Bitwise AND of Numbers Range",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Bit Manipulation"
+      ],
+      "packageVersion": "1",
+      "contentHash": "2afaaea93c1714feae39791e1b02ca95f36724eb2bbefcb316eb05ac3780bd9f",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "burst-balloons",
+      "title": "Burst Balloons",
+      "difficulty": "HARD",
+      "topics": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "32c7ca6ed0ad636cc8a68aad83cd1a861417abd2d0585e749d6bad321ae046ab",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "candy",
+      "title": "Candy",
+      "difficulty": "HARD",
+      "topics": [
+        "Array",
+        "Greedy"
+      ],
+      "packageVersion": "1",
+      "contentHash": "dcc529221f1fb17676771cdbeee8f76bebab2bf22ea9f31a1ce36fab4e2f8421",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "car-fleet",
+      "title": "Car Fleet",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Stack",
+        "Sorting"
+      ],
+      "packageVersion": "1",
+      "contentHash": "6b2ab5b2b5042a580444969338f426d5f9f66250998eb99a85b1e3462731a9a5",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "cheapest-flights-within-k-stops",
+      "title": "Cheapest Flights Within K Stops",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Dynamic Programming",
+        "Graph",
+        "Shortest Path"
+      ],
+      "packageVersion": "1",
+      "contentHash": "a5e1564a7469e7e6a30640837b940636791cebc68790251c2c8baa8c0c288adf",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "climbing-stairs",
+      "title": "Climbing Stairs",
+      "difficulty": "EASY",
+      "topics": [
+        "Math",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "f886f7ab3bc478d25d77c04d145a2cb2ad9bb64fdad493c5585205b22c862fe4",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "clone-graph",
+      "title": "Clone Graph",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Hash Table",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Graph"
+      ],
+      "packageVersion": "1",
+      "contentHash": "d10c2417f4fd997a04da2ab9b23aeefa0c694b3770ba5ec9386df559ae8d5641",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "coin-change",
+      "title": "Coin Change",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "57d2e4581b4f23053b8b7a76e4d1c543a9f1965b95f718d2ef6128e5ce55cb55",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "coin-change-ii",
+      "title": "Coin Change II",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "d53432ac2fe9743ae2af2f664a15c320fc3994b7a7d170d1524d27d85e0fa7a1",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "combination-sum",
+      "title": "Combination Sum",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Backtracking"
+      ],
+      "packageVersion": "1",
+      "contentHash": "3c8b4fae3319bb1f4675affeffa004efc44369b33bcdf8a30c41ec69eb98284c",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "combination-sum-ii",
+      "title": "Combination Sum II",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Backtracking"
+      ],
+      "packageVersion": "1",
+      "contentHash": "74ca03f0f698adf6b31964c8f3204412a1e55dc60148bb8b68e6091804021819",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "construct-binary-tree-from-preorder-and-inorder-traversal",
+      "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Tree",
+        "Binary Tree"
+      ],
+      "packageVersion": "1",
+      "contentHash": "4a15960d7360d559ba9c7c3020bf5959d2940ed8facea27f130ebf6d7e832317",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "container-with-most-water",
+      "title": "Container With Most Water",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Two Pointers",
+        "Greedy"
+      ],
+      "packageVersion": "1",
+      "contentHash": "cc5619af4846c8014087dbc305d44a7df93651f2f2474d982dc7c0d7e085d3fd",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "contains-duplicate",
+      "title": "Contains Duplicate",
+      "difficulty": "EASY",
+      "topics": [
+        "Array",
+        "Hash Table"
+      ],
+      "packageVersion": "1",
+      "contentHash": "7c6b245eca9bcb2bdcc4ae969d5c2ca6f4567b1ace0f985e17bff0754c5b795a",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "contiguous-array",
+      "title": "Contiguous Array",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Prefix Sum"
+      ],
+      "packageVersion": "1",
+      "contentHash": "fbab036f7fe791854601745024a2cd549f8ce06166a4617d61d92db459a182d8",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "continuous-subarray-sum",
+      "title": "Continuous Subarray Sum",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Prefix Sum"
+      ],
+      "packageVersion": "1",
+      "contentHash": "a60ea18124a2d25a41cacd12a5fd98a73fe289e118ac5d539f333aa3749a3208",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "copy-list-with-random-pointer",
+      "title": "Copy List with Random Pointer",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Hash Table",
+        "Linked List"
+      ],
+      "packageVersion": "1",
+      "contentHash": "0652a1a0a95fae2d25d7fc35df9b80e41f2fd81c8e70d55573f6d2d25748a116",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "count-distinct-elements-in-every-window",
+      "title": "Count Distinct Elements in Every Window",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "62ff9cbe5a64250c26b947bdd9025ebfc01c477607f76701d1b7013beabd79b6",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "count-good-nodes-in-binary-tree",
+      "title": "Count Good Nodes in Binary Tree",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Tree",
+        "Depth-First Search",
+        "Binary Tree"
+      ],
+      "packageVersion": "1",
+      "contentHash": "0f11d86667a55459b8dfaff3274c0bff07cd4d42a63769cf4f2f240599535fe7",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "count-number-of-nice-subarrays",
+      "title": "Count Number of Nice Subarrays",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "a6b453b126468f807786eb24bf6c9755606f45cfdce14c5ed17fd35ac189e376",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "count-subarrays-where-max-element-appears-at-least-k-times",
+      "title": "Count Subarrays Where Max Element Appears at Least K Times",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "3e3a369c074cccac4472627be6bd9182df3eeb8fdb3b18415980de5a7c38985b",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "counting-bits",
+      "title": "Counting Bits",
+      "difficulty": "EASY",
+      "topics": [
+        "Dynamic Programming",
+        "Bit Manipulation"
+      ],
+      "packageVersion": "1",
+      "contentHash": "05de1bfbb733e6ea2c0235563042ef622f725534765537d3d19496f30127b23b",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "course-schedule",
+      "title": "Course Schedule",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Graph",
+        "Topological Sort"
+      ],
+      "packageVersion": "1",
+      "contentHash": "6fab4219471d48b514463983d14af3417bfc959355e9d5026d28cf67c1a7e3c9",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "course-schedule-ii",
+      "title": "Course Schedule II",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Graph",
+        "Topological Sort"
+      ],
+      "packageVersion": "1",
+      "contentHash": "2f43515185d391419b65f5ff2b95c55e86ef73e6d011f3c4b260b0a1e3bab9ae",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "daily-temperatures",
+      "title": "Daily Temperatures",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Stack",
+        "Monotonic Stack"
+      ],
+      "packageVersion": "1",
+      "contentHash": "e318bacd6d54458883b49a8b04bc60e691ae9f80bf097d8f3a98c3ce01ca37d7",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "decode-string",
+      "title": "Decode String",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "String",
+        "Stack",
+        "Recursion"
+      ],
+      "packageVersion": "1",
+      "contentHash": "a6b82a69a7a9276bb6d4b0b349f6d53c0fcd82f863ea63c7765a332bd91c4f3c",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "decode-ways",
+      "title": "Decode Ways",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "String",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "7c310bc6797e8e2c1af635064c8d12f2b55c364be87fd2598454145224204580",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "defuse-the-bomb",
+      "title": "Defuse the Bomb",
+      "difficulty": "EASY",
+      "topics": [
+        "Array",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "ad39ffb4be73c49969bf2e796e1b2a807d27de670362166c8d9ed7413b3bf721",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "delete-node-in-a-linked-list",
+      "title": "Delete Node in a Linked List",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Linked List"
+      ],
+      "packageVersion": "1",
+      "contentHash": "ab61b500faf538c0a497f272b9b445919048b3c44c0310bc71f4e5bf600ce902",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "design-add-and-search-words-data-structure",
+      "title": "Design Add and Search Words Data Structure",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "String",
+        "Depth-First Search",
+        "Design",
+        "Trie"
+      ],
+      "packageVersion": "1",
+      "contentHash": "0afeeb1d39aa5185a423ac92e12ed60db8d1a94934b71501d1850b0b7f898595",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "design-circular-queue",
+      "title": "Design Circular Queue",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Design",
+        "Queue"
+      ],
+      "packageVersion": "1",
+      "contentHash": "ebfe708ab9f3a505d4ac51faa88c4ca12639120a0d1bcb42b1e74271a4b95354",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "design-front-middle-back-queue",
+      "title": "Design Front Middle Back Queue",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Design",
+        "Queue"
+      ],
+      "packageVersion": "1",
+      "contentHash": "81c39d696adbe6b0bb918a1d536391ddfc4e11b090ea79c335dda1cc5e42273a",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "design-twitter",
+      "title": "Design Twitter",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Hash Table",
+        "Design",
+        "Heap"
+      ],
+      "packageVersion": "1",
+      "contentHash": "9e1c2ac1108388db14c17dfd8689dc5b140a9f1454d9f0eae5af0d2245f6e3c9",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "detect-squares",
+      "title": "Detect Squares",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Hash Table",
+        "Geometry",
+        "Design"
+      ],
+      "packageVersion": "1",
+      "contentHash": "45850bf8d5206d4060390a19a44fa665fdf39fbfadff2b907c088d5fc9aaa886",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "diameter-of-binary-tree",
+      "title": "Diameter of Binary Tree",
+      "difficulty": "EASY",
+      "topics": [
+        "Tree",
+        "Binary Tree"
+      ],
+      "packageVersion": "1",
+      "contentHash": "5c5d0531a9fd3400a154fb814bb10c899daa3b68992ee7bc53841e8a1e249185",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "diet-plan-performance",
+      "title": "Diet Plan Performance",
+      "difficulty": "EASY",
+      "topics": [
+        "Array",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "74a61a441eb9e10366658baa3f4c56caff45a38bff6fa1f275dffe423f548491",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "distinct-subsequences",
+      "title": "Distinct Subsequences",
+      "difficulty": "HARD",
+      "topics": [
+        "String",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "ec29c9e550df371bc68e6b1a061403f1380f695cfbd18a12197fc84cd4fafa1c",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "dota2-senate",
+      "title": "Dota2 Senate",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "String",
+        "Greedy",
+        "Queue"
+      ],
+      "packageVersion": "1",
+      "contentHash": "2428405e263878a8ca0e4ea2544a4a901bec0dceb21178b92348fc8991049db2",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "edit-distance",
+      "title": "Edit Distance",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "String",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "54d3ee9331f4d22376ba4e70e5fa5215a9a97ca497037d6d6aa1093cac34858d",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "encode-and-decode-strings",
+      "title": "Encode and Decode Strings",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "String",
+        "Design"
+      ],
+      "packageVersion": "1",
+      "contentHash": "f709bfe22316f1a308dc39bc66213f61e48e0c1192906b6308666036f1061bf0",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "evaluate-reverse-polish-notation",
+      "title": "Evaluate Reverse Polish Notation",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Math",
+        "Stack"
+      ],
+      "packageVersion": "1",
+      "contentHash": "14dd0fe9d778ba510962283081e6ad6c5ea815c88eaae31d252d4ed7197cd9c0",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "find-all-anagrams-in-a-string",
+      "title": "Find All Anagrams in a String",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Hash Table",
+        "String",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "f1692df89ba1c2aa385837fadbb75fbf137ced0ac1ef1a8fd1d72d6a27c3e106",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "find-k-length-substrings-with-no-repeated-characters",
+      "title": "Find K-Length Substrings With No Repeated Characters",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Hash Table",
+        "String",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "0bfecc3f700ccdc147c80b36cdd584af17f269f1f327717a0efd4c3ce85c130e",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "find-median-from-data-stream",
+      "title": "Find Median from Data Stream",
+      "difficulty": "HARD",
+      "topics": [
+        "Design",
+        "Heap",
+        "Data Stream"
+      ],
+      "packageVersion": "1",
+      "contentHash": "18691bfb2309f8b5d35aaf9a57de5036f2387b2279b120d1741785388b502fc6",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "find-the-duplicate-number",
+      "title": "Find the Duplicate Number",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Two Pointers",
+        "Binary Search"
+      ],
+      "packageVersion": "1",
+      "contentHash": "71eb6635b359705c49d1fc86025feb1516a45decba5dc57ef4c3562f38867014",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "find-the-k-beauty-of-a-number",
+      "title": "Find the K-Beauty of a Number",
+      "difficulty": "EASY",
+      "topics": [
+        "Math",
+        "String",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "7567493add3f937c152270f8dbdab11a1eb961bb090e18b218db877e999d6e9f",
       "testCaseCount": 80
     },
     {
@@ -61,7 +809,44 @@
         "Binary Search"
       ],
       "packageVersion": "1",
-      "contentHash": "43f806dffeb3be16f215944b9ca3073437aaa66ed178b9ccb59e8015df459795",
+      "contentHash": "302be3fb48b044944a19961eb4decc12dadf7d59a22b6ba3e1c9a4cc534c7a6e",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "first-missing-positive",
+      "title": "First Missing Positive",
+      "difficulty": "HARD",
+      "topics": [
+        "Array",
+        "Hash Table"
+      ],
+      "packageVersion": "1",
+      "contentHash": "40abba090040d19a6b95c67eb8921acae8c9533db531b66703dc1ff8bd2b7e90",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "first-negative-integer-in-every-window-of-size-k",
+      "title": "First Negative Integer in Every Window of Size K",
+      "difficulty": "EASY",
+      "topics": [
+        "Array",
+        "Queue",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "007f050cca0a502513704903ed73d93267067de9215525a72679b791673d52fc",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "flatten-a-multilevel-doubly-linked-list",
+      "title": "Flatten a Multilevel Doubly Linked List",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Linked List",
+        "Depth-First Search"
+      ],
+      "packageVersion": "1",
+      "contentHash": "ca39502cfba8ee5a9c34a4f771c5bffc1f357f6cf109490f97a02d4cd5da1f1a",
       "testCaseCount": 80
     },
     {
@@ -74,7 +859,432 @@
         "Matrix"
       ],
       "packageVersion": "1",
-      "contentHash": "233033a3e9c0b5dd59111ee8f95fb7f3df1c1b582f7cf686239085ada447ed6e",
+      "contentHash": "949c20834eb61f46539f819a81d78bff3214a1418414fc3d043dae7ed219d221",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "fruit-into-baskets",
+      "title": "Fruit Into Baskets",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "5e8cbe0499419a8a521b8d780c56ed42402aa0ffe625bfcc0a103c995b6aaa43",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "furthest-building-you-can-reach",
+      "title": "Furthest Building You Can Reach",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Greedy",
+        "Heap"
+      ],
+      "packageVersion": "1",
+      "contentHash": "56a831fa7081781cd37ea3c7b94e55b4380d7ca33231ca469ec02bd8bcfd8b0a",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "gas-station",
+      "title": "Gas Station",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Greedy"
+      ],
+      "packageVersion": "1",
+      "contentHash": "5e603fa11a77756c3dc8795dcc62965bd7c8ed646bc809897f09633bf8f4420b",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "generate-parentheses",
+      "title": "Generate Parentheses",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "String",
+        "Dynamic Programming",
+        "Backtracking"
+      ],
+      "packageVersion": "1",
+      "contentHash": "007acf2afba2b217da93beea482022246820c64fedc95ff174618ef30efbb22b",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "get-sum",
+      "title": "Sum of Two Integers",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Math",
+        "Bit Manipulation"
+      ],
+      "packageVersion": "1",
+      "contentHash": "97aeb315b6076b16241b3fc7a5b9eb552b101f2be487317d43899ed5a588a71c",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "graph-valid-tree",
+      "title": "Graph Valid Tree",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Union Find",
+        "Graph"
+      ],
+      "packageVersion": "1",
+      "contentHash": "894d43c93a2d04ddf253e7fd03ff5c63a2aca70a87348397b322760ab7277c9a",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "group-anagrams",
+      "title": "Group Anagrams",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "String",
+        "Sorting"
+      ],
+      "packageVersion": "1",
+      "contentHash": "5b5105ca7c5b5fc120cc621b54cd5da3b24a8e4b946176ebe4161e73d087d319",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "grumpy-bookstore-owner",
+      "title": "Grumpy Bookstore Owner",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "ad010d3d72c8417d6dbb70df6d4d8d6d3ea7d733d7e7e209315bb8bae72edbb8",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "hand-of-straights",
+      "title": "Hand of Straights",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Greedy",
+        "Sorting"
+      ],
+      "packageVersion": "1",
+      "contentHash": "233049b52d45926bed99f0d14f9b3f87a537272286557cb1c3ed31d9b59c7d3b",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "happy-number",
+      "title": "Happy Number",
+      "difficulty": "EASY",
+      "topics": [
+        "Hash Table",
+        "Math",
+        "Two Pointers"
+      ],
+      "packageVersion": "1",
+      "contentHash": "9852a3d90b711b8005a27c54796b7301118f84db55652fecc38f030d9e3e7bb5",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "house-robber",
+      "title": "House Robber",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "cbe0c01e63da209379367aa58c4a1169b7bb17915361a48add402f79407c125c",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "house-robber-ii",
+      "title": "House Robber II",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "e891c6f51025163c703dd00465866ca051b481eb81549003c29886aca8cb48cc",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "immediate-smaller-element",
+      "title": "Next Smaller Element",
+      "difficulty": "EASY",
+      "topics": [
+        "Array",
+        "Stack",
+        "Monotonic Stack"
+      ],
+      "packageVersion": "1",
+      "contentHash": "e9c8e7de8476db630060bdf9c4b22f5ff8791ac756a382a8a1afe28eae2007b4",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "implement-queue-using-stacks",
+      "title": "Implement Queue using Stacks",
+      "difficulty": "EASY",
+      "topics": [
+        "Stack",
+        "Design",
+        "Queue"
+      ],
+      "packageVersion": "1",
+      "contentHash": "0557476bc669a9faa05b5270cfc4fa0f1164ecf3b271d66263ee6ec4c1284bd8",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "implement-stack-using-queues",
+      "title": "Implement Stack using Queues",
+      "difficulty": "EASY",
+      "topics": [
+        "Stack",
+        "Design",
+        "Queue"
+      ],
+      "packageVersion": "1",
+      "contentHash": "8b853f9c8ebae230a3085216d193fafbb2ec248b460e6c86866e72e05586b47a",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "implement-trie-prefix-tree",
+      "title": "Implement Trie (Prefix Tree)",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Hash Table",
+        "String",
+        "Design",
+        "Trie"
+      ],
+      "packageVersion": "1",
+      "contentHash": "e617bbbce47a8ea026719bc21e2a24cbbc45990a4cf4f63f7a83ccf702903a60",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "insert-interval",
+      "title": "Insert Interval",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Intervals"
+      ],
+      "packageVersion": "1",
+      "contentHash": "e10a6a4aeb798142b1d4e8ad892388570267c828e4f20d843ce3132f1bf4d2c1",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "interleaving-string",
+      "title": "Interleaving String",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "String",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "0b6d0568cf117af9150188561ea819fd14757ce3e5565eb440dc23df8d1d686a",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "intersection-of-two-linked-lists",
+      "title": "Intersection of Two Linked Lists",
+      "difficulty": "EASY",
+      "topics": [
+        "Hash Table",
+        "Linked List",
+        "Two Pointers"
+      ],
+      "packageVersion": "1",
+      "contentHash": "fee4f4e79f867f6b4b1bdd0a668898550340f5e2c8282e9b42114e5f0149d63d",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "invert-binary-tree",
+      "title": "Invert Binary Tree",
+      "difficulty": "EASY",
+      "topics": [
+        "Tree",
+        "Binary Tree"
+      ],
+      "packageVersion": "1",
+      "contentHash": "54ef6573789cd43f4496e2e612dbda8967c328730e7fa74e932abbe56135f495",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "jump-game",
+      "title": "Jump Game",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Dynamic Programming",
+        "Greedy"
+      ],
+      "packageVersion": "1",
+      "contentHash": "91fb6c3977c451257ff6f4a59528d7438d0e0d64e33228dc71c9ae2a15ac7fdc",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "jump-game-ii",
+      "title": "Jump Game II",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Dynamic Programming",
+        "Greedy"
+      ],
+      "packageVersion": "1",
+      "contentHash": "62dfeefdf7c35175c3962aa7d07c6570466532f89289d5e7375a971816692052",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "k-closest-points-to-origin",
+      "title": "K Closest Points to Origin",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Math",
+        "Geometry",
+        "Heap"
+      ],
+      "packageVersion": "1",
+      "contentHash": "1dd821d1ff9dc8890ccd256b538f2266d26408ae6a064fcdc5e6c1b403550aac",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "k-radius-subarray-averages",
+      "title": "K Radius Subarray Averages",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Sliding Window",
+        "Prefix Sum"
+      ],
+      "packageVersion": "1",
+      "contentHash": "67af5d20ffdb131e9500f01cef46dd28385daeb272f0df5047c077c15b27832c",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "kth-largest-element-in-a-stream",
+      "title": "Kth Largest Element in a Stream",
+      "difficulty": "EASY",
+      "topics": [
+        "Heap",
+        "Design",
+        "Data Stream"
+      ],
+      "packageVersion": "1",
+      "contentHash": "af69f1b0ded0120f5b653ca39d08b9256404fa9f9ce75866e8ca029bc1ce5752",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "kth-largest-element-in-an-array",
+      "title": "Kth Largest Element in an Array",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Divide and Conquer",
+        "Sorting",
+        "Heap"
+      ],
+      "packageVersion": "1",
+      "contentHash": "197faab824936ba31024da91b12e49f79da5d7442af2cf9980965f5b8fb021f7",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "kth-smallest-element-in-a-bst",
+      "title": "Kth Smallest Element in a BST",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Tree",
+        "Binary Search Tree",
+        "Binary Tree"
+      ],
+      "packageVersion": "1",
+      "contentHash": "2a4a41b51afb39e453a3383ae508eef510c9e3c232620449af09d6ee3232542c",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "largest-rectangle-in-histogram",
+      "title": "Largest Rectangle in Histogram",
+      "difficulty": "HARD",
+      "topics": [
+        "Array",
+        "Stack",
+        "Monotonic Stack"
+      ],
+      "packageVersion": "1",
+      "contentHash": "e91bf486fb113e29761c93a5caab51fcc04e521eb465ff0ae5612242aae571e3",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "last-stone-weight",
+      "title": "Last Stone Weight",
+      "difficulty": "EASY",
+      "topics": [
+        "Array",
+        "Heap"
+      ],
+      "packageVersion": "1",
+      "contentHash": "91c627479778a7b225e48c4a9f9807cff3d72670e95057a6606c45d5d562c212",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "letter-combinations-of-a-phone-number",
+      "title": "Letter Combinations of a Phone Number",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Hash Table",
+        "String",
+        "Backtracking"
+      ],
+      "packageVersion": "1",
+      "contentHash": "a0606e8a05b6f74d9ab3d0ddc8eda131d0b612033f78a42d16a4e6b8e35dea24",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "linked-list-cycle",
+      "title": "Linked List Cycle",
+      "difficulty": "EASY",
+      "topics": [
+        "Hash Table",
+        "Linked List",
+        "Two Pointers"
+      ],
+      "packageVersion": "1",
+      "contentHash": "8586f49eaf6dbd69fa48619a00fa66374bff48a921e4d29f57b6fdb81fba97bc",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "linked-list-cycle-ii",
+      "title": "Linked List Cycle II",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Hash Table",
+        "Linked List",
+        "Two Pointers"
+      ],
+      "packageVersion": "1",
+      "contentHash": "601153ab76cd24b0a797e8c575b8be854e66962aeabde8ded8c725773cb448c9",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "longest-common-subsequence",
+      "title": "Longest Common Subsequence",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "String",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "3dc4c6c8feeccef2622b1e4336c6eab1586c160ff8aaf7808dd114ae145e59e7",
       "testCaseCount": 80
     },
     {
@@ -86,7 +1296,46 @@
         "Hash Table"
       ],
       "packageVersion": "1",
-      "contentHash": "a04ea229a50ccc61771128b74c6652353972139949ba4fdc01b7c00115208758",
+      "contentHash": "189e2327cecc7d3ced0cc4c19e86722ff2ee8429862a9840876ac2fd8b2153a6",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit",
+      "title": "Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Sliding Window",
+        "Monotonic Queue"
+      ],
+      "packageVersion": "1",
+      "contentHash": "0ace6fc13e3210ac92bbb6861656c1057dca5e8d07caee6554f464579eabe02d",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "longest-increasing-path-in-a-matrix",
+      "title": "Longest Increasing Path in a Matrix",
+      "difficulty": "HARD",
+      "topics": [
+        "Depth-First Search",
+        "Dynamic Programming",
+        "Matrix"
+      ],
+      "packageVersion": "1",
+      "contentHash": "d9548619e634baea6d27efc602f856489c08b98a07432cf46fe281f579512e54",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "longest-increasing-subsequence",
+      "title": "Longest Increasing Subsequence",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Binary Search",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "582c9ba04ab51ea9ed3cd6908ab8bce725f2d9767029e8600e934a56c2a65af4",
       "testCaseCount": 80
     },
     {
@@ -99,7 +1348,97 @@
         "Greedy"
       ],
       "packageVersion": "1",
-      "contentHash": "98bb531d9a2b8abf526f91b417872e578e9abb5640096ba5142b1ec5503740ae",
+      "contentHash": "b5da35100d4613964472f59c4966f03f3c99a330e8016857f31433e938f85bd2",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "longest-palindromic-substring",
+      "title": "Longest Palindromic Substring",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Two Pointers",
+        "String",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "b47da3c28a32fbab3c6bea87c1ac98fb82b5d3cb13b36ebda55535c266d5df78",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "longest-repeating-character-replacement",
+      "title": "Longest Repeating Character Replacement",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Hash Table",
+        "String",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "899f8e4f93947cf03ff15d32c1c98cb6654f564e56e0ea62fa790b4b8c9ed03d",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "longest-sub-array-with-sum-k",
+      "title": "Longest Sub-Array with Sum K",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Prefix Sum"
+      ],
+      "packageVersion": "1",
+      "contentHash": "2dbcbc49323531b78bff67e11f7b89707792777f31d71d4b3660741263b1bac5",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "longest-subarray-of-1s-after-deleting-one-element",
+      "title": "Longest Subarray of 1's After Deleting One Element",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "0d5834eea2583b0897da57f7ca0959ae3af998cb0697df1c072b7e957e557359",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "longest-substring-with-at-most-k-distinct-characters",
+      "title": "Longest Substring with At Most K Distinct Characters",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Hash Table",
+        "String",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "dfb7b23fc997ae8f04ddf87a4c8c717f2ffbc498998e3feddb5e70948811acb5",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "longest-substring-without-repeating-characters",
+      "title": "Longest Substring Without Repeating Characters",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Hash Table",
+        "String",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "3035d4b5a01cf9ff99aad032100fa1ec9508bea3cd651cc70fb568a6413c2401",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "lowest-common-ancestor-of-a-binary-search-tree",
+      "title": "Lowest Common Ancestor of a Binary Search Tree",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Tree",
+        "Binary Search Tree",
+        "Binary Tree"
+      ],
+      "packageVersion": "1",
+      "contentHash": "f9fbd059ce9a90ece8257833326a19920d85de9c3bf22a18280d7e9893f38405",
       "testCaseCount": 80
     },
     {
@@ -112,7 +1451,20 @@
         "Binary Tree"
       ],
       "packageVersion": "1",
-      "contentHash": "f060d18134fc863d7c7c387cad65d3b631d84f30727352bd2bf73922ec15d3f1",
+      "contentHash": "f0d119136a98ee226aca8de4c327ef50658dd35ae67df9d08f863c7954cdd6ce",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "lru-cache",
+      "title": "LRU Cache",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Hash Table",
+        "Linked List",
+        "Design"
+      ],
+      "packageVersion": "1",
+      "contentHash": "1d34d379e326d3b277ded3bde479bdfa95695192f0053d4374a1969d6bf4fa3b",
       "testCaseCount": 80
     },
     {
@@ -124,7 +1476,187 @@
         "Hash Table"
       ],
       "packageVersion": "1",
-      "contentHash": "5143ef34cc851de210a47f7044397fecdba8d2d50326439b985eac561c2b3308",
+      "contentHash": "18a8f5e96814e4fa050c7490c031f652cec98181d641f31e59c230aecbe7ff3e",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "majority-element-ii",
+      "title": "Majority Element II",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Counting"
+      ],
+      "packageVersion": "1",
+      "contentHash": "77202ae301406d1278f6e126618da61a692adcb028b9965d166bd2b778ece618",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "make-sum-divisible-by-p",
+      "title": "Make Sum Divisible by P",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Prefix Sum"
+      ],
+      "packageVersion": "1",
+      "contentHash": "8c1454f8c8b948a64dc568601225cdafbfdcf9bff8711170c9ef0dfd86414f73",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "matrix-block-sum",
+      "title": "Matrix Block Sum",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Matrix",
+        "Prefix Sum"
+      ],
+      "packageVersion": "1",
+      "contentHash": "ce285d2c021c16a2d56ecbda5fc47d40314d369c49cb03bb97e5707bafe82199",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "max-area-of-island",
+      "title": "Max Area of Island",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Matrix"
+      ],
+      "packageVersion": "1",
+      "contentHash": "508a15d3ed98c139035116da3270304e261086795ca44f29659472db056a3048",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "max-consecutive-ones-iii",
+      "title": "Max Consecutive Ones III",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Sliding Window",
+        "Prefix Sum"
+      ],
+      "packageVersion": "1",
+      "contentHash": "14365d1f9013ae8cbbd54c7f30df0da64df2fec4cc6cb63cfd677f1ec4863c88",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "max-sum-subarray-of-size-k",
+      "title": "Maximum Sum Subarray of Size K",
+      "difficulty": "EASY",
+      "topics": [
+        "Array",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "540082320320c64d17fb70de02da7ef70f7f30f5dc918518e90692e89b6b6cd5",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "maximal-rectangle",
+      "title": "Maximal Rectangle",
+      "difficulty": "HARD",
+      "topics": [
+        "Array",
+        "Dynamic Programming",
+        "Stack",
+        "Matrix",
+        "Monotonic Stack"
+      ],
+      "packageVersion": "1",
+      "contentHash": "3f2465b92b356eb03457576280ef14f4befc0a7b51b0f7cc2eff0b804d8f8302",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "maximum-average-subarray-i",
+      "title": "Maximum Average Subarray I",
+      "difficulty": "EASY",
+      "topics": [
+        "Array",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "c35846aa123a3916dd121b9e1c13cfb0631efb4b05e48a091ebe4cd7f5ba148b",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "maximum-depth-of-binary-tree",
+      "title": "Maximum Depth of Binary Tree",
+      "difficulty": "EASY",
+      "topics": [
+        "Tree",
+        "Binary Tree"
+      ],
+      "packageVersion": "1",
+      "contentHash": "c425eab4486bd4b3a019597fcac243549cc043a8d86c2fd2a848b62b617b1d0e",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "maximum-erasure-value",
+      "title": "Maximum Erasure Value",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "d3288095064e723544aec2743beaa93e4a8112380f6e895c31449cff6f0c9b24",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "maximum-number-of-vowels-in-a-substring-of-given-length",
+      "title": "Maximum Number of Vowels in a Substring of Given Length",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "String",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "ed4554c51fa74de3700c00784c5fe0a470291fc978e5f447402021cb38ff805c",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "maximum-of-all-subarrays-of-size-k",
+      "title": "Maximum of All Subarrays of Size K",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Queue",
+        "Sliding Window",
+        "Monotonic Deque"
+      ],
+      "packageVersion": "1",
+      "contentHash": "5ebd7c259dfbfa910c666bf7f6f1ffd63acd3af2ed7763220bca077b54f65db6",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "maximum-points-you-can-obtain-from-cards",
+      "title": "Maximum Points You Can Obtain from Cards",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Sliding Window",
+        "Prefix Sum"
+      ],
+      "packageVersion": "1",
+      "contentHash": "24d505eafcd0558092c59fbe18b8340b6d84dc50039048c062368b1cfd3a199e",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "maximum-product-subarray",
+      "title": "Maximum Product Subarray",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "db887c7225fb4d37fcf9af662fb069736d77509322581b5c6a674d303751db36",
       "testCaseCount": 80
     },
     {
@@ -138,7 +1670,196 @@
         "Sorting"
       ],
       "packageVersion": "1",
-      "contentHash": "509990a10d6f9630f4307789467a27ca86401b6f21d15cb648cfafc0097a8bf0",
+      "contentHash": "aaabfb9f75c535c4b4abe6873a3d35149cd9aea97c01df6ccd0c42191ba66beb",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "maximum-subarray",
+      "title": "Maximum Subarray",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Dynamic Programming",
+        "Greedy"
+      ],
+      "packageVersion": "1",
+      "contentHash": "8f197e103ad176a2f47ca0c37fec5f34360d8b0d7c2a945d27a3b3ac41ba8e78",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "maximum-sum-of-almost-unique-subarray",
+      "title": "Maximum Sum of Almost Unique Subarray",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "9d3101d08c7ad39130c34c5438c59048218e4de93e38628a45ec262756d36727",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "maximum-sum-of-distinct-subarrays-with-length-k",
+      "title": "Maximum Sum of Distinct Subarrays With Length K",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "7247de49ca314eb2153c7b9587e3fb22506e394846718911ec9bdc780d50104b",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "maximum-xor-of-two-numbers-in-an-array",
+      "title": "Maximum XOR of Two Numbers in an Array",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Bit Manipulation",
+        "Trie"
+      ],
+      "packageVersion": "1",
+      "contentHash": "0c50aef12ac4c9f46d936b962c341a815d2cd9c320bdf8cbffab8a8c85fd32d3",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "meeting-rooms",
+      "title": "Meeting Rooms",
+      "difficulty": "EASY",
+      "topics": [
+        "Array",
+        "Sorting",
+        "Intervals"
+      ],
+      "packageVersion": "1",
+      "contentHash": "107b558f795b13c4e6f41402ff417528c99ca8cf107199b96fce5a05384e27e0",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "meeting-rooms-ii",
+      "title": "Meeting Rooms II",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Sorting",
+        "Heap",
+        "Intervals"
+      ],
+      "packageVersion": "1",
+      "contentHash": "3293d12f1d814551f0e0c99abed995a21aec40ac0fd788a4acce76ff82ca9a08",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "merge-intervals",
+      "title": "Merge Intervals",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Sorting",
+        "Intervals"
+      ],
+      "packageVersion": "1",
+      "contentHash": "d1d844aa88df0366a49ccf001bc9c5efb5b91df375a7694f96531a5bfd2107bd",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "merge-k-sorted-lists",
+      "title": "Merge k Sorted Lists",
+      "difficulty": "HARD",
+      "topics": [
+        "Linked List",
+        "Divide and Conquer",
+        "Heap"
+      ],
+      "packageVersion": "1",
+      "contentHash": "b61238dc873792a462e0c241f9ef3c4735ec46ce20a394edbcf082d67537872f",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "merge-triplets-to-form-target-triplet",
+      "title": "Merge Triplets to Form Target Triplet",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Greedy"
+      ],
+      "packageVersion": "1",
+      "contentHash": "586b6e7fc83d626eb2bd5fd4a0dcd2b8570efc366d66551373255fe1951d0587",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "merge-two-sorted-lists",
+      "title": "Merge Two Sorted Lists",
+      "difficulty": "EASY",
+      "topics": [
+        "Linked List",
+        "Recursion"
+      ],
+      "packageVersion": "1",
+      "contentHash": "d5d05155d795a18c6dc82dbab53b34eedf9b84ca037e4cc1972264934667c618",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "middle-of-the-linked-list",
+      "title": "Middle of the Linked List",
+      "difficulty": "EASY",
+      "topics": [
+        "Linked List",
+        "Two Pointers"
+      ],
+      "packageVersion": "1",
+      "contentHash": "1ba25cc5918eae82d7820e43cd6b3f1448012acb74b59dd371fdb12b9ec2322f",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "min-cost-climbing-stairs",
+      "title": "Min Cost Climbing Stairs",
+      "difficulty": "EASY",
+      "topics": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "9aaab987a81d0f88b7655fc0c810fe35035b43b2e85c9a5d22ad572da50287d6",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "min-cost-to-connect-all-points",
+      "title": "Min Cost to Connect All Points",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Graph",
+        "Minimum Spanning Tree"
+      ],
+      "packageVersion": "1",
+      "contentHash": "7ab5c30310bd598590d4f39fa6a07d3e70d3b6bab36cd1f5032ab7ac7ce40616",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "min-stack",
+      "title": "Min Stack",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Stack",
+        "Design"
+      ],
+      "packageVersion": "1",
+      "contentHash": "49fb67e9a26f038220a1917d4e332a983b3c8274b0a506c3c9efc3d631712696",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "minimum-flips-to-make-a-or-b-equal-to-c",
+      "title": "Minimum Flips to Make a OR b Equal to c",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Bit Manipulation"
+      ],
+      "packageVersion": "1",
+      "contentHash": "639c14aa884ffb3ff67e50afc0fafff6d945ca12f9284e5921a66b8ebc51efe1",
       "testCaseCount": 80
     },
     {
@@ -151,7 +1872,467 @@
         "Topological Sort"
       ],
       "packageVersion": "1",
-      "contentHash": "c78fde57a68372db1503999222c3676855f29b75a5a1894a313f4b8c73318779",
+      "contentHash": "a14afbeafd248128b2d4a1ab386d30ef4668e1ff7d14aa1855d379f831d6e9e5",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "minimum-interval-to-include-each-query",
+      "title": "Minimum Interval to Include Each Query",
+      "difficulty": "HARD",
+      "topics": [
+        "Array",
+        "Sorting",
+        "Heap",
+        "Intervals"
+      ],
+      "packageVersion": "1",
+      "contentHash": "56d622171249da30370d804d9810a881a5b85b719032ef9a6813812970e19ba3",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "minimum-recolors-to-get-k-consecutive-black-blocks",
+      "title": "Minimum Recolors to Get K Consecutive Black Blocks",
+      "difficulty": "EASY",
+      "topics": [
+        "String",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "e2530a214ae41a484190940851380bdd4e8cf8fb531c33cfbd1c114a64da8205",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "minimum-size-subarray-sum",
+      "title": "Minimum Size Subarray Sum",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Binary Search",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "c38205e2bd53cc2771f7820f20e2197288b4dfacf9d8f7c2349dca4fd77d6a57",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "minimum-window-substring",
+      "title": "Minimum Window Substring",
+      "difficulty": "HARD",
+      "topics": [
+        "Hash Table",
+        "String",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "7cef44f43a40d2288acf7b394590404d21aa9f6963b02dba5ce2a5a3a752b945",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "missing-number",
+      "title": "Missing Number",
+      "difficulty": "EASY",
+      "topics": [
+        "Array",
+        "Math",
+        "Bit Manipulation"
+      ],
+      "packageVersion": "1",
+      "contentHash": "077f0bae5771e66e8122e10c2cb702df4b7c416468eeb8c906613cebb8915224",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "multiply-strings",
+      "title": "Multiply Strings",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Math",
+        "String",
+        "Simulation"
+      ],
+      "packageVersion": "1",
+      "contentHash": "ffca914735f7f9eb0f29fa6fcaa690c2acc67d3d296c388672113b6ebc720cf4",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "my-pow",
+      "title": "Pow(x, n)",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Math",
+        "Recursion"
+      ],
+      "packageVersion": "1",
+      "contentHash": "b393214ea781e167229cb1994c9c6dd56757e4585fea57f736a266711583bdcb",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "n-queens",
+      "title": "N-Queens",
+      "difficulty": "HARD",
+      "topics": [
+        "Array",
+        "Backtracking"
+      ],
+      "packageVersion": "1",
+      "contentHash": "e53d2842abb915f7a8ccca1b0635d73f6f794be9141f300f6a4864d912d3485e",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "network-delay-time",
+      "title": "Network Delay Time",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Graph",
+        "Heap",
+        "Shortest Path"
+      ],
+      "packageVersion": "1",
+      "contentHash": "ee3df203d2d32451453e08968bd0f61878663114008ccee547505ecc56848733",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "next-greater-element-i",
+      "title": "Next Greater Element I",
+      "difficulty": "EASY",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Stack",
+        "Monotonic Stack"
+      ],
+      "packageVersion": "1",
+      "contentHash": "8230241b87a60c2598c3f4b19b6b5128a9957eb86f434ac20583a8c8842bacb2",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "next-greater-element-ii",
+      "title": "Next Greater Element II",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Stack",
+        "Monotonic Stack"
+      ],
+      "packageVersion": "1",
+      "contentHash": "c4cc3d7c4406e82ed901bee242d4892e844381e30317a0a7e380b97536405477",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "next-permutation",
+      "title": "Next Permutation",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Two Pointers"
+      ],
+      "packageVersion": "1",
+      "contentHash": "539d9b1dd75ad83486986aac8583f98414f9814d229e1205aafacc87f3bb0fca",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "non-overlapping-intervals",
+      "title": "Non-overlapping Intervals",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Greedy",
+        "Sorting",
+        "Intervals"
+      ],
+      "packageVersion": "1",
+      "contentHash": "bc25893e430988ff19e805b94ad9de2c65aab7826ce2ec426099057a1a55914c",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "number-of-1-bits",
+      "title": "Number of 1 Bits",
+      "difficulty": "EASY",
+      "topics": [
+        "Bit Manipulation"
+      ],
+      "packageVersion": "1",
+      "contentHash": "cfbabfbdb54252e7fd9a4fd6d140f3cc332403b3195c79331c050c6ca1b029a2",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "number-of-connected-components-in-an-undirected-graph",
+      "title": "Number of Connected Components in an Undirected Graph",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Union Find",
+        "Graph"
+      ],
+      "packageVersion": "1",
+      "contentHash": "2487c43aad71f9f8b71068ef47e14f4c8a3e6cf1d8f8aa0e08330b1fbd5af33b",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "number-of-islands",
+      "title": "Number of Islands",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Matrix"
+      ],
+      "packageVersion": "1",
+      "contentHash": "2173eaf41707c6e2d277fcd4807b80bee02c3af3b4f5f4bdeb22c43c9ca827f2",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "number-of-recent-calls",
+      "title": "Number of Recent Calls",
+      "difficulty": "EASY",
+      "topics": [
+        "Design",
+        "Queue",
+        "Data Stream"
+      ],
+      "packageVersion": "1",
+      "contentHash": "e7e74a73f365f9fde78532c289f10df5483d9f63556736e3cc79305767b2a28f",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold",
+      "title": "Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "a9a8b26ddae631cb776012f122fb2277775e7b293b6f5864f412d83998c49087",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "number-of-substrings-containing-all-three-characters",
+      "title": "Number of Substrings Containing All Three Characters",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Hash Table",
+        "String",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "0dfccc8531bbb3d66a42a9dfa6e685d70f1f5131c9c79f552178ba6b0ca9c1da",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "odd-even-linked-list",
+      "title": "Odd Even Linked List",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Linked List"
+      ],
+      "packageVersion": "1",
+      "contentHash": "786f796d1663db181e740bb8327546dbcc1d458faf1f1f1052ca625de4adc423",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "online-stock-span",
+      "title": "Online Stock Span",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Stack",
+        "Design",
+        "Monotonic Stack"
+      ],
+      "packageVersion": "1",
+      "contentHash": "fb5e1bc3ef5be0bab67f84fc374314efbc9cdac00edc8dcef5a7e741d656d1df",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "open-the-lock",
+      "title": "Open the Lock",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Breadth-First Search",
+        "Queue",
+        "Hash Table"
+      ],
+      "packageVersion": "1",
+      "contentHash": "d6da430a749bfc2cacfcf22559f89ebfc182f01b54499cbd314bc89ac30a8455",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "pacific-atlantic-water-flow",
+      "title": "Pacific Atlantic Water Flow",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Matrix"
+      ],
+      "packageVersion": "1",
+      "contentHash": "c679ee68daff14bb2be295ab5e9057de54feb35142a1ff0082e2d3a9b660df58",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "palindrome-linked-list",
+      "title": "Palindrome Linked List",
+      "difficulty": "EASY",
+      "topics": [
+        "Linked List",
+        "Two Pointers"
+      ],
+      "packageVersion": "1",
+      "contentHash": "e81f61b3d7c604cef49bb3325d33805f9ca582c59889257b66a0f98010dda352",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "palindrome-partitioning",
+      "title": "Palindrome Partitioning",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "String",
+        "Dynamic Programming",
+        "Backtracking"
+      ],
+      "packageVersion": "1",
+      "contentHash": "2782ffbdc500406934fa8a53df4f39de4663038ed06f0e26a6bbc3cc705bbf4b",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "palindromic-substrings",
+      "title": "Palindromic Substrings",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Two Pointers",
+        "String",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "03c14b41fe0b2575153a926816604b21141769c1cc7bbe1c061aafba003e782b",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "partition-equal-subset-sum",
+      "title": "Partition Equal Subset Sum",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "eb1d4123d5ec912d76e702abf1c345e5176ac19adb95a54f1bb22faefe1572b7",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "partition-labels",
+      "title": "Partition Labels",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Two Pointers",
+        "String",
+        "Greedy"
+      ],
+      "packageVersion": "1",
+      "contentHash": "9bd8af4bf4beb608f979ad55ea7cf5bd6aeea4250c7dccfbf8e61801f7afa7c5",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "partition-list",
+      "title": "Partition List",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Linked List",
+        "Two Pointers"
+      ],
+      "packageVersion": "1",
+      "contentHash": "f847802b73563e40de02e25dd4e3f6d3a1f55361974eb2b429c8542dc0fcc3cc",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "permutation-in-string",
+      "title": "Permutation in String",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Hash Table",
+        "Two Pointers",
+        "String",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "3fc460d92b291ea966b6660ec98dbcb5ab543245f991f3862ec49e5e20730af7",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "permutations",
+      "title": "Permutations",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Backtracking"
+      ],
+      "packageVersion": "1",
+      "contentHash": "2311cfd680666c1f7e9c05f0a3c85fec6de96e92446acfa509198dc850792545",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "plus-one",
+      "title": "Plus One",
+      "difficulty": "EASY",
+      "topics": [
+        "Array",
+        "Math"
+      ],
+      "packageVersion": "1",
+      "contentHash": "5b9b1f62fee154885ba6441091b507ad3d4fa9226781a526be5b7a88b68547c0",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "power-of-two",
+      "title": "Power of Two",
+      "difficulty": "EASY",
+      "topics": [
+        "Math",
+        "Bit Manipulation"
+      ],
+      "packageVersion": "1",
+      "contentHash": "c36223dcb03198dde5f228c709af4a31824a446d0215b26e0f3b7ed414f4261e",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "product-of-array-except-self",
+      "title": "Product of Array Except Self",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Prefix Sum"
+      ],
+      "packageVersion": "1",
+      "contentHash": "d759f1e18aaba22ddde58c9c3b1df620038121caecd16ff6d41bc72088e1c5ee",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "range-sum-query-2d-immutable",
+      "title": "Range Sum Query 2D - Immutable",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Design",
+        "Matrix",
+        "Prefix Sum"
+      ],
+      "packageVersion": "1",
+      "contentHash": "2ff0c0bd9cd887deab8bc0a64f9556ad968226968acecbabe5ec428900e184de",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "range-sum-query-immutable",
+      "title": "Range Sum Query - Immutable",
+      "difficulty": "EASY",
+      "topics": [
+        "Array",
+        "Design",
+        "Prefix Sum"
+      ],
+      "packageVersion": "1",
+      "contentHash": "ac10e535445994d0fb3d6f27ba3ea133d53f32d6c4202f0fa5a5bd5bdc9c9ae4",
       "testCaseCount": 80
     },
     {
@@ -164,7 +2345,280 @@
         "Counting"
       ],
       "packageVersion": "1",
-      "contentHash": "fbfe419a0efd6bab549037cdd285502067c28fa10e5f3ad009008d1e9d1cca68",
+      "contentHash": "946d11ef1617a87f4be5a018f27c1c209036e2841e0d6b8e386b9060038623ad",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "reconstruct-itinerary",
+      "title": "Reconstruct Itinerary",
+      "difficulty": "HARD",
+      "topics": [
+        "Depth-First Search",
+        "Graph",
+        "Eulerian Circuit"
+      ],
+      "packageVersion": "1",
+      "contentHash": "c6422e0f01a03e2dbbecbf31742006c4c01395f849e33c905693ff31249d7024",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "redundant-connection",
+      "title": "Redundant Connection",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Union Find",
+        "Graph"
+      ],
+      "packageVersion": "1",
+      "contentHash": "b647aa13d62ba42248ea151708f09dd78931964bc768eb0ab5c5fe090a767072",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "regular-expression-matching",
+      "title": "Regular Expression Matching",
+      "difficulty": "HARD",
+      "topics": [
+        "String",
+        "Dynamic Programming",
+        "Recursion"
+      ],
+      "packageVersion": "1",
+      "contentHash": "c2f6774770d4a40ca7643eedcee37b1671b7759ce562ff215677c59a68207d81",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "remove-all-adjacent-duplicates-in-string",
+      "title": "Remove All Adjacent Duplicates In String",
+      "difficulty": "EASY",
+      "topics": [
+        "String",
+        "Stack"
+      ],
+      "packageVersion": "1",
+      "contentHash": "07852ec73137d6e9b5306a5eb3617b975bbfa6c474c83206bc980209f237ebd8",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "remove-duplicate-letters",
+      "title": "Remove Duplicate Letters",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "String",
+        "Stack",
+        "Greedy",
+        "Monotonic Stack"
+      ],
+      "packageVersion": "1",
+      "contentHash": "ec2fb01bb4013b6b14802fa35a7e221844132e714696e6f7d97ce7a6544a342f",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "remove-duplicates-from-sorted-list-ii",
+      "title": "Remove Duplicates from Sorted List II",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Linked List",
+        "Two Pointers"
+      ],
+      "packageVersion": "1",
+      "contentHash": "ac81a3d33654a6d76ae7c6495162fd65a46951fe51d3d04d269005e92c1d8fb1",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "remove-k-digits",
+      "title": "Remove K Digits",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "String",
+        "Stack",
+        "Greedy",
+        "Monotonic Stack"
+      ],
+      "packageVersion": "1",
+      "contentHash": "1b40dc099f770d3b258c7a700bccc1ebf76e8762d1608a215c22e9a29afa4a3d",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "remove-linked-list-elements",
+      "title": "Remove Linked List Elements",
+      "difficulty": "EASY",
+      "topics": [
+        "Linked List",
+        "Recursion"
+      ],
+      "packageVersion": "1",
+      "contentHash": "e5aa684518262f43b572ea0c8aa472183bde89c79ef78e7e41461a5b7ac4562c",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "remove-nth-node-from-end-of-list",
+      "title": "Remove Nth Node From End of List",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Linked List",
+        "Two Pointers"
+      ],
+      "packageVersion": "1",
+      "contentHash": "38c6145bb6733789840b5277bd2cd75a6a3d4ebc83efd7760c476963a00065e0",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "reorder-list",
+      "title": "Reorder List",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Linked List",
+        "Two Pointers"
+      ],
+      "packageVersion": "1",
+      "contentHash": "d2e630b4674f2ac01d82a636921b05acf38e789f240b4fc8c67bd03068ca21bf",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "reverse-bits",
+      "title": "Reverse Bits",
+      "difficulty": "EASY",
+      "topics": [
+        "Bit Manipulation"
+      ],
+      "packageVersion": "1",
+      "contentHash": "93900d8924cf4c2126c35a776838ab977517094b6bcb9c8f44bcd498a340db06",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "reverse-integer",
+      "title": "Reverse Integer",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Math"
+      ],
+      "packageVersion": "1",
+      "contentHash": "50c57bd717626d438207c1692c6bbc5b3884842b3a7455e51c3f54b3974c669a",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "reverse-linked-list",
+      "title": "Reverse Linked List",
+      "difficulty": "EASY",
+      "topics": [
+        "Linked List",
+        "Recursion"
+      ],
+      "packageVersion": "1",
+      "contentHash": "a440ef4d539a3bc76867dce536cce8a6aef3e8db1de8169aa0d7643d8a9cbb61",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "reverse-linked-list-ii",
+      "title": "Reverse Linked List II",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Linked List"
+      ],
+      "packageVersion": "1",
+      "contentHash": "b036f0b816458d0bfe777af4b9e9b33d8c8bbed7a711c529d94a2767e8bc6da0",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "reverse-nodes-in-k-group",
+      "title": "Reverse Nodes in k-Group",
+      "difficulty": "HARD",
+      "topics": [
+        "Linked List",
+        "Recursion"
+      ],
+      "packageVersion": "1",
+      "contentHash": "118b9e184b881a451ee8b028491a45541fbfc9921e013d8eb73c5c55fd8f6dca",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "rotate-image",
+      "title": "Rotate Image",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Math",
+        "Matrix"
+      ],
+      "packageVersion": "1",
+      "contentHash": "e10c495a1ed905aef89c096af5dd6b9cbadc95cb558cc9442e59663f006453ac",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "rotate-list",
+      "title": "Rotate List",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Linked List",
+        "Two Pointers"
+      ],
+      "packageVersion": "1",
+      "contentHash": "502f94750a7f3867b0b6ab6b967a12efe743b809ed698ec477d9d47cbcb5d075",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "rotting-oranges",
+      "title": "Rotting Oranges",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Breadth-First Search",
+        "Matrix"
+      ],
+      "packageVersion": "1",
+      "contentHash": "6e050fe229456b901c0e30611d44d462ec9185d942fcfdb476b404bd88a5a312",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "same-tree",
+      "title": "Same Tree",
+      "difficulty": "EASY",
+      "topics": [
+        "Tree",
+        "Binary Tree"
+      ],
+      "packageVersion": "1",
+      "contentHash": "9c76158a3150518c3c0a5a169b52b7fdcd6b8d18eb5b11e45ed4cafb1755ee84",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "serialize-and-deserialize-binary-tree",
+      "title": "Serialize and Deserialize Binary Tree",
+      "difficulty": "HARD",
+      "topics": [
+        "Tree",
+        "Design",
+        "Binary Tree"
+      ],
+      "packageVersion": "1",
+      "contentHash": "5b8558425d7a52d4421f4370caa344b48bf2a76e97a1832b6a0337308f051729",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "set-matrix-zeroes",
+      "title": "Set Matrix Zeroes",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Matrix"
+      ],
+      "packageVersion": "1",
+      "contentHash": "11406a23620b62d96ece80809e1eae1b82c524417fdc6d3ec2e30eb4fb6bad6b",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "simplify-path",
+      "title": "Simplify Path",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "String",
+        "Stack"
+      ],
+      "packageVersion": "1",
+      "contentHash": "66cb9a9edf324a41dbd645abfba745332548c20cd38dcda5d46e2f55bf4f9e90",
       "testCaseCount": 80
     },
     {
@@ -176,7 +2630,110 @@
         "Hash Table"
       ],
       "packageVersion": "1",
-      "contentHash": "b5472325d4f879a5c4726f358161e00f438c3a6da43e6bfcbd637b50be5b04d3",
+      "contentHash": "0b0bc920ab6078eb94d232d7290c9872943a6b7d5d9a495103f06165ca67078b",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "single-number-ii",
+      "title": "Single Number II",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Bit Manipulation"
+      ],
+      "packageVersion": "1",
+      "contentHash": "721ab44b17594a06f46ed0d8356a3312fef03025c02165cd37b4a20f39d85fbe",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "single-number-iii",
+      "title": "Single Number III",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Bit Manipulation"
+      ],
+      "packageVersion": "1",
+      "contentHash": "32936d439bb6c099c48b4bcd06fdc6ad6a5333a5dd711fd758b9cc87a751f8e2",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "sliding-window-maximum",
+      "title": "Sliding Window Maximum",
+      "difficulty": "HARD",
+      "topics": [
+        "Array",
+        "Queue",
+        "Sliding Window",
+        "Monotonic Queue"
+      ],
+      "packageVersion": "1",
+      "contentHash": "b901faa516c355b12d2a41a450ebac378d019edb516eebd0e69738be2d0801b4",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "smallest-window-in-a-string-containing-all-the-characters-of-another-string",
+      "title": "Smallest Window in a String Containing All Characters of Another String",
+      "difficulty": "HARD",
+      "topics": [
+        "Hash Table",
+        "String",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "23a69e6b9024fb4efa5700f462a42299db400913dd1ddab4abd69fa8ab4eb598",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "sort-colors",
+      "title": "Sort Colors",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Two Pointers",
+        "Sorting"
+      ],
+      "packageVersion": "1",
+      "contentHash": "de35656f49355f999505dc664d2a843a0d44e06033d84afebee49a6dbdcf8991",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "sort-list",
+      "title": "Sort List",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Linked List",
+        "Divide and Conquer",
+        "Merge Sort"
+      ],
+      "packageVersion": "1",
+      "contentHash": "a28ca544e65a1ea77aa9a6b77e9a674a414dad4539d65f73e1914c7a9bee066e",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "spiral-matrix",
+      "title": "Spiral Matrix",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Matrix",
+        "Simulation"
+      ],
+      "packageVersion": "1",
+      "contentHash": "10fe1aff6cbf4cb400035bf366d7eeaa0eb5cc1811ad5b88246972dafeb0d461",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "stock-span-problem",
+      "title": "Stock Span Problem",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Stack",
+        "Monotonic Stack"
+      ],
+      "packageVersion": "1",
+      "contentHash": "59c650ef6b7a879940d664bc222b9684622a996531ae9d5389a90071a9ec715a",
       "testCaseCount": 80
     },
     {
@@ -187,7 +2744,19 @@
         "String"
       ],
       "packageVersion": "1",
-      "contentHash": "e3a0cbca5eee4107a87b0f1c746c145281f1b203ba58c6472a90b1688c31e7ed",
+      "contentHash": "07985edbabbccd0dfef6a2fc3270d8fff1b29ad142068c4295f903bce60bf33f",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "subarray-product-less-than-k",
+      "title": "Subarray Product Less Than K",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "c8067bd9b5da7b69b0224cac9c7f57725c26437c623f94b465e0f15a3a6db9d4",
       "testCaseCount": 80
     },
     {
@@ -199,7 +2768,191 @@
         "Hash Table"
       ],
       "packageVersion": "1",
-      "contentHash": "a9839d69cb1c274cfded3325434d230fe223b2a765b557a1b493395b66b0dc79",
+      "contentHash": "ba89368cae9ee40510c5c807e39450a5b25fa6d767ba67663597e73e30870b80",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "subarray-sums-divisible-by-k",
+      "title": "Subarray Sums Divisible by K",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Prefix Sum"
+      ],
+      "packageVersion": "1",
+      "contentHash": "99d6280aba0e6686b7adbde436bd1edc1cedc87922f6ac9ce1d6e24a60140b93",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "subarrays-with-k-different-integers",
+      "title": "Subarrays with K Different Integers",
+      "difficulty": "HARD",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "3ab560da18aa7a4ca2c8be369ef3115f96e93e02068389d761106caea147614a",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "subsets",
+      "title": "Subsets",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Backtracking",
+        "Bit Manipulation"
+      ],
+      "packageVersion": "1",
+      "contentHash": "11ea00c7203bba7ffd014a939cf6eae08e47a1689611436e0b959265267d543a",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "subsets-ii",
+      "title": "Subsets II",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Backtracking",
+        "Bit Manipulation"
+      ],
+      "packageVersion": "1",
+      "contentHash": "5f0ec939463fb7c7e5d0704b4078b5ee14d6946925d7bed8ddc150493bf2409b",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "subtree-of-another-tree",
+      "title": "Subtree of Another Tree",
+      "difficulty": "EASY",
+      "topics": [
+        "Tree",
+        "Binary Tree"
+      ],
+      "packageVersion": "1",
+      "contentHash": "efd00e30ebb077169bb1ce14c7ba1f6a31c4131a24c539cfb5b020b206152220",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "sum-of-subarray-minimums",
+      "title": "Sum of Subarray Minimums",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Dynamic Programming",
+        "Stack",
+        "Monotonic Stack"
+      ],
+      "packageVersion": "1",
+      "contentHash": "0a2110343bf236ab66d85817b8086fb29395f847119a76db6e47faeda8a1c53f",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "surrounded-regions",
+      "title": "Surrounded Regions",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Depth-First Search",
+        "Breadth-First Search",
+        "Matrix"
+      ],
+      "packageVersion": "1",
+      "contentHash": "4fb898f7891956c8333ea07655cf4d957308d619955fb9da9c328f8894e6be98",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "swap-nodes-in-pairs",
+      "title": "Swap Nodes in Pairs",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Linked List",
+        "Recursion"
+      ],
+      "packageVersion": "1",
+      "contentHash": "2a2beda835f14a4a76edf986a02d7eabcf3d35020982816c51cbe1f3097c4f0b",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "swim-in-rising-water",
+      "title": "Swim in Rising Water",
+      "difficulty": "HARD",
+      "topics": [
+        "Binary Search",
+        "Depth-First Search",
+        "Heap",
+        "Matrix"
+      ],
+      "packageVersion": "1",
+      "contentHash": "c98a3ef997bc2577168c7607ff68f1c1d13869d4e85daa704fb201421bff80f9",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "take-k-of-each-character-from-left-and-right",
+      "title": "Take K of Each Character From Left and Right",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Hash Table",
+        "String",
+        "Sliding Window"
+      ],
+      "packageVersion": "1",
+      "contentHash": "d90fa3bdcb87ac88a1105aa8a556a52081ea935a51b661f4578088d644a1983f",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "target-sum",
+      "title": "Target Sum",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "d18d0fff5bed3c5493ba46443b912e6cb6ecef515004b0775e4d4ed58e86a670",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "task-scheduler",
+      "title": "Task Scheduler",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Greedy",
+        "Heap"
+      ],
+      "packageVersion": "1",
+      "contentHash": "599d7565b1416ae91f4227746c7faab42796bc1d22b8656a760f7191295df31d",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "top-k-frequent-elements",
+      "title": "Top K Frequent Elements",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Heap",
+        "Bucket Sort"
+      ],
+      "packageVersion": "1",
+      "contentHash": "77b3712aced90f0cbda6e12d9882d3463c5f1d4c4bbbd76bee47137defaee144",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "trapping-rain-water",
+      "title": "Trapping Rain Water",
+      "difficulty": "HARD",
+      "topics": [
+        "Array",
+        "Two Pointers",
+        "Stack"
+      ],
+      "packageVersion": "1",
+      "contentHash": "ac729baab2411c81348c4aea3157cc33cb111adca67fc80f6f317513f74a825d",
       "testCaseCount": 80
     },
     {
@@ -211,7 +2964,177 @@
         "Hash Table"
       ],
       "packageVersion": "1",
-      "contentHash": "ea6c512b32045e7d87c10566db204dd9ddfef8699cd775f78c903819dbf4b5d9",
+      "contentHash": "df578059f9435e8fff7291a209c8b35e34d596c50bf1558ad2d151680bde077d",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "two-sum-ii-input-array-is-sorted",
+      "title": "Two Sum II - Input Array Is Sorted",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Two Pointers",
+        "Binary Search"
+      ],
+      "packageVersion": "1",
+      "contentHash": "b32edb9b8c0a00d7b283898ba309aa7a0fbdcc47726722088cd772d1cceb83b9",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "unique-paths",
+      "title": "Unique Paths",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Math",
+        "Dynamic Programming"
+      ],
+      "packageVersion": "1",
+      "contentHash": "8a3996b0b7c8071d0e4e32afe2c8fc631b988b47905272379d2b6f5f6afe2892",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "valid-anagram",
+      "title": "Valid Anagram",
+      "difficulty": "EASY",
+      "topics": [
+        "Hash Table",
+        "String",
+        "Sorting"
+      ],
+      "packageVersion": "1",
+      "contentHash": "511c0f7caf3466bf5f7c727dc634c05e868985272d280b1d029da90ca1e65f7b",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "valid-palindrome",
+      "title": "Valid Palindrome",
+      "difficulty": "EASY",
+      "topics": [
+        "Two Pointers",
+        "String"
+      ],
+      "packageVersion": "1",
+      "contentHash": "7d25a6e81a66ae9bfb2c7215bfe190878c11750f3b7f11bb732a51203bff0123",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "valid-parentheses",
+      "title": "Valid Parentheses",
+      "difficulty": "EASY",
+      "topics": [
+        "String",
+        "Stack"
+      ],
+      "packageVersion": "1",
+      "contentHash": "138a150a6275fbc2786a5896d62c061d682f27effc1679e537f39f68b1e9bd99",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "valid-parenthesis-string",
+      "title": "Valid Parenthesis String",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "String",
+        "Dynamic Programming",
+        "Greedy"
+      ],
+      "packageVersion": "1",
+      "contentHash": "541d8e93d3b02c2e62e7f680487c2042e7d6df1f8943dd4df25428a1836c2076",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "valid-sudoku",
+      "title": "Valid Sudoku",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Matrix"
+      ],
+      "packageVersion": "1",
+      "contentHash": "6c47af24bea29567a97dc176252360df2001c005d8a05bf6ee3005d9347bbbd2",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "validate-binary-search-tree",
+      "title": "Validate Binary Search Tree",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Tree",
+        "Binary Search Tree",
+        "Binary Tree"
+      ],
+      "packageVersion": "1",
+      "contentHash": "0638d57dc37f445b5ad57d890decbc6f135a45a9674373679aaa7aa31e75b1e8",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "walls-and-gates",
+      "title": "Walls and Gates",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "Breadth-First Search",
+        "Matrix"
+      ],
+      "packageVersion": "1",
+      "contentHash": "6148c2d1fd6fea895b6f73ea1a6cd9872408a951942ee537ee26928fb7385738",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "word-break",
+      "title": "Word Break",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "String",
+        "Dynamic Programming",
+        "Trie"
+      ],
+      "packageVersion": "1",
+      "contentHash": "8ed902006c07898a209fca651ae5305d541c9066ca4010e2fbf983383393f617",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "word-ladder",
+      "title": "Word Ladder",
+      "difficulty": "HARD",
+      "topics": [
+        "Hash Table",
+        "String",
+        "Breadth-First Search"
+      ],
+      "packageVersion": "1",
+      "contentHash": "d03391da2e8396cff2c2a5e938af492e52f61035548184eaec1b5cc09190302c",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "word-search",
+      "title": "Word Search",
+      "difficulty": "MEDIUM",
+      "topics": [
+        "Array",
+        "String",
+        "Backtracking",
+        "Matrix"
+      ],
+      "packageVersion": "1",
+      "contentHash": "5bee9e6b8f06541236f2afbfb7d2ec35453ce2e20b7eeedbdaf7d5c29639d354",
+      "testCaseCount": 80
+    },
+    {
+      "slug": "word-search-ii",
+      "title": "Word Search II",
+      "difficulty": "HARD",
+      "topics": [
+        "Array",
+        "String",
+        "Backtracking",
+        "Trie",
+        "Matrix"
+      ],
+      "packageVersion": "1",
+      "contentHash": "fc92b1b95eb1772ace84ad24723c344e3f9284f8aa880f07fe63bfb783973eb7",
       "testCaseCount": 80
     }
   ]

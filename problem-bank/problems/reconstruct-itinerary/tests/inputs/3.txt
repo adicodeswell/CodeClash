@@ -1,0 +1,9 @@
+4
+2
+JFK SFO
+2
+SFO ATL
+2
+ATL ORD
+2
+ORD LAX

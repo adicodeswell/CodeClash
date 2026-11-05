@@ -1,0 +1,1 @@
+null null null -228.0 -228.0 null null null -177.0 null null null -72.0 null null -72.0 null 10.0 null null null

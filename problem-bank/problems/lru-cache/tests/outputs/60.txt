@@ -1,0 +1,1 @@
+null null null null null 30 null 80 -1 30 37 37 null 37 37 null null 31 -1 31 null 31 null null null 37 48 null 37 -1

@@ -21,7 +21,7 @@ describe("Progress Service & User Isolation Tests (Task 4 & Task 6)", () => {
 
     problems = await prisma.problem.findMany({
       where: { status: "PUBLISHED" },
-      orderBy: { slug: "asc" },
+      orderBy: { createdAt: "desc" },
       take: 5,
     });
 
@@ -199,7 +199,7 @@ describe("Progress Service & User Isolation Tests (Task 4 & Task 6)", () => {
   });
 
   test("Catalog GET /api/problems enriches problems with user's isAttempted and isSolved", async () => {
-    const res = await ctx.fetchUserA("/api/problems?limit=10");
+    const res = await ctx.fetchUserA("/api/problems?limit=50");
     assert.equal(res.status, 200);
     const body = await res.json();
     assert.ok(Array.isArray(body.problems));

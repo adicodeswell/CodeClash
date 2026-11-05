@@ -1,0 +1,11 @@
+4
+4
+p x z a
+4
+b y p u
+4
+b w s s
+4
+i j t g
+3
+tj ausg notfound

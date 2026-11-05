@@ -1,0 +1,11 @@
+6
+push peek push peek pop peek
+6
+1
+1
+0
+1
+2
+0
+0
+0

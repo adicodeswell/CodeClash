@@ -1,0 +1,7 @@
+3
+2
+JFK ATL
+2
+ATL JFK
+2
+JFK SFO

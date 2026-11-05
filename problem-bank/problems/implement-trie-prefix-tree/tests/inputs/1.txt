@@ -1,0 +1,4 @@
+3
+insert search startsWith
+3
+codeclash codeclash code

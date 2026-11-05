@@ -1,0 +1,17 @@
+9
+push getMin push push push getMin push getMin pop
+9
+1
+-96
+0
+1
+-446
+1
+125
+1
+218
+0
+1
+369
+0
+0

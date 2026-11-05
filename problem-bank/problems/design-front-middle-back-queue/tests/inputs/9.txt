@@ -1,0 +1,7 @@
+3
+pushFront popMiddle popFront
+3
+1
+7
+0
+0

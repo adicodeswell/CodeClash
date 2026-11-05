@@ -1,0 +1,9 @@
+4
+push push pop pop
+4
+1
+4
+1
+8
+0
+0

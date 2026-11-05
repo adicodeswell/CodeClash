@@ -1,0 +1,10 @@
+4
+4
+B A F A
+4
+D F E C
+4
+A D C A
+4
+D D A B
+FEC

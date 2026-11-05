@@ -1,0 +1,4 @@
+20
+33 37 null 4 null null 33 null null 47 26 null 31 8 null 43 30 49 21 31
+16
+3 24 50 5 14 1 14 null 42 47 4 35 30 22 27 10

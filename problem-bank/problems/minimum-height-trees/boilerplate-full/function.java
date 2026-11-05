@@ -6,6 +6,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        scanner.useLocale(Locale.US);
         long _cc_max_ns = 0;
         while (scanner.hasNext()) {
             int n = scanner.nextInt();

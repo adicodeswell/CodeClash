@@ -1,0 +1,31 @@
+15
+15
+X X O X X X X O X X O X X O O
+15
+O X X O O O X O X X O X X X O
+15
+X O O O X X X O O X X X X O X
+15
+X O O X X X X O O O X O X X X
+15
+X X X O X X X X X O X O O X O
+15
+O X X X O X X X X O X X X O O
+15
+X O O X X O O X X O X X O O X
+15
+X X X X O X X X O O O O O O X
+15
+O X X O X X X O O X O X X O O
+15
+O X X X X X O O X X X O X X X
+15
+X X X O X X X X X X O O O X X
+15
+X X O X O X X O X X X O X O X
+15
+X X X O X O X X O X X O X X O
+15
+X X X O O X X X X O O X O X X
+15
+X O O O O X X O X X X O O O O

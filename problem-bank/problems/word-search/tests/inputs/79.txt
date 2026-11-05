@@ -1,0 +1,12 @@
+5
+5
+F D F B F
+5
+F A F F C
+5
+C E E A D
+5
+B F E A E
+5
+E B D C E
+XYZW

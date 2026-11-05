@@ -1,0 +1,11 @@
+2
+5
+enQueue enQueue deQueue deQueue isEmpty
+5
+1
+5
+1
+6
+0
+0
+0

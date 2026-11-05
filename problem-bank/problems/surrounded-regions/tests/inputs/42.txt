@@ -1,0 +1,17 @@
+8
+8
+X X X X X X X X
+8
+X O O O X O O X
+8
+O X X O O X X X
+8
+X X O X O X X X
+8
+O O X X O X O X
+8
+X O X X O O X O
+8
+X O X X O X X O
+8
+X X X X O X O X

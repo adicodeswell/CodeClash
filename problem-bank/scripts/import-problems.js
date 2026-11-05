@@ -214,7 +214,7 @@ async function main() {
           contentHash: problem.contentHash,
           languages: problem.languages,
           testCases: problem.testCases,
-          // Deliberately preserve status when updating existing problems.
+          status: "PUBLISHED",
         },
       });
 

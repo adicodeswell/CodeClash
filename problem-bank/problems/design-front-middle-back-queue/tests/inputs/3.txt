@@ -1,0 +1,9 @@
+4
+pushFront pushFront popBack popBack
+4
+1
+1
+1
+2
+0
+0

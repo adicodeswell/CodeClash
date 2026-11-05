@@ -1,0 +1,42 @@
+5
+19
+put put put put put get put get put put put get put put put put get put put
+19
+2
+5 64
+2
+6 33
+2
+2 87
+2
+5 25
+2
+3 41
+1
+6
+2
+7 81
+1
+4
+2
+3 45
+2
+2 53
+2
+3 94
+1
+5
+2
+7 29
+2
+4 61
+2
+6 77
+2
+4 90
+1
+2
+2
+1 66
+2
+6 59

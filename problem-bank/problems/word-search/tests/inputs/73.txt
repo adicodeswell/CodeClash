@@ -1,0 +1,12 @@
+5
+5
+A C E D D
+5
+F C D D C
+5
+B A D D E
+5
+D C E C D
+5
+E A A E A
+AFBA

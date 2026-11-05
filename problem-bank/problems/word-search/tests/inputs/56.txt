@@ -1,0 +1,10 @@
+4
+4
+C F D F
+4
+E D C E
+4
+E F E F
+4
+B E A B
+ZZZ

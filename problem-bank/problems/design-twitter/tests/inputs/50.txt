@@ -1,0 +1,43 @@
+20
+getNewsFeed follow getNewsFeed getNewsFeed unfollow follow postTweet getNewsFeed postTweet postTweet getNewsFeed getNewsFeed getNewsFeed follow follow follow postTweet postTweet unfollow unfollow
+20
+1
+1
+2
+3 1
+1
+2
+1
+2
+2
+1 2
+2
+1 2
+2
+3 10500
+1
+4
+2
+4 10501
+2
+2 10502
+1
+4
+1
+4
+1
+2
+2
+1 2
+2
+3 1
+2
+3 1
+2
+3 10503
+2
+3 10504
+2
+1 2
+2
+2 1

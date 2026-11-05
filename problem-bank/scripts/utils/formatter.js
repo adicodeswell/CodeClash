@@ -77,7 +77,7 @@ export function formatOutput(spec, value) {
   }
 
   if (spec.output.type === "double") {
-    return String(value);
+    return Number(value).toFixed(5);
   }
 
   if (spec.output.type === "list<int>" || spec.output.type === "list<long>") {

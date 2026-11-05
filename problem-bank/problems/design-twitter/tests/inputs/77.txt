@@ -1,0 +1,73 @@
+35
+postTweet follow follow getNewsFeed postTweet follow follow follow postTweet unfollow unfollow postTweet getNewsFeed unfollow follow follow getNewsFeed follow getNewsFeed postTweet postTweet getNewsFeed follow follow follow getNewsFeed postTweet follow unfollow unfollow postTweet postTweet postTweet getNewsFeed postTweet
+35
+2
+6 22700
+2
+2 5
+2
+2 4
+1
+4
+2
+5 22701
+2
+2 5
+2
+2 5
+2
+4 1
+2
+6 22702
+2
+5 2
+2
+1 4
+2
+1 22703
+1
+6
+2
+1 4
+2
+2 3
+2
+5 1
+1
+6
+2
+3 1
+1
+6
+2
+1 22704
+2
+4 22705
+1
+1
+2
+1 4
+2
+4 3
+2
+1 5
+1
+5
+2
+5 22706
+2
+3 4
+2
+1 2
+2
+3 2
+2
+5 22707
+2
+3 22708
+2
+1 22709
+1
+1
+2
+1 22710

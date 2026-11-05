@@ -1,0 +1,13 @@
+b c c c c b c
+b c c c cbc
+b c c cc b c
+b c cc c b c
+b c cc cbc
+b c ccc b c
+b cc c c b c
+b cc c cbc
+b cc cc b c
+b ccc c b c
+b ccc cbc
+b cccc b c
+bccccb c

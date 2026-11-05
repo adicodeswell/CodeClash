@@ -1,0 +1,4 @@
+24
+5 null 10 4 15 14 3 null null 19 15 null 20 9 6 null 15 12 19 null null null 18 20
+1
+100

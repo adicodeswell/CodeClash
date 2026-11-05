@@ -1,0 +1,18 @@
+12
+push getMin getMin getMin getMin getMin getMin push getMin pop push pop
+12
+1
+21
+0
+0
+0
+0
+0
+0
+1
+-250
+0
+0
+1
+-473
+0

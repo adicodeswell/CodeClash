@@ -1,0 +1,9 @@
+4
+2
+MUC LHR
+2
+JFK MUC
+2
+SFO SJC
+2
+LHR SFO

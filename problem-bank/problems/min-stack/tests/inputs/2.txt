@@ -1,0 +1,10 @@
+5
+push push getMin pop getMin
+5
+1
+10
+1
+10
+0
+0
+0

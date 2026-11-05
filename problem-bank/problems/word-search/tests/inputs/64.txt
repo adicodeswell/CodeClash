@@ -1,0 +1,10 @@
+4
+4
+D F A C
+4
+E D B B
+4
+E E E A
+4
+F C F F
+DBE
