@@ -4,28 +4,26 @@ export function DifficultyBadge({ difficulty }) {
   const config = {
     EASY: {
       label: "Easy",
-      className: "text-diff-easy bg-diff-easy/10 border-diff-easy/25",
+      className: "text-diff-easy",
     },
     MEDIUM: {
       label: "Medium",
-      className: "text-diff-medium bg-diff-medium/10 border-diff-medium/25",
+      className: "text-diff-medium",
     },
     HARD: {
       label: "Hard",
-      className: "text-diff-hard bg-diff-hard/10 border-diff-hard/25",
+      className: "text-diff-hard",
     },
   };
 
-  const badge = config[norm] || {
+  const current = config[norm] || {
     label: norm || "Unknown",
-    className: "text-clash-muted bg-white/5 border-clash-border",
+    className: "text-zinc-400",
   };
 
   return (
-    <span
-      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${badge.className}`}
-    >
-      {badge.label}
+    <span className={`text-xs sm:text-[13px] font-medium select-none ${current.className}`}>
+      {current.label}
     </span>
   );
 }

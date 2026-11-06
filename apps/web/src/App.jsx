@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext.jsx";
 import { Navbar } from "./components/Navbar.jsx";
+import { Footer } from "./components/Footer.jsx";
 import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
 import { LandingPage } from "./pages/LandingPage.jsx";
 import { ProblemsPage } from "./pages/ProblemsPage.jsx";
@@ -16,6 +17,7 @@ function PlatformLayout() {
       <main className="flex-1 flex flex-col">
         <Outlet />
       </main>
+      <Footer />
     </div>
   );
 }
@@ -44,6 +46,7 @@ function LandingPageRoute() {
       <main className="flex-1 flex flex-col justify-center">
         <LandingPage />
       </main>
+      <Footer />
     </div>
   );
 }

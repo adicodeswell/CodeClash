@@ -16,7 +16,7 @@ export function ProblemSearch({ value = "", onChange }) {
 
     const timer = setTimeout(() => {
       onChange(term);
-    }, 300);
+    }, 250);
 
     return () => clearTimeout(timer);
   }, [term, value, onChange]);
@@ -28,22 +28,22 @@ export function ProblemSearch({ value = "", onChange }) {
 
   return (
     <div className="relative flex items-center w-full md:w-80 lg:w-96">
-      <Search size={16} className="absolute left-3.5 text-clash-subtle pointer-events-none" />
+      <Search size={15} className="absolute left-3.5 text-zinc-500 pointer-events-none" />
       <input
         type="text"
-        placeholder="Search title or slug..."
+        placeholder="Search by title or slug..."
         value={term}
         onChange={(e) => setTerm(e.target.value)}
-        className="w-full py-2 pl-9 pr-9 bg-clash-card border border-clash-border rounded-lg text-clash-text text-xs sm:text-sm placeholder:text-clash-subtle focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary/30 transition"
+        className="w-full py-2 pl-9 pr-9 bg-[#141417] border border-white/[0.08] rounded-xl text-zinc-200 text-xs sm:text-sm placeholder:text-zinc-500 focus:outline-none focus:border-brand-primary/50 focus:ring-1 focus:ring-brand-primary/20 hover:border-white/20 transition shadow-inner"
       />
       {term && (
         <button
           type="button"
           onClick={handleClear}
-          className="absolute right-3 p-0.5 rounded-full text-clash-subtle hover:text-clash-text hover:bg-white/10 transition cursor-pointer"
+          className="absolute right-3 p-1 rounded-full text-zinc-500 hover:text-zinc-200 hover:bg-white/10 transition cursor-pointer"
           title="Clear search"
         >
-          <X size={14} />
+          <X size={13} />
         </button>
       )}
     </div>

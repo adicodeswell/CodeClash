@@ -5,6 +5,7 @@ import { ProblemSearch } from "../components/problems/ProblemSearch.jsx";
 import { ProblemFilters } from "../components/problems/ProblemFilters.jsx";
 import { ProblemList } from "../components/problems/ProblemList.jsx";
 import { Pagination } from "../components/problems/Pagination.jsx";
+import { Code2 } from "lucide-react";
 
 export function ProblemsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -92,8 +93,62 @@ export function ProblemsPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 w-full text-left">
+      {/* Page Header */}
+      <div className="mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
+              <Code2 className="text-brand-primary" size={28} />
+              <span>Problem Catalog</span>
+            </h1>
+            <p className="mt-1.5 text-xs sm:text-sm text-zinc-400 max-w-2xl leading-relaxed">
+              Curated challenges across 43 topic patterns with verified test benchmarks and multilingual execution support.
+            </p>
+          </div>
+
+          {/* Quick Stats Pills */}
+          <div className="flex items-center gap-2 self-start sm:self-center">
+            <button
+              type="button"
+              onClick={() => updateFilter("difficulty", difficulty === "EASY" ? "ALL" : "EASY")}
+              className={`px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+                difficulty === "EASY"
+                  ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/40 shadow-[0_0_10px_rgba(52,211,153,0.2)]"
+                  : "bg-[#141417] text-emerald-400/90 border-white/[0.08] hover:border-emerald-500/30 hover:bg-emerald-500/[0.05]"
+              }`}
+            >
+              52 Easy
+            </button>
+
+            <button
+              type="button"
+              onClick={() => updateFilter("difficulty", difficulty === "MEDIUM" ? "ALL" : "MEDIUM")}
+              className={`px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+                difficulty === "MEDIUM"
+                  ? "bg-amber-500/20 text-amber-400 border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)]"
+                  : "bg-[#141417] text-amber-400/90 border-white/[0.08] hover:border-amber-500/30 hover:bg-amber-500/[0.05]"
+              }`}
+            >
+              167 Med
+            </button>
+
+            <button
+              type="button"
+              onClick={() => updateFilter("difficulty", difficulty === "HARD" ? "ALL" : "HARD")}
+              className={`px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+                difficulty === "HARD"
+                  ? "bg-rose-500/20 text-rose-400 border-rose-500/40 shadow-[0_0_10px_rgba(251,113,133,0.2)]"
+                  : "bg-[#141417] text-rose-400/90 border-white/[0.08] hover:border-rose-500/30 hover:bg-rose-500/[0.05]"
+              }`}
+            >
+              27 Hard
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* Controls Bar: Search & Filters */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3.5 mb-6">
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3.5 mb-5">
         <ProblemSearch
           value={search}
           onChange={(val) => updateFilter("search", val)}
