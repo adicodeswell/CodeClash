@@ -5,6 +5,7 @@ import { claimJob } from "./queue/claim-job.js";
 import { retryJob } from "./queue/retry-job.js";
 import { completeJob } from "./queue/complete-job.js";
 import { recoverStaleJobs } from "./queue/recover-stale-jobs.js";
+import { createWorkerHeartbeatManager } from "./telemetry/heartbeat.js";
 
 // Execution pipeline service (Task 4 connects this to Judge0)
 import { processSubmission } from "./services/process-submission.js";
@@ -14,10 +15,30 @@ const RECOVERY_INTERVAL_MS = 30_000;
 
 let shuttingDown = false;
 let isProcessingJob = false;
+let currentSubmissionId = null;
+let lastCompletedJobId = null;
+let lastCompletedAt = null;
+let jobsProcessedCount = 0;
 let shutdownPromise;
+
+const heartbeatManager = createWorkerHeartbeatManager({
+  prisma,
+  workerId: process.env.WORKER_ID || "judge-worker-primary",
+  getWorkerStatus: () => ({
+    status: shuttingDown ? "SHUTTING_DOWN" : isProcessingJob ? "PROCESSING" : "IDLE",
+    currentJobId: currentSubmissionId,
+    lastJobId: lastCompletedJobId,
+    lastCompletedAt,
+    jobsProcessed: jobsProcessedCount,
+  }),
+});
 
 async function processClaimedJob(submission) {
   isProcessingJob = true;
+  currentSubmissionId = submission.id;
+
+  // Immediately notify monitoring layer that a job is actively being processed
+  await heartbeatManager.sendHeartbeat().catch(() => {});
 
   try {
     await processSubmission(submission, {
@@ -25,6 +46,9 @@ async function processClaimedJob(submission) {
       completeJob,
       retryJob,
     });
+    jobsProcessedCount++;
+    lastCompletedJobId = submission.id;
+    lastCompletedAt = new Date().toISOString();
   } catch (error) {
     console.error(
       `[judge-worker] Failed to process submission ${submission.id}:`,
@@ -42,11 +66,15 @@ async function processClaimedJob(submission) {
     }
   } finally {
     isProcessingJob = false;
+    currentSubmissionId = null;
+    // Immediately notify monitoring layer that the worker has completed the job
+    await heartbeatManager.sendHeartbeat().catch(() => {});
   }
 }
 
 async function runWorker() {
-  console.log("[judge-worker] Worker process loop started");
+  console.log(`[judge-worker] Worker process loop started (${heartbeatManager.workerId})`);
+  heartbeatManager.start();
   let nextRecoveryAt = 0;
 
   while (!shuttingDown) {
@@ -90,6 +118,7 @@ function shutdown(signal) {
 
   shutdownPromise = (async () => {
     try {
+      await heartbeatManager.stop();
       await workerPromise;
     } finally {
       await prisma.$disconnect();
@@ -119,6 +148,7 @@ workerPromise.catch(async (error) => {
   console.error("[judge-worker] Fatal worker error:", error);
 
   try {
+    await heartbeatManager.stop("ERROR");
     await prisma.$disconnect();
   } finally {
     process.exitCode = 1;

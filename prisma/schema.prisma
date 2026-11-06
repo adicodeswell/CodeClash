@@ -12,6 +12,11 @@ enum UserStatus {
   DISABLED
 }
 
+enum UserRole {
+  USER
+  ADMIN
+}
+
 enum ProblemDifficulty {
   EASY
   MEDIUM
@@ -45,6 +50,7 @@ model User {
   username        String     @unique @db.VarChar(30)
   emailNormalized String     @unique @db.VarChar(320)
   passwordHash    String
+  role            UserRole   @default(USER)
   status          UserStatus @default(ACTIVE)
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
@@ -111,4 +117,57 @@ model Submission {
   @@index([userId, problemId, createdAt])
   @@index([status, createdAt])
   @@map("submissions")
+}
+
+model ApiMetric {
+  id             String   @id @default(cuid())
+  requestId      String   @db.VarChar(64)
+  method         String   @db.VarChar(10)
+  path           String   @db.VarChar(255)
+  statusCode     Int
+  responseTimeMs Float
+  ip             String?  @db.VarChar(45)
+  userId         String?
+  createdAt      DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([statusCode, createdAt])
+  @@index([path, createdAt])
+  @@index([requestId])
+  @@index([userId])
+  @@map("api_metrics")
+}
+
+model SystemError {
+  id             String   @id @default(cuid())
+  requestId      String?  @db.VarChar(64)
+  service        String   @db.VarChar(50)
+  statusCode     Int?
+  errorName      String   @db.VarChar(120)
+  errorMessage   String
+  stackTrace     String?
+  path           String?  @db.VarChar(255)
+  method         String?  @db.VarChar(10)
+  metadata       Json?
+  createdAt      DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([service, createdAt])
+  @@index([requestId])
+  @@map("system_errors")
+}
+
+model WorkerHeartbeat {
+  workerId        String   @id @db.VarChar(100)
+  hostname        String?  @db.VarChar(100)
+  pid             Int?
+  status          String   @default("IDLE") @db.VarChar(30)
+  currentJobId    String?  @db.VarChar(64)
+  metrics         Json?
+  startedAt       DateTime @default(now())
+  lastHeartbeatAt DateTime @default(now())
+
+  @@index([lastHeartbeatAt])
+  @@index([status])
+  @@map("worker_heartbeats")
 }

@@ -3,11 +3,13 @@ import { AuthProvider, useAuth } from "./context/AuthContext.jsx";
 import { Navbar } from "./components/Navbar.jsx";
 import { Footer } from "./components/Footer.jsx";
 import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
+import { AdminRoute } from "./components/AdminRoute.jsx";
 import { LandingPage } from "./pages/LandingPage.jsx";
 import { ProblemsPage } from "./pages/ProblemsPage.jsx";
 import { ProblemDetailPage } from "./pages/ProblemDetailPage.jsx";
 import { SubmissionHistoryPage } from "./pages/SubmissionHistoryPage.jsx";
 import { SubmissionDetailPage } from "./pages/SubmissionDetailPage.jsx";
+import { AdminMonitoringPage } from "./pages/AdminMonitoringPage.jsx";
 
 // Catalog & Platform layout (includes Navbar for authenticated browsing)
 function PlatformLayout() {
@@ -66,6 +68,11 @@ function App() {
               <Route path="/problems" element={<ProblemsPage />} />
               <Route path="/submissions" element={<SubmissionHistoryPage />} />
               <Route path="/submissions/:submissionId" element={<SubmissionDetailPage />} />
+
+              {/* Admin Protected Routes */}
+              <Route element={<AdminRoute />}>
+                <Route path="/admin/monitoring" element={<AdminMonitoringPage />} />
+              </Route>
             </Route>
 
             {/* Standalone Problem Workspace Arena (custom ArenaHeader instead of Navbar) */}

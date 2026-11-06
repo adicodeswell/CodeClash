@@ -1,0 +1,19 @@
+export function requireAdmin(req, res, next) {
+  if (!req.user) {
+    return res.status(401).json({
+      status: "error",
+      message: "Authentication required",
+    });
+  }
+
+  if (req.user.role !== "ADMIN") {
+    return res.status(403).json({
+      status: "error",
+      message: "Admin access required",
+    });
+  }
+
+  next();
+}
+
+export default requireAdmin;

@@ -119,3 +119,46 @@ export const usersAPI = {
     });
   },
 };
+
+export const monitoringAPI = {
+  async getOverview() {
+    return request("/api/admin/monitoring/overview", {
+      method: "GET",
+    });
+  },
+
+  async getHealth() {
+    return request("/api/admin/monitoring/health", {
+      method: "GET",
+    });
+  },
+
+  async getWorkers() {
+    return request("/api/admin/monitoring/workers", {
+      method: "GET",
+    });
+  },
+
+  async getErrors({ limit = 25, offset = 0, service } = {}) {
+    const params = new URLSearchParams();
+    if (limit) params.set("limit", String(limit));
+    if (offset) params.set("offset", String(offset));
+    if (service) params.set("service", service);
+    const qs = params.toString();
+    return request(qs ? `/api/admin/monitoring/errors?${qs}` : "/api/admin/monitoring/errors", {
+      method: "GET",
+    });
+  },
+
+  async getMetrics({ timeRangeHours = 24 } = {}) {
+    return request(`/api/admin/monitoring/metrics?timeRangeHours=${timeRangeHours}`, {
+      method: "GET",
+    });
+  },
+
+  async getUsers({ windowMinutes = 15 } = {}) {
+    return request(`/api/admin/monitoring/users?windowMinutes=${windowMinutes}`, {
+      method: "GET",
+    });
+  },
+};

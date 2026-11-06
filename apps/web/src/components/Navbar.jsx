@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
-import { User, LogOut, Code2, History } from "lucide-react";
+import { User, LogOut, Code2, History, Activity } from "lucide-react";
 
 export function Navbar() {
   const { user, logout } = useAuth();
@@ -47,6 +47,22 @@ export function Navbar() {
               <History size={14} />
               <span>Submissions</span>
             </NavLink>
+
+            {user?.role === "ADMIN" && (
+              <NavLink
+                to="/admin/monitoring"
+                className={({ isActive }) =>
+                  `flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
+                    isActive
+                      ? "bg-white/10 text-brand-primary border border-brand-primary/30"
+                      : "text-clash-muted hover:text-clash-text hover:bg-white/5"
+                  }`
+                }
+              >
+                <Activity size={14} />
+                <span>Monitoring</span>
+              </NavLink>
+            )}
           </nav>
         </div>
 

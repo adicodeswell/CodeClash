@@ -61,7 +61,7 @@ export async function login(req, res, next) {
     }
 
     const token = jwt.sign(
-      { sub: user.id },
+      { sub: user.id, role: user.role },
       JWT_SECRET,
       { expiresIn: "1d" }
     );
@@ -80,6 +80,7 @@ export async function login(req, res, next) {
         id: user.id,
         username: user.username,
         email: user.emailNormalized,
+        role: user.role,
         createdAt: user.createdAt,
       },
     });
@@ -96,6 +97,7 @@ export async function me(req, res, next) {
         id: true,
         username: true,
         emailNormalized: true,
+        role: true,
         createdAt: true,
       },
     });
@@ -116,6 +118,7 @@ export async function me(req, res, next) {
         id: user.id,
         username: user.username,
         email: user.emailNormalized,
+        role: user.role,
         createdAt: user.createdAt,
       },
     });
