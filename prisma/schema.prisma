@@ -56,6 +56,7 @@ model User {
   updatedAt       DateTime   @updatedAt
 
   submissions     Submission[]
+  sessions        UserSession[]
 
   @@index([createdAt])
   @@map("users")
@@ -170,4 +171,23 @@ model WorkerHeartbeat {
   @@index([lastHeartbeatAt])
   @@index([status])
   @@map("worker_heartbeats")
+}
+
+model UserSession {
+  id         String    @id @default(cuid())
+  userId     String
+  isActive   Boolean   @default(true)
+  ip         String?   @db.VarChar(45)
+  userAgent  String?   @db.VarChar(255)
+  lastSeenAt DateTime  @default(now())
+  createdAt  DateTime  @default(now())
+  endedAt    DateTime?
+  expiresAt  DateTime
+
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isActive])
+  @@index([isActive, lastSeenAt])
+  @@index([expiresAt])
+  @@map("user_sessions")
 }

@@ -1,8 +1,25 @@
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import { prisma } from "@codeclash/db";
+import {
+  createUserSession,
+  terminateUserSession,
+  recordPresenceHeartbeat,
+} from "../services/session.service.js";
 
-const JWT_SECRET = process.env.JWT_SECRET
+const JWT_SECRET = process.env.JWT_SECRET;
+
+function getAuthCookieOptions(extra = {}) {
+  const sameSite = process.env.COOKIE_SAME_SITE || (process.env.NODE_ENV === "production" ? "none" : "lax");
+  const isSecure = process.env.NODE_ENV === "production" || sameSite === "none";
+  return {
+    httpOnly: true,
+    secure: isSecure,
+    sameSite,
+    path: "/",
+    ...extra,
+  };
+}
 
 export async function signup(req, res, next) {
   try {
@@ -60,19 +77,21 @@ export async function login(req, res, next) {
       throw new Error("JWT_SECRET is missing");
     }
 
+    const session = await createUserSession({
+      userId: user.id,
+      ip: req.ip || req.socket?.remoteAddress || null,
+      userAgent: req.headers["user-agent"] || null,
+    });
+
     const token = jwt.sign(
-      { sub: user.id, role: user.role },
+      { sub: user.id, role: user.role, sid: session.id },
       JWT_SECRET,
       { expiresIn: "1d" }
     );
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      path: "/",
+    res.cookie("token", token, getAuthCookieOptions({
       maxAge: 24 * 60 * 60 * 1000,
-    });
+    }));
 
     return res.status(200).json({
       message: "Login successful",
@@ -103,14 +122,13 @@ export async function me(req, res, next) {
     });
 
     if (!user) {
-      res.clearCookie("token", {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        path: "/",
-      });
+      res.clearCookie("token", getAuthCookieOptions());
 
       return res.status(401).json({ error: "User not found" });
+    }
+
+    if (req.sessionId) {
+      await recordPresenceHeartbeat({ sessionId: req.sessionId });
     }
 
     return res.status(200).json({
@@ -127,15 +145,49 @@ export async function me(req, res, next) {
   }
 }
 
-export function logout(req, res) {
-  res.clearCookie("token", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-  });
+export async function heartbeat(req, res, next) {
+  try {
+    await recordPresenceHeartbeat({
+      sessionId: req.sessionId,
+      userId: req.user?.id,
+    });
 
-  return res.status(200).json({
-    message: "Logout successful",
-  });
+    return res.status(200).json({
+      status: "OK",
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function logout(req, res, next) {
+  try {
+    let sessionId = req.sessionId;
+    let userId = req.user?.id;
+
+    if (!sessionId && req.cookies?.token && JWT_SECRET) {
+      try {
+        const payload = jwt.verify(req.cookies.token, JWT_SECRET);
+        if (typeof payload === "object") {
+          sessionId = payload.sid;
+          userId = payload.sub;
+        }
+      } catch {
+        // ignore invalid token on logout
+      }
+    }
+
+    if (sessionId || userId) {
+      await terminateUserSession({ sessionId, userId });
+    }
+
+    res.clearCookie("token", getAuthCookieOptions());
+
+    return res.status(200).json({
+      message: "Logout successful",
+    });
+  } catch (error) {
+    next(error);
+  }
 }

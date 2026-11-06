@@ -1,4 +1,5 @@
 import { prisma } from "@codeclash/db";
+import { getUserSessionStats } from "./session.service.js";
 
 const DEFAULT_STALE_THRESHOLD_MS = 30_000;
 const JUDGE0_BASE_URL = process.env.JUDGE0_BASE_URL || "https://ce.judge0.com";
@@ -293,62 +294,8 @@ export async function getSystemErrors(db = prisma, { limit = 25, offset = 0, ser
 /**
  * 8. User Session & Active Users Telemetry
  */
-export async function getUserSessionStatistics(db = prisma, { activeWindowMinutes = 15 } = {}) {
-  const windowStart = new Date(Date.now() - activeWindowMinutes * 60 * 1000);
-  const dayStart = new Date(Date.now() - 24 * 3600 * 1000);
-
-  const [totalUsers, activeUsersGroup, dailyUsersGroup] = await Promise.all([
-    db.user.count({ where: { status: "ACTIVE" } }),
-    db.apiMetric.groupBy({
-      by: ["userId"],
-      where: {
-        userId: { not: null },
-        createdAt: { gte: windowStart },
-      },
-      _max: { createdAt: true },
-      _count: { id: true },
-    }),
-    db.apiMetric.groupBy({
-      by: ["userId"],
-      where: {
-        userId: { not: null },
-        createdAt: { gte: dayStart },
-      },
-    }),
-  ]);
-
-  const activeUserIds = activeUsersGroup.map((g) => g.userId).filter(Boolean);
-
-  let activeUsersList = [];
-  if (activeUserIds.length > 0) {
-    const users = await db.user.findMany({
-      where: { id: { in: activeUserIds } },
-      select: { id: true, username: true, emailNormalized: true, role: true },
-    });
-
-    const userMap = new Map(users.map((u) => [u.id, u]));
-
-    activeUsersList = activeUsersGroup.map((g) => {
-      const u = userMap.get(g.userId);
-      return {
-        id: g.userId,
-        username: u?.username || "unknown",
-        email: u?.emailNormalized || "unknown",
-        role: u?.role || "USER",
-        requestsCount: g._count.id,
-        lastActiveAt: g._max.createdAt,
-      };
-    });
-  }
-
-  return {
-    totalUsers,
-    activeNow: activeUsersGroup.length,
-    active24h: dailyUsersGroup.length,
-    windowMinutes: activeWindowMinutes,
-    activeUsersList,
-    timestamp: new Date().toISOString(),
-  };
+export async function getUserSessionStatistics(db = prisma, options = {}) {
+  return getUserSessionStats(db, options);
 }
 
 /**

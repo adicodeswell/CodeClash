@@ -4,7 +4,10 @@
  * Automatically includes HTTP-only cookies via credentials: "include"
  */
 
+const API_BASE = (import.meta.env.VITE_API_URL || "").replace(/\/+$/, "");
+
 export async function request(endpoint, options = {}) {
+  const url = endpoint.startsWith("http") ? endpoint : `${API_BASE}${endpoint}`;
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -14,7 +17,7 @@ export async function request(endpoint, options = {}) {
     ...options,
   };
 
-  const response = await fetch(endpoint, config);
+  const response = await fetch(url, config);
   const data = await response.json().catch(() => ({}));
 
   if (!response.ok) {
@@ -59,6 +62,12 @@ export const authAPI = {
 
   async logout() {
     return request("/api/auth/logout", {
+      method: "POST",
+    });
+  },
+
+  async heartbeat() {
+    return request("/api/auth/heartbeat", {
       method: "POST",
     });
   },

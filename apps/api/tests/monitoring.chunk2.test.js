@@ -114,5 +114,26 @@ describe("CodeClash Monitoring V1 — Chunk 2 Admin API & RBAC Tests", () => {
       assert.equal(typeof body.data.avgResponseTimeMs, "number");
       assert.ok(Array.isArray(body.data.endpoints));
     });
+
+    test("GET /api/admin/monitoring/overview returns total users and online presence stats", async () => {
+      const res = await ctx.fetchAdmin("/api/admin/monitoring/overview");
+      assert.equal(res.status, 200);
+      const body = await res.json();
+
+      assert.ok(body.data.userSessions, "userSessions must be present in overview");
+      assert.equal(typeof body.data.userSessions.totalUsers, "number");
+      assert.ok(body.data.userSessions.totalUsers >= 1, "Must report registered users");
+      assert.equal(typeof body.data.userSessions.onlineNow, "number");
+      assert.equal(typeof body.data.userSessions.idleNow, "number");
+      assert.ok(Array.isArray(body.data.userSessions.activeUsersList));
+    });
+
+    test("POST /api/auth/heartbeat updates presence for authenticated user", async () => {
+      const res = await ctx.fetchUserA("/api/auth/heartbeat", { method: "POST" });
+      assert.equal(res.status, 200);
+      const body = await res.json();
+      assert.equal(body.status, "OK");
+      assert.ok(body.timestamp);
+    });
   });
 });

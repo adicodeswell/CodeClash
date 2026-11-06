@@ -31,6 +31,7 @@ export function AdminMonitoringPage() {
   const [error, setError] = useState(null);
   const [refreshInterval, setRefreshInterval] = useState(5000); // 5s default
   const [lastRefreshedAt, setLastRefreshedAt] = useState(null);
+  const [userFilter, setUserFilter] = useState("ALL"); // ALL, ONLINE, ADMIN
   const [, startTransition] = useTransition();
 
   const fetchOverview = useCallback(async (isManual = false) => {
@@ -236,28 +237,43 @@ export function AdminMonitoringPage() {
         </div>
       </div>
 
-      {/* Key Metrics KPI Cards (Now includes Logged In Users) */}
+      {/* Key Metrics KPI Cards (Includes Total Users & Live Presence) */}
       <div className="space-y-3">
         <h2 className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
           Live Telemetry Metrics
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          {/* 1. Logged In / Active Users */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-4">
+          {/* 1. Total Registered Users */}
           <div className="p-4 rounded-xl bg-clash-surface border border-clash-border">
             <div className="text-xs text-zinc-400 mb-1 flex items-center justify-between">
-              <span>Active Users</span>
+              <span>Total Users</span>
               <Users size={13} className="text-brand-primary" />
             </div>
             <div className="text-xl font-bold font-mono text-white">
-              {userSessions?.activeNow || 0}
-              <span className="text-xs text-zinc-500 font-sans ml-1">online</span>
+              {userSessions?.totalUsers || 0}
+              <span className="text-xs text-zinc-500 font-sans ml-1">total</span>
             </div>
             <div className="text-[11px] text-zinc-500 font-mono mt-1">
-              {userSessions?.active24h || 0} in 24h | {userSessions?.totalUsers || 0} total
+              {userSessions?.active24h || 0} active in 24h
             </div>
           </div>
 
-          {/* 2. Queue Depth */}
+          {/* 2. Online / Active Presence */}
+          <div className="p-4 rounded-xl bg-clash-surface border border-clash-border">
+            <div className="text-xs text-zinc-400 mb-1 flex items-center justify-between">
+              <span>Online Now</span>
+              <UserCheck size={13} className="text-emerald-400" />
+            </div>
+            <div className="text-xl font-bold font-mono text-emerald-400">
+              {userSessions?.onlineNow ?? userSessions?.activeNow ?? 0}
+              <span className="text-xs text-zinc-500 font-sans ml-1">online</span>
+            </div>
+            <div className="text-[11px] text-zinc-500 font-mono mt-1">
+              {userSessions?.idleNow || 0} idle | {userSessions?.totalActiveSessions || 0} sessions
+            </div>
+          </div>
+
+          {/* 3. Queue Depth */}
           <div className="p-4 rounded-xl bg-clash-surface border border-clash-border">
             <div className="text-xs text-zinc-400 mb-1">Queue Depth</div>
             <div className="text-xl font-bold font-mono text-white">
@@ -269,7 +285,7 @@ export function AdminMonitoringPage() {
             </div>
           </div>
 
-          {/* 3. Avg Response Time */}
+          {/* 4. Avg Response Time */}
           <div className="p-4 rounded-xl bg-clash-surface border border-clash-border">
             <div className="text-xs text-zinc-400 mb-1">Avg Response</div>
             <div className="text-xl font-bold font-mono text-white">
@@ -281,7 +297,7 @@ export function AdminMonitoringPage() {
             </div>
           </div>
 
-          {/* 4. API Throughput */}
+          {/* 5. API Throughput */}
           <div className="p-4 rounded-xl bg-clash-surface border border-clash-border">
             <div className="text-xs text-zinc-400 mb-1">Throughput (1h)</div>
             <div className="text-xl font-bold font-mono text-white">
@@ -293,7 +309,7 @@ export function AdminMonitoringPage() {
             </div>
           </div>
 
-          {/* 5. System 5xx Errors */}
+          {/* 6. System 5xx Errors */}
           <div className="p-4 rounded-xl bg-clash-surface border border-clash-border">
             <div className="text-xs text-zinc-400 mb-1">5xx Errors</div>
             <div className={`text-xl font-bold font-mono ${apiMetrics?.error5xxCount24h > 0 ? "text-rose-400" : "text-emerald-400"}`}>
@@ -304,7 +320,7 @@ export function AdminMonitoringPage() {
             </div>
           </div>
 
-          {/* 6. Acceptance Rate */}
+          {/* 7. Acceptance Rate */}
           <div className="p-4 rounded-xl bg-clash-surface border border-clash-border">
             <div className="text-xs text-zinc-400 mb-1">Acceptance</div>
             <div className="text-xl font-bold font-mono text-white">
@@ -317,17 +333,62 @@ export function AdminMonitoringPage() {
         </div>
       </div>
 
-      {/* Active Logged-In Users Table */}
+      {/* User Directory & Presence Fleet */}
       <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xs font-semibold uppercase tracking-wider text-zinc-400 flex items-center gap-1.5">
-            <UserCheck size={14} className="text-brand-primary" />
-            <span>Active Logged-In Users (Past 15 Minutes)</span>
-          </h2>
-          <span className="text-xs text-zinc-500 font-mono">
-            {userSessions?.activeNow || 0} online now
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <div className="flex flex-wrap items-center gap-3">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-zinc-400 flex items-center gap-1.5">
+              <UserCheck size={14} className="text-brand-primary" />
+              <span>User Directory &amp; Live Presence</span>
+            </h2>
+
+            {/* Filter Tabs */}
+            <div className="flex items-center rounded-lg bg-white/5 border border-clash-border p-0.5 text-[11px] font-medium">
+              <button
+                type="button"
+                onClick={() => setUserFilter("ALL")}
+                className={`px-2.5 py-1 rounded transition cursor-pointer ${
+                  userFilter === "ALL"
+                    ? "bg-brand-primary/20 text-brand-primary font-semibold"
+                    : "text-zinc-400 hover:text-white"
+                }`}
+              >
+                All Users ({(userSessions?.allUsersList || userSessions?.activeUsersList || []).length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setUserFilter("ONLINE")}
+                className={`px-2.5 py-1 rounded transition cursor-pointer ${
+                  userFilter === "ONLINE"
+                    ? "bg-emerald-500/20 text-emerald-400 font-semibold"
+                    : "text-zinc-400 hover:text-white"
+                }`}
+              >
+                Online ({userSessions?.onlineNow ?? userSessions?.activeNow ?? 0})
+              </button>
+              <button
+                type="button"
+                onClick={() => setUserFilter("ADMIN")}
+                className={`px-2.5 py-1 rounded transition cursor-pointer ${
+                  userFilter === "ADMIN"
+                    ? "bg-brand-primary/20 text-brand-primary font-semibold"
+                    : "text-zinc-400 hover:text-white"
+                }`}
+              >
+                Admins ({(userSessions?.allUsersList || userSessions?.activeUsersList || []).filter((u) => u.role === "ADMIN").length})
+              </button>
+            </div>
+          </div>
+
+          <span className="text-xs text-zinc-400 font-mono">
+            <span className="text-emerald-400 font-semibold">{userSessions?.onlineNow ?? userSessions?.activeNow ?? 0} online</span>
+            {" | "}
+            <span className="text-amber-400 font-semibold">{userSessions?.idleNow || 0} idle</span>
+            {" | "}
+            <span>{userSessions?.totalUsers || (userSessions?.allUsersList || []).length} total registered</span>
           </span>
         </div>
+
         <div className="rounded-xl border border-clash-border bg-clash-surface overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs text-zinc-300">
@@ -335,14 +396,32 @@ export function AdminMonitoringPage() {
                 <tr>
                   <th className="py-3 px-4 font-semibold">User</th>
                   <th className="py-3 px-4 font-semibold">Role</th>
+                  <th className="py-3 px-4 font-semibold">Presence</th>
                   <th className="py-3 px-4 font-semibold">Email</th>
-                  <th className="py-3 px-4 font-semibold text-right">Requests in Window</th>
-                  <th className="py-3 px-4 font-semibold text-right">Last Activity</th>
+                  <th className="py-3 px-4 font-semibold text-right">Registered</th>
+                  <th className="py-3 px-4 font-semibold text-right">Last Seen</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-clash-border/50">
-                {userSessions?.activeUsersList && userSessions.activeUsersList.length > 0 ? (
-                  userSessions.activeUsersList.map((user) => (
+                {(() => {
+                  const allUsers = userSessions?.allUsersList || userSessions?.activeUsersList || [];
+                  const displayedUsers = allUsers.filter((u) => {
+                    if (userFilter === "ONLINE") return u.status === "ONLINE" || u.presence === "ONLINE";
+                    if (userFilter === "ADMIN") return u.role === "ADMIN";
+                    return true;
+                  });
+
+                  if (displayedUsers.length === 0) {
+                    return (
+                      <tr>
+                        <td colSpan={6} className="py-8 text-center text-zinc-500">
+                          No users match the selected filter.
+                        </td>
+                      </tr>
+                    );
+                  }
+
+                  return displayedUsers.map((user) => (
                     <tr key={user.id} className="hover:bg-white/[0.01]">
                       <td className="py-3 px-4 font-mono font-medium text-white flex items-center gap-2">
                         <div className="w-6 h-6 rounded bg-brand-primary/10 border border-brand-primary/30 flex items-center justify-center text-brand-primary text-[11px] font-bold">
@@ -359,24 +438,29 @@ export function AdminMonitoringPage() {
                           {user.role}
                         </span>
                       </td>
+                      <td className="py-3 px-4">
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-semibold border ${
+                          user.status === "ONLINE" || user.presence === "ONLINE"
+                            ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-400"
+                            : user.status === "IDLE" || user.presence === "IDLE"
+                            ? "bg-amber-500/10 border-amber-500/30 text-amber-400"
+                            : "bg-zinc-500/10 border-zinc-500/30 text-zinc-400"
+                        }`}>
+                          {user.status || user.presence || "OFFLINE"}
+                        </span>
+                      </td>
                       <td className="py-3 px-4 font-mono text-zinc-400">
                         {user.email}
                       </td>
-                      <td className="py-3 px-4 text-right font-mono text-zinc-300">
-                        {user.requestsCount} reqs
-                      </td>
                       <td className="py-3 px-4 text-right font-mono text-zinc-400">
+                        {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : "—"}
+                      </td>
+                      <td className="py-3 px-4 text-right font-mono text-zinc-300">
                         {formatRelativeTime(user.lastActiveAt)}
                       </td>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan={5} className="py-8 text-center text-zinc-500">
-                      No users active in the past 15 minutes.
-                    </td>
-                  </tr>
-                )}
+                  ));
+                })()}
               </tbody>
             </table>
           </div>

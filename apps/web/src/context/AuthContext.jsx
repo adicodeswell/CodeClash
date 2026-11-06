@@ -32,6 +32,33 @@ export function AuthProvider({ children }) {
     };
   }, []);
 
+  useEffect(() => {
+    if (!user) return;
+
+    // Immediate presence heartbeat on session mount
+    authAPI.heartbeat().catch(() => {});
+
+    // Periodic heartbeat every 30s while active
+    const timer = setInterval(() => {
+      authAPI.heartbeat().catch(() => {});
+    }, 30_000);
+
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") {
+        authAPI.heartbeat().catch(() => {});
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibility);
+    window.addEventListener("focus", handleVisibility);
+
+    return () => {
+      clearInterval(timer);
+      document.removeEventListener("visibilitychange", handleVisibility);
+      window.removeEventListener("focus", handleVisibility);
+    };
+  }, [user]);
+
   const login = async ({ email, password }) => {
     setAuthError(null);
     setRateLimitSeconds(null);
